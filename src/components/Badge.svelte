@@ -4,32 +4,35 @@
   let variantClass = $derived(`variant-${variant}`);
 </script>
 
-<span class="modern-badge {variantClass} {className}" {...rest}>
-  <span class="tracked-caps">{@render children?.()}</span>
+<span class="concrete-badge {variantClass} {className}" {...rest}>
+  <span class="label">{@render children?.()}</span>
 </span>
 
 <style>
-  .modern-badge {
+  .concrete-badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-concrete); /* Or curve? Let's use concrete as it holds data/status */
-    font-size: 0.75rem;
-    font-weight: 600;
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-0);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   .variant-azul {
     background-color: var(--color-azul);
-    color: var(--color-bg);
+    color: #ffffff;
   }
 
   .variant-ouro {
     background-color: var(--color-ouro);
-    color: var(--color-text); /* Better contrast */
+    color: var(--color-text);
   }
 
   .variant-verde {
     background-color: var(--color-verde);
-    color: var(--color-bg);
+    color: #ffffff;
   }
 </style>

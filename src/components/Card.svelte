@@ -1,26 +1,32 @@
 <script>
   let { children, class: className = "", pattern = "", ...rest } = $props();
 
-  let patternClass = $derived(pattern ? `pattern-${pattern}` : "");
+  let azulejoClass = $derived(pattern ? `azulejo-${pattern}` : "");
 </script>
 
-<div class="modern-card pattern-container {patternClass} {className}" {...rest}>
-  <div class="card-content">
+<div class="concrete-card azulejo-soft {azulejoClass} {className}" {...rest}>
+  <div class="card-inner">
     {@render children?.()}
   </div>
 </div>
 
 <style>
-  .modern-card {
+  .concrete-card {
     background-color: var(--color-surface);
-    border-radius: var(--radius-concrete); /* Sharp corners */
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    border-radius: var(--radius-0);
+    padding: 2rem;
+    position: relative;
+    border: 1px solid var(--color-border);
+    transition: transform var(--duration-bossa) var(--ease-curva), box-shadow var(--duration-bossa) var(--ease-curva);
   }
 
-  .card-content {
+  .concrete-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-pool-sm);
+  }
+
+  .card-inner {
     position: relative;
-    z-index: 2; /* Keep above pattern */
+    z-index: 10;
   }
 </style>

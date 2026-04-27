@@ -1,106 +1,162 @@
-/* DOCTRINE: CURVA & CONCRETO */
-/* The curve is for the user; the concrete is for the data. */
+/* ===================================================================
+   Brazilian Modernism — Design System Tokens
+   Doctrine: Curva & Concreto
+   =================================================================== */
 
 :root {
-  /* VISUAL IDENTITY */
-  /* Palette (Bossa Nova & Volpi) */
-  --color-bg: #F4EFE4; /* Warm paper/concrete */
-  --color-surface: #EAE2CE; /* Raised surfaces */
-  --color-accent: #C2281F; /* Volpi red - primary actions only */
-  --color-azul: #1F6FA8; /* Brasília sky - info/focus */
-  --color-ouro: #D8A43A; /* Copacabana sand - warning */
-  --color-verde: #3F7A4E; /* Mata verde - success */
-  --color-text: #17140F; /* Dark text */
+  /* --- Palette: Bossa Nova & Volpi --- */
+  --color-bg: #f4efe4; /* warm paper / raw concrete */
+  --color-surface: #eae2ce; /* sun-bleached page */
+  --color-surface-sunk: #ddd3b8; /* form containers, azulejo backdrops */
+  --color-border: #cfc5a8;
+  --color-text: #17140f;
+  --color-text-dim: #6b6550;
 
-  /* Geometry & Curves */
-  --radius-curve: 2rem; /* Parabolic curve for UI chrome, sidebars, modals */
-  --radius-concrete: 0; /* Sharp concrete for data containers, blocks */
+  --color-accent: #c2281f; /* Volpi red — primary actions only */
+  --color-accent-hover: #9c1e16;
 
-  /* Typography */
-  --font-modernist: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --line-height-modern: 1.6;
-  --tracking-caps: 0.1em;
+  --color-azul: #1f6fa8; /* Brasília sky — info, focus, active nav */
+  --color-azul-deep: #14446b;
+  --color-tijolo: #c86b3c; /* terracotta — decorative only */
+  --color-verde: #3f7a4e; /* mata verde — success */
+  --color-ouro: #d8a43a; /* Copacabana sand — warning */
+
+  /* --- Typography --- */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --font-logo: 'DM Serif Display', Georgia, serif;
+
+  /* --- Radius (closed enum of 5) --- */
+  --radius-0: 0;
+  --radius-sm: 0.375rem;
+  --radius-lg: 1.5rem;
+  --radius-arch: 6rem;
+  --radius-pill: 999px;
+
+  /* --- Shadow + motion (closed enum) --- */
+  --shadow-pool: 0 24px 48px -16px color-mix(in srgb, var(--color-text) 18%, transparent);
+  --shadow-pool-sm: 0 6px 12px -4px color-mix(in srgb, var(--color-text) 12%, transparent);
+  --ease-curva: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-bossa: 360ms;
+  --duration-snap: 150ms;
 }
 
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-modernist);
-  line-height: var(--line-height-modern);
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-}
+/* ===================================================================
+   Azulejos — Bulcão modular tile patterns (pure CSS)
+   =================================================================== */
 
-/* Typography Utilities */
-.tracked-caps {
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-caps);
-  font-weight: 600;
-  font-size: 0.85em;
-}
-
-/* Patterns (Athos Bulcão) */
-/* Modular patterns to be used as low-opacity backgrounds (max 8% for text overlay) */
-
-.pattern-bulcao-triangles {
-  background-image: linear-gradient(45deg, var(--color-text) 50%, transparent 50%);
-  background-size: 40px 40px;
-  opacity: 0.05;
-}
-
-.pattern-bulcao-stripes {
-  background-image: repeating-linear-gradient(
-    45deg,
-    var(--color-text),
-    var(--color-text) 10px,
-    transparent 10px,
-    transparent 20px
-  );
-  opacity: 0.05;
-}
-
-.pattern-bulcao-moons {
-  background-image: radial-gradient(circle at 0% 50%, var(--color-text) 50%, transparent 50%);
-  background-size: 40px 40px;
-  opacity: 0.05;
-}
-
-/* Container Utility to hold pattern under content */
-.pattern-container {
+.azulejo-soft {
   position: relative;
   z-index: 1;
 }
 
-.pattern-container::before {
-  content: "";
+.azulejo-soft::before {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
+  inset: 0;
   pointer-events: none;
+  opacity: 0.08;
+  z-index: -1;
 }
 
-.pattern-container.pattern-triangles::before {
-  background-image: linear-gradient(45deg, var(--color-text) 50%, transparent 50%);
-  background-size: 40px 40px;
-  opacity: 0.05;
+.azulejo-triangulos::before {
+  background-image:
+    linear-gradient(45deg, var(--color-azul) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--color-azul) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--color-azul) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--color-azul) 75%);
+  background-size: 48px 48px;
+  background-position: 0 0, 0 24px, 24px -24px, -24px 0;
 }
 
-.pattern-container.pattern-stripes::before {
-  background-image: repeating-linear-gradient(
-    45deg,
-    var(--color-text),
-    var(--color-text) 10px,
-    transparent 10px,
-    transparent 20px
+.azulejo-meias-luas::before {
+  background-image:
+    radial-gradient(circle at 50% 0, var(--color-azul) 10px, transparent 11px),
+    radial-gradient(circle at 50% 100%, var(--color-azul) 10px, transparent 11px);
+  background-size: 32px 32px;
+}
+
+.azulejo-faixas::before {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-tijolo) 0 4px,
+    transparent 4px 12px,
+    var(--color-text) 12px 14px,
+    transparent 14px 24px
   );
-  opacity: 0.05;
 }
 
-.pattern-container.pattern-moons::before {
-  background-image: radial-gradient(circle at 0% 50%, var(--color-text) 50%, transparent 50%);
+.azulejo-xadrez-bulcao::before {
+  background-image: conic-gradient(
+    from 0deg at 50% 50%,
+    var(--color-azul) 0 25%,
+    transparent 25% 50%,
+    var(--color-verde) 50% 75%,
+    transparent 75%
+  );
   background-size: 40px 40px;
-  opacity: 0.05;
+}
+
+.azulejo-grade::before {
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* ===================================================================
+   Base reset & Body
+   =================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-display { font-family: var(--font-display); font-weight: 400; }
+.font-logo { font-family: var(--font-logo); }
+.font-mono { font-family: var(--font-mono); }
+
+.tracked-caps {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+/* ===================================================================
+   Utility Classes
+   =================================================================== */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-divider {
+  border: none;
+  height: 8px;
+  margin: 4rem 0;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-tijolo) 0 4px,
+    transparent 4px 12px,
+    var(--color-text-dim) 12px 14px,
+    transparent 14px 24px
+  );
+  opacity: 0.6;
 }
