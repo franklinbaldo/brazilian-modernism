@@ -1,23 +1,12 @@
 ---
+import '../styles/global.css';
+
 const { title } = Astro.props;
 ---
 <html lang="pt-br">
   <head>
     <meta charset="utf-8" />
     <title>{title}</title>
-    <style>
-      :root {
-        --color-concrete: #E0E0E0;
-        --color-burle-marx-green: #2D5A27;
-        --font-modernist: 'Inter', sans-serif;
-      }
-      body {
-        background: var(--color-concrete);
-        font-family: var(--font-modernist);
-        margin: 0;
-        padding: 2rem;
-      }
-    </style>
   </head>
   <body>
     <slot />
