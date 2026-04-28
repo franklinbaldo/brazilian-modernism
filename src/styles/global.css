@@ -48,6 +48,7 @@
   --font-serif:  "Piazzolla", Georgia, serif;
 
   /* Scale */
+  /* SCALE & RADIUS */
   --t-micro:   11px;
   --t-small:   13px;
   --t-body:    16px;
@@ -63,12 +64,40 @@
 
   --r-1: 2px;
   --r-soft: 8px;
+  --r-pill: 9999px;
   
   --shadow-1: 2px 2px 0 var(--concreto-90);
   --shadow-2: 4px 4px 0 var(--concreto-90);
 
   --dur-2: 220ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ——— Legacy Aliases (Backwards Compatibility) ——— */
+  --color-primary:    var(--azul);
+  --color-accent:     var(--azul);
+  --color-azul:       var(--azul);
+  --color-verde:      var(--verde);
+  --color-ouro:       var(--ocre);
+  --color-vermelho:   var(--vermelho);
+  --color-surface:    var(--papel-00);
+  --color-bg:         var(--papel-10);
+  --color-border:     var(--papel-30);
+  --color-text:       var(--concreto-80);
+  --color-text-dim:   var(--concreto-60);
+  --color-heading:    var(--concreto-90);
+
+  --radius-sm:        var(--r-1);
+  --radius-pill:      var(--r-pill);
+  
+  --shadow-sm:        var(--shadow-1);
+  --shadow-pool-sm:   2px 4px 12px rgba(0,0,0,0.08);
+
+  --duration-bossa:   var(--dur-2);
+  --ease-curva:       var(--ease-out);
+
+  --font-main:        var(--font-sans);
+  --font-body:        var(--font-sans);
+  --font-display-legacy: var(--font-display);
 }
 
 /* ============================================================

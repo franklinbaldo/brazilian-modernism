@@ -109,7 +109,7 @@ import Badge from '../components/Badge.svelte';
           <div class="lab-item">
             <p class="tracked-caps">Card de Notícia</p>
             <Card pattern="meias-luas">
-              <div style="height: 120px; background: #ddd; border-radius: var(--radius-sm); margin-bottom: 1rem;"></div>
+              <div style="height: 120px; background: var(--papel-20); border-radius: var(--r-1); margin-bottom: 1rem;"></div>
               <h4 style="font-size: 1rem;">Nova exposição revisita a arquitetura de Brasília</h4>
               <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.6;">24 MAI 2024 • Cultura</p>
             </Card>
@@ -135,8 +135,8 @@ import Badge from '../components/Badge.svelte';
   .manifesto-header {
     padding-top: 6rem;
     padding-bottom: 6rem;
-    background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--bg-raised);
+    border-bottom: 1px solid var(--border);
   }
 
   .manifesto-grid {
@@ -156,7 +156,7 @@ import Badge from '../components/Badge.svelte';
   .subtitle {
     font-size: 1.5rem;
     line-height: 1.4;
-    color: var(--color-text-dim);
+    color: var(--fg-muted);
     max-width: 400px;
   }
 
@@ -174,7 +174,7 @@ import Badge from '../components/Badge.svelte';
 
   .principle p {
     font-size: 0.9rem;
-    color: var(--color-text-dim);
+    color: var(--fg-muted);
   }
 
   .palette-grid {
@@ -205,7 +205,7 @@ import Badge from '../components/Badge.svelte';
   }
 
   .modern-quote {
-    border-left: 4px solid var(--color-accent);
+    border-left: 4px solid var(--azul);
     padding-left: 2rem;
     margin: 2rem 0;
   }
@@ -231,7 +231,7 @@ import Badge from '../components/Badge.svelte';
 
   .tokens-section {
     padding: 6rem 0;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--border);
   }
 
   @media (max-width: 1024px) {

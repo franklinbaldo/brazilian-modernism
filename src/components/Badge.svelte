@@ -13,8 +13,8 @@
     display: inline-flex;
     align-items: center;
     padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-body);
+    border-radius: var(--r-pill);
+    font-family: var(--font-sans);
     font-weight: 700;
     font-size: 0.6875rem;
     letter-spacing: 0.1em;
@@ -22,17 +22,17 @@
   }
 
   .variant-azul {
-    background-color: var(--color-azul);
-    color: #ffffff;
+    background-color: var(--azul);
+    color: white;
   }
 
   .variant-ouro {
-    background-color: var(--color-ouro);
-    color: var(--color-text);
+    background-color: var(--ocre);
+    color: var(--concreto-90);
   }
 
   .variant-verde {
-    background-color: var(--color-verde);
-    color: #ffffff;
+    background-color: var(--verde);
+    color: white;
   }
 </style>

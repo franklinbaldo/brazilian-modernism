@@ -19,22 +19,44 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     cursor: pointer;
-    background-color: var(--color-accent);
+    transition: all var(--dur-2) var(--ease-out);
+    border: none;
+  }
+
+  .button.primary {
+    background-color: var(--azul);
     color: white;
+  }
+
+  .button.outline {
+    background-color: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--fg);
+  }
+
+  .button:hover {
     transform: translateY(-2px);
+  }
+
+  .button.primary:hover {
+    background-color: var(--azul-bright);
+  }
+
+  .button.outline:hover {
+    background-color: var(--papel-00);
+  }
+
+  .button:active {
+    transform: translateY(0);
+  }
+
+  .button:focus-visible {
+    outline: 2px solid var(--azul);
+    outline-offset: 3px;
   }
 
   .small {
     padding: 0.5rem 1.25rem;
     font-size: 0.7rem;
-  }
-
-  .bossa-button:active {
-    transform: translateY(0);
-  }
-
-  .bossa-button:focus-visible {
-    outline: 2px solid var(--color-azul);
-    outline-offset: 3px;
   }
 </style>
