@@ -2,6 +2,14 @@
   "name": "brazilian-modernism",
   "type": "module",
   "version": "0.1.0",
+  "main": "./src/styles/global.css",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    "./styles": "./src/styles/global.css",
+    "./components/*": "./src/components/*.svelte"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
