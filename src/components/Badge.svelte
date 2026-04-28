@@ -12,8 +12,8 @@
   .concrete-badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.125rem 0.5rem;
-    border-radius: var(--radius-0);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-pill);
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 0.6875rem;

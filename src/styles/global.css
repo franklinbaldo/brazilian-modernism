@@ -1,162 +1,215 @@
 /* ===================================================================
-   Brazilian Modernism — Design System Tokens
-   Doctrine: Curva & Concreto
+   Brazilian Modernism — Design System
+   Identity: Instituto Brasil Moderno
+   Design Base: bm2.zip
    =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Piazzolla:ital,opsz,wght@0,8..30,100..900;1,8..30,100..900&display=swap');
 
 :root {
-  /* --- Palette: Bossa Nova & Volpi --- */
-  --color-bg: #f4efe4; /* warm paper / raw concrete */
-  --color-surface: #eae2ce; /* sun-bleached page */
-  --color-surface-sunk: #ddd3b8; /* form containers, azulejo backdrops */
-  --color-border: #cfc5a8;
-  --color-text: #17140f;
-  --color-text-dim: #6b6550;
+  /* ——— Paper / Concrete (neutrals) ——— */
+  --papel-00: #FBF8F1;
+  --papel-10: #F5F1E8;
+  --papel-20: #EDE7D8;
+  --papel-30: #DCD4BE;
+  --concreto-40: #B8B0A0;
+  --concreto-60: #6B6455;
+  --concreto-80: #2E2A24;
+  --concreto-90: #1A1814;
 
-  --color-accent: #c2281f; /* Volpi red — primary actions only */
-  --color-accent-hover: #9c1e16;
+  /* ——— Saturated primaries ——— */
+  --azul: #1B2B4B;
+  --azul-bright: #2D4A7B;
+  --azul-soft:   #E6ECF5;
+  --vermelho: #C8472E;
+  --vermelho-deep: #9C3422;
+  --vermelho-soft: #F9E7E1;
+  --ocre: #D9A441;
+  --ocre-deep: #A87A1F;
+  --ocre-soft: #F7EED6;
+  --verde: #2E6B4A;
+  --verde-soft: #DDEBE1;
 
-  --color-azul: #1f6fa8; /* Brasília sky — info, focus, active nav */
-  --color-azul-deep: #14446b;
-  --color-tijolo: #c86b3c; /* terracotta — decorative only */
-  --color-verde: #3f7a4e; /* mata verde — success */
-  --color-ouro: #d8a43a; /* Copacabana sand — warning */
+  /* ——— Semantic ——— */
+  --bg:           var(--papel-10);
+  --bg-raised:    var(--papel-00);
+  --bg-sunken:    var(--papel-20);
+  --fg:           var(--concreto-80);
+  --fg-muted:     var(--concreto-60);
+  --fg-heading:   var(--concreto-90);
+  --border:       var(--papel-30);
+  --border-strong: var(--concreto-80);
+  --accent:       var(--azul);
+  
+  /* ——— Type ——— */
+  --font-display: "Archivo", "Archivo Black", sans-serif;
+  --font-display-alt: "Fraunces", Georgia, serif;
+  --font-sans:   "Archivo", sans-serif;
+  --font-serif:  "Piazzolla", Georgia, serif;
 
-  /* --- Typography --- */
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Manrope', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-  --font-logo: 'DM Serif Display', Georgia, serif;
+  /* Scale */
+  --t-micro:   11px;
+  --t-small:   13px;
+  --t-body:    16px;
+  --t-lede:    19px;
+  --t-h4:      22px;
+  --t-h3:      30px;
+  --t-h2:      44px;
+  --t-h1:      68px;
+  --t-display: 112px;
 
-  /* --- Radius (closed enum of 5) --- */
-  --radius-0: 0;
-  --radius-sm: 0.375rem;
-  --radius-lg: 1.5rem;
-  --radius-arch: 6rem;
-  --radius-pill: 999px;
+  --lh-tight: 0.95;
+  --lh-body:  1.55;
 
-  /* --- Shadow + motion (closed enum) --- */
-  --shadow-pool: 0 24px 48px -16px color-mix(in srgb, var(--color-text) 18%, transparent);
-  --shadow-pool-sm: 0 6px 12px -4px color-mix(in srgb, var(--color-text) 12%, transparent);
-  --ease-curva: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --duration-bossa: 360ms;
-  --duration-snap: 150ms;
+  --r-1: 2px;
+  --r-soft: 8px;
+  
+  --shadow-1: 2px 2px 0 var(--concreto-90);
+  --shadow-2: 4px 4px 0 var(--concreto-90);
+
+  --dur-2: 220ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ===================================================================
-   Azulejos — Bulcão modular tile patterns (pure CSS)
-   =================================================================== */
-
-.azulejo-soft {
-  position: relative;
-  z-index: 1;
-}
-
-.azulejo-soft::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+/* ============================================================
+   Polimento & Textura (Gallery Grade)
+   ============================================================ */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
   pointer-events: none;
-  opacity: 0.08;
-  z-index: -1;
+  z-index: 9999;
 }
 
-.azulejo-triangulos::before {
-  background-image:
-    linear-gradient(45deg, var(--color-azul) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--color-azul) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--color-azul) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--color-azul) 75%);
-  background-size: 48px 48px;
-  background-position: 0 0, 0 24px, 24px -24px, -24px 0;
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--papel-10); }
+::-webkit-scrollbar-thumb { background: var(--concreto-40); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--azul); }
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  background: rgba(245, 241, 232, 0.85);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s var(--ease-out);
 }
 
-.azulejo-meias-luas::before {
-  background-image:
-    radial-gradient(circle at 50% 0, var(--color-azul) 10px, transparent 11px),
-    radial-gradient(circle at 50% 100%, var(--color-azul) 10px, transparent 11px);
-  background-size: 32px 32px;
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--fg-heading);
+  font-weight: 800;
+  letter-spacing: -0.03em; /* Tighter kerning for impact */
+  line-height: var(--lh-tight);
+  text-wrap: balance;
 }
 
-.azulejo-faixas::before {
-  background: repeating-linear-gradient(
-    90deg,
-    var(--color-tijolo) 0 4px,
-    transparent 4px 12px,
-    var(--color-text) 12px 14px,
-    transparent 14px 24px
-  );
+.display-serif {
+  letter-spacing: -0.01em;
 }
+a { color: inherit; text-decoration: none; }
 
-.azulejo-xadrez-bulcao::before {
-  background-image: conic-gradient(
-    from 0deg at 50% 50%,
-    var(--color-azul) 0 25%,
-    transparent 25% 50%,
-    var(--color-verde) 50% 75%,
-    transparent 75%
-  );
-  background-size: 40px 40px;
+.app-wrapper { display: flex; min-height: 100vh; }
+.tile-sidebar {
+  width: 80px;
+  background: var(--azul);
+  position: fixed;
+  top: 0; bottom: 0; left: 0;
+  z-index: 100;
 }
+.main-content { flex: 1; margin-left: 80px; }
 
-.azulejo-grade::before {
-  background-image:
-    linear-gradient(var(--color-border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
-  background-size: 16px 16px;
-}
-
-/* ===================================================================
-   Base reset & Body
-   =================================================================== */
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1, h2, h3, h4, .font-display { font-family: var(--font-display); font-weight: 400; }
-.font-logo { font-family: var(--font-logo); }
-.font-mono { font-family: var(--font-mono); }
-
-.tracked-caps {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-text-dim);
-}
-
-/* ===================================================================
-   Utility Classes
-   =================================================================== */
-
-.container {
-  max-width: 1100px;
+.container, .wrap {
+  width: 100%;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-.section-divider {
-  border: none;
-  height: 8px;
-  margin: 4rem 0;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--color-tijolo) 0 4px,
-    transparent 4px 12px,
-    var(--color-text-dim) 12px 14px,
-    transparent 14px 24px
-  );
-  opacity: 0.6;
+/* ============================================================
+   Components
+   ============================================================ */
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
 }
+.nav-brand { font-size: 1.5rem; font-weight: 800; }
+.nav-links { display: flex; gap: 2.5rem; }
+.nav-links a { font-weight: 700; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.hero { padding: 6rem 0; position: relative; }
+.hero__inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
+.hero__title { font-size: var(--t-h1); margin-bottom: 1.5rem; }
+.hero__lead { font-size: var(--t-lede); color: var(--fg-muted); margin-bottom: 3rem; max-width: 480px; }
+.hero__art { border: 1px solid var(--concreto-90); border-radius: var(--r-soft); overflow: hidden; box-shadow: var(--shadow-2); aspect-ratio: 4/3; }
+
+.kicker { font-size: var(--t-small); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; display: block; }
+.kicker--vermelho { color: var(--vermelho); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 800;
+  border-radius: var(--r-1);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.btn--azul { background: var(--azul); color: var(--papel-00); }
+.btn--azul:hover { background: var(--azul-bright); transform: translateY(-2px); }
+.btn--secondary { border: 1px solid var(--border-strong); }
+.btn--secondary:hover { background: var(--papel-00); }
+.btn--lg { padding: 1.125rem 2.25rem; font-size: 1.125rem; }
+
+.pillars { padding: 4rem 0; }
+.pillars__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--border); }
+.pillar { background: var(--bg-raised); padding: 3rem; display: flex; flex-direction: column; transition: all 0.3s; }
+.pillar:hover { background: var(--papel-20); transform: translateY(-4px); z-index: 2; }
+.pillar__icon { width: 48px; height: 48px; margin-bottom: 2rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+.pillar--azul .pillar__icon { background: var(--azul); }
+.pillar--verde .pillar__icon { background: var(--verde); }
+.pillar--vermelho .pillar__icon { background: var(--vermelho); }
+.pillar--ocre .pillar__icon { background: var(--ocre); }
+.pillar__title { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.pillar__desc { font-size: 0.875rem; color: var(--fg-muted); }
+
+.statsband { background: var(--bg-sunken); padding: 5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.statsband__stats { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+.bigstat__n { font-size: 3.5rem; font-weight: 900; line-height: 1; }
+.bigstat__label { font-size: 0.75rem; text-transform: uppercase; color: var(--fg-muted); letter-spacing: 0.1em; }
+
+.news { padding: 8rem 0; }
+.news__head { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; }
+.news__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.newscard__art { aspect-ratio: 3/2; background: var(--papel-20); border-radius: var(--r-soft); overflow: hidden; margin-bottom: 1.5rem; border: 1px solid var(--border); }
+.newscard__title { font-size: 1.125rem; margin-bottom: 0.5rem; }
+
+.quotesec { background: var(--bg-sunken); padding: 10rem 0; }
+.quotesec__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.quotesec__q p { font-family: var(--font-display-alt); font-size: 2.75rem; line-height: 1.1; margin-bottom: 2rem; }
+.quotesec__author { display: block; font-weight: 800; font-size: 1.125rem; }
+
+.pattern-bulcao {
+  background-image: conic-gradient(from 0deg at 50% 50%, var(--azul-bright) 0 25%, transparent 25% 50%, var(--verde) 50% 75%, transparent 75%);
+  background-size: 40px 40px;
+  opacity: 0.1; width: 100%; height: 100%;
+}
+
+.sidebar-tiles {
+  flex: 1;
+  opacity: 0.4;
+  background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.font-logo { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.05em; font-size: 1.25rem; }

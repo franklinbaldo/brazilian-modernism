@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.svelte';
+import Card from '../components/Card.svelte';
+import Badge from '../components/Badge.svelte';
+---
+
+<BaseLayout title="Manifesto do Sistema | Instituto Brasil Moderno">
+  <div class="app-wrapper">
+    <aside class="tile-sidebar">
+      <div class="sidebar-tiles pattern-bulcao"></div>
+    </aside>
+
+    <main class="main-content">
+      <nav class="container site-nav">
+        <div class="nav-brand font-logo">Instituto Brasil Moderno</div>
+        <div class="nav-links">
+          <a href="/brazilian-modernism/">Homepage</a>
+          <a href="#">Manifesto</a>
+          <a href="#">Componentes</a>
+        </div>
+      </nav>
+
+      <header class="container manifesto-header">
+        <div class="manifesto-grid">
+          <div class="manifesto-intro">
+            <h1 class="display-serif">Manifesto<br/>do sistema</h1>
+            <p class="subtitle">Calçadas de Ipanema + tipografia editorial paulista + modernismo brasileiro como linguagem de interface.</p>
+            <div class="pattern-ipanema" style="margin-top: 2rem; opacity: 0.8;"></div>
+          </div>
+          <div class="manifesto-principles-grid">
+            <div class="principle">
+              <strong>1. Ritmo em ondas</strong>
+              <p>A interface deve ter cadência visual, repetição e pausa.</p>
+            </div>
+            <div class="principle">
+              <strong>2. Clareza editorial</strong>
+              <p>Informação primeiro, com hierarquia tipográfica forte.</p>
+            </div>
+            <div class="principle">
+              <strong>3. Espaço público</strong>
+              <p>O layout deve respirar como praça, calçada e avenida.</p>
+            </div>
+            <div class="principle">
+              <strong>4. Contraste civil</strong>
+              <p>Preto, branco e cor com função, não excesso.</p>
+            </div>
+            <div class="principle">
+              <strong>5. Brasil sem caricatura</strong>
+              <p>Referências locais com sofisticação contemporânea.</p>
+            </div>
+            <div class="principle">
+              <strong>6. Modularidade viva</strong>
+              <p>Componentes sólidos, combináveis e adaptáveis.</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="container tokens-section">
+        <h2 class="section-title">Paleta de Cores</h2>
+        <div class="palette-grid">
+          <div class="color-item">
+            <div class="swatch" style="background: #E7DFCF;"></div>
+            <span>Areia #E7DFCF</span>
+          </div>
+          <div class="color-item">
+            <div class="swatch" style="background: #111111;"></div>
+            <span>Preto #111111</span>
+          </div>
+          <div class="color-item">
+            <div class="swatch" style="background: #0D387A;"></div>
+            <span>Azul #0D387A</span>
+          </div>
+          <div class="color-item">
+            <div class="swatch" style="background: #1B6B4A;"></div>
+            <span>Verde #1B6B4A</span>
+          </div>
+          <div class="color-item">
+            <div class="swatch" style="background: #E15B2A;"></div>
+            <span>Terracota #E15B2A</span>
+          </div>
+          <div class="color-item">
+            <div class="swatch" style="background: #F7F6F2; border: 1px solid #ddd;"></div>
+            <span>Branco #F7F6F2</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="container section-lab">
+        <h2 class="section-title">Componentes</h2>
+        
+        <div class="lab-grid">
+          <div class="lab-item">
+            <p class="tracked-caps">Botão Primário</p>
+            <Button>Explorar acervo →</Button>
+          </div>
+          <div class="lab-item">
+            <p class="tracked-caps">Botão Secundário</p>
+            <Button variant="outline">Saiba mais →</Button>
+          </div>
+          <div class="lab-item">
+            <p class="tracked-caps">Badge</p>
+            <Badge variant="verde">Ativo</Badge>
+          </div>
+        </div>
+
+        <div class="lab-grid" style="margin-top: 4rem;">
+          <div class="lab-item">
+            <p class="tracked-caps">Card de Notícia</p>
+            <Card pattern="meias-luas">
+              <div style="height: 120px; background: #ddd; border-radius: var(--radius-sm); margin-bottom: 1rem;"></div>
+              <h4 style="font-size: 1rem;">Nova exposição revisita a arquitetura de Brasília</h4>
+              <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.6;">24 MAI 2024 • Cultura</p>
+            </Card>
+          </div>
+          <div class="lab-item">
+            <p class="tracked-caps">Bloco de Citação</p>
+            <blockquote class="modern-quote">
+              <p>“A cidade é feita de encontros, de caminhos e de memória. Design é serviço público.”</p>
+              <cite>— Lina Bo Bardi</cite>
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <footer class="container site-footer">
+        <p class="tracked-caps">Clareza Editorial. Ritmo Brasileiro. Serviço Público.</p>
+      </footer>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .manifesto-header {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .display-serif {
+    font-size: 6rem;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--color-text-dim);
+    max-width: 400px;
+  }
+
+  .manifesto-principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .principle strong {
+    display: block;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .principle p {
+    font-size: 0.9rem;
+    color: var(--color-text-dim);
+  }
+
+  .palette-grid {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .color-item {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .swatch {
+    width: 80px;
+    height: 120px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+  }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 4rem;
+    margin-top: 2rem;
+  }
+
+  .modern-quote {
+    border-left: 4px solid var(--color-accent);
+    padding-left: 2rem;
+    margin: 2rem 0;
+  }
+
+  .modern-quote p {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .modern-quote cite {
+    font-style: normal;
+    font-size: 0.875rem;
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .section-lab {
+    padding: 8rem 0;
+  }
+
+  .tokens-section {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 1024px) {
+    .manifesto-grid { grid-template-columns: 1fr; gap: 4rem; }
+    .display-serif { font-size: 4rem; }
+  }
+</style>

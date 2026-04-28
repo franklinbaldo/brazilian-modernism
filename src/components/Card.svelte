@@ -13,10 +13,10 @@
 <style>
   .concrete-card {
     background-color: var(--color-surface);
-    border-radius: var(--radius-0);
-    padding: 2rem;
+    border-radius: var(--radius-sm);
+    padding: 2.5rem;
     position: relative;
-    border: 1px solid var(--color-border);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     transition: transform var(--duration-bossa) var(--ease-curva), box-shadow var(--duration-bossa) var(--ease-curva);
   }
 

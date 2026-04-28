@@ -1,394 +1,228 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Button from '../components/Button.svelte';
-import Card from '../components/Card.svelte';
-import Badge from '../components/Badge.svelte';
+import Ornaments from '../components/Ornaments.astro';
 ---
 
-<BaseLayout title="Brazilian Modernism | Design System">
-  <main>
-    <!-- HERO SECTION -->
-    <header class="hero azulejo-soft azulejo-grade">
-      <div class="container hero-content">
-        <p class="tracked-caps">Franklin Baldo apresenta</p>
-        <h1 class="hero-title font-logo">Verne & Modernismo</h1>
-        <p class="hero-subtitle">Um design system unificado inspirado na arquitetura brasileira: <strong>Curva & Concreto</strong>.</p>
-        <div class="hero-actions">
-          <Button>Começar Agora</Button>
-          <a href="#componentes" class="secondary-link tracked-caps">Ver Componentes</a>
+<BaseLayout title="Instituto Brasil Moderno | Patrimônio, Cidade e Futuro">
+  <div class="app-wrapper">
+    <aside class="tile-sidebar">
+      <div class="sidebar-tiles pattern-bulcao"></div>
+    </aside>
+
+    <main class="main-content">
+      <nav class="container site-nav">
+        <div class="nav-brand font-logo">Instituto Brasil Moderno</div>
+        <div class="nav-links">
+          <a href="/brazilian-modernism/manifesto/">Manifesto</a>
+          <a href="/brazilian-modernism/componentes/">Componentes</a>
+          <a href="#">Arquitetura</a>
+          <a href="#">Design</a>
         </div>
-      </div>
-      <div class="hero-curve"></div>
-    </header>
-
-    <div class="container">
-      <!-- DOCTRINE SECTION -->
-      <section class="doctrine-section">
-        <div class="doctrine-grid">
-          <div class="doctrine-text">
-            <h2 class="section-title">A Doutrina</h2>
-            <p class="body-lede">O modernismo brasileiro é o equilíbrio entre a fluidez da curva e a honestidade do concreto bruto.</p>
-            <p>Nossa interface segue este princípio rigorosamente: a curva é para o usuário (navegação, botões, feedback); o concreto é para os dados (tabelas, cards, blocos de informação).</p>
-          </div>
-          <div class="doctrine-card azulejo-soft azulejo-xadrez-bulcao">
-            <h3 class="font-display">Niemeyer & Bulcão</h3>
-            <p>Inspirado nas curvas de Oscar Niemeyer e nos azulejos modulares de Athos Bulcão.</p>
-          </div>
+        <div class="nav-actions">
+          <button class="link">Buscar</button>
+          <a href="#" class="btn btn--azul">Seja membro</a>
         </div>
-      </section>
+      </nav>
 
-      <hr class="section-divider" />
-
-      <!-- TOKENS SECTION -->
-      <section id="tokens">
-        <h2 class="section-title">Design Tokens</h2>
-        
-        <div class="token-group">
-          <h3 class="tracked-caps">Cores (Bossa Nova & Volpi)</h3>
-          <div class="color-grid">
-            <div class="color-swatch" style="background: var(--color-bg);">
-              <span class="color-label tracked-caps">Papel (Background)</span>
-              <code class="font-mono">#F4EFE4</code>
-            </div>
-            <div class="color-swatch" style="background: var(--color-surface);">
-              <span class="color-label tracked-caps">Concreto (Surface)</span>
-              <code class="font-mono">#EAE2CE</code>
-            </div>
-            <div class="color-swatch swatch-dark" style="background: var(--color-accent);">
-              <span class="color-label tracked-caps">Vermelho Volpi (Accent)</span>
-              <code class="font-mono">#C2281F</code>
-            </div>
-            <div class="color-swatch swatch-dark" style="background: var(--color-azul);">
-              <span class="color-label tracked-caps">Céu de Brasília (Azul)</span>
-              <code class="font-mono">#1F6FA8</code>
-            </div>
-            <div class="color-swatch swatch-dark" style="background: var(--color-verde);">
-              <span class="color-label tracked-caps">Mata Verde</span>
-              <code class="font-mono">#3F7A4E</code>
-            </div>
-            <div class="color-swatch" style="background: var(--color-ouro);">
-              <span class="color-label tracked-caps">Areia de Copacabana</span>
-              <code class="font-mono">#D8A43A</code>
+      <section class="hero">
+        <div class="hero__inner wrap">
+          <div class="hero__copy">
+            <span class="kicker kicker--vermelho">Patrimônio, cidade e futuro</span>
+            <h1 class="hero__title">
+              Modernismo brasileiro como <em>espaço</em>, cultura e vida pública.
+            </h1>
+            <p class="hero__lead">
+              Arquitetura, design, arte e memória que conectam passado, presente e
+              futuro para construir cidades mais humanas.
+            </p>
+            <div class="hero__cta">
+              <a href="#" class="btn btn--azul btn--lg">
+                Explorar acervo <span class="btn__arrow">→</span>
+              </a>
+              <a href="#" class="btn btn--secondary btn--lg">
+                Planejar visita <span class="btn__arrow">→</span>
+              </a>
             </div>
           </div>
-        </div>
 
-        <div class="token-group">
-          <h3 class="tracked-caps">Tipografia</h3>
-          <div class="typo-demo">
-            <div class="typo-row">
-              <span class="typo-label tracked-caps">Logo / Display</span>
-              <h1 class="font-logo" style="font-size: 3rem;">Brazilian Modernism</h1>
-            </div>
-            <div class="typo-row">
-              <span class="typo-label tracked-caps">Display Secundário</span>
-              <h2 class="font-display" style="font-size: 2.5rem;">Curva & Concreto</h2>
-            </div>
-            <div class="typo-row">
-              <span class="typo-label tracked-caps">Corpo do Texto</span>
-              <p style="max-width: 600px;">Manrope é nossa fonte de leitura. Ela traz modernidade e clareza para interfaces densas de dados, mantendo um ritmo harmônico e arejado.</p>
-            </div>
-            <div class="typo-row">
-              <span class="typo-label tracked-caps">Monoespaçada</span>
-              <code class="font-mono">JetBrains Mono para código e dados brutos.</code>
-            </div>
+          <div class="hero__art">
+            <Ornaments type="landscape" />
           </div>
         </div>
       </section>
 
-      <hr class="section-divider" />
-
-      <!-- COMPONENTS SECTION -->
-      <section id="componentes">
-        <h2 class="section-title">Componentes</h2>
-        
-        <div class="component-grid">
-          <!-- BUTTONS -->
-          <div class="component-card">
-            <h3 class="tracked-caps">Botões (A Curva)</h3>
-            <p>Curvas parabólicas (radius-pill) para ações do usuário.</p>
-            <div class="demo-area">
-              <Button>Ação Principal</Button>
-              <Button variant="outline">Secundário</Button>
+      <section class="pillars">
+        <div class="wrap pillars__grid">
+          <a class="pillar pillar--azul" href="#">
+            <div class="pillar__icon">
+              <Ornaments type="pillar" name="acervo" size={28} color="var(--papel-00)" />
             </div>
-          </div>
-
-          <!-- BADGES -->
-          <div class="component-card">
-            <h3 class="tracked-caps">Badges (O Concreto)</h3>
-            <p>Geometria rígida (radius-0) para tags e metadados.</p>
-            <div class="demo-area">
-              <Badge variant="azul">Processando</Badge>
-              <Badge variant="verde">Sucesso</Badge>
-              <Badge variant="ouro">Atenção</Badge>
+            <div class="pillar__body">
+              <div class="pillar__title">Acervo</div>
+              <p class="pillar__desc">Explore nosso acervo digital com milhares de obras, documentos e imagens históricas.</p>
             </div>
-          </div>
+            <span class="pillar__arrow">→</span>
+          </a>
+          <a class="pillar pillar--verde" href="#">
+            <div class="pillar__icon">
+              <Ornaments type="pillar" name="exposicoes" size={28} color="var(--papel-00)" />
+            </div>
+            <div class="pillar__body">
+              <div class="pillar__title">Exposições</div>
+              <p class="pillar__desc">Confira as exposições em cartaz e as próximas mostras temporárias e itinerantes.</p>
+            </div>
+            <span class="pillar__arrow">→</span>
+          </a>
+          <a class="pillar pillar--vermelho" href="#">
+            <div class="pillar__icon">
+              <Ornaments type="pillar" name="educacao" size={28} color="var(--papel-00)" />
+            </div>
+            <div class="pillar__body">
+              <div class="pillar__title">Educação</div>
+              <p class="pillar__desc">Programas, cursos e conteúdos para todas as idades sobre o modernismo brasileiro.</p>
+            </div>
+            <span class="pillar__arrow">→</span>
+          </a>
+          <a class="pillar pillar--ocre" href="#">
+            <div class="pillar__icon">
+              <Ornaments type="pillar" name="cidade" size={28} color="var(--papel-00)" />
+            </div>
+            <div class="pillar__body">
+              <div class="pillar__title">Cidade</div>
+              <p class="pillar__desc">Projetos e pesquisas sobre a cidade, o patrimônio e a vida pública contemporânea.</p>
+            </div>
+            <span class="pillar__arrow">→</span>
+          </a>
         </div>
+      </section>
 
-        <div class="token-group">
-          <h3 class="tracked-caps">Cards & Azulejos (Estrutura)</h3>
-          <div class="card-demo-grid">
-            <Card pattern="triangulos">
-              <h4 class="font-display">Athos Triângulos</h4>
-              <p>Cards com padrões Bulcão em baixa opacidade para textura sutil.</p>
-              <div class="card-footer">
-                <Button variant="small">Explorar</Button>
-              </div>
-            </Card>
-
-            <Card pattern="meias-luas">
-              <h4 class="font-display">Meias Luas</h4>
-              <p>A tensão entre o geométrico e o orgânico em cada interface.</p>
-              <div class="card-footer">
-                <Badge variant="azul">Ativo</Badge>
-              </div>
-            </Card>
-
-            <Card pattern="xadrez-bulcao">
-              <h4 class="font-display">Xadrez Bulcão</h4>
-              <p>Módulos repetitivos que formam uma unidade estética coesa.</p>
-              <div class="card-footer">
-                <code class="font-mono">v1.0.0</code>
-              </div>
-            </Card>
+      <section class="statsband">
+        <div class="statsband__stats wrap">
+          <div class="bigstat">
+            <div class="bigstat__n">12K+</div>
+            <div class="bigstat__label">obras no acervo</div>
+          </div>
+          <div class="bigstat">
+            <div class="bigstat__n">860+</div>
+            <div class="bigstat__label">arquitetos e designers</div>
+          </div>
+          <div class="bigstat">
+            <div class="bigstat__n">48</div>
+            <div class="bigstat__label">exposições em cartaz</div>
+          </div>
+          <div class="bigstat">
+            <div class="bigstat__n">98K+</div>
+            <div class="bigstat__label">visitantes por ano</div>
           </div>
         </div>
       </section>
-    </div>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-      <div class="container footer-content">
-        <div class="footer-brand">
-          <span class="font-logo">Verne</span>
-          <p class="tracked-caps">© 2026 Franklin Baldo</p>
+      <section class="news">
+        <div class="wrap news__head">
+          <div class="news__intro">
+            <span class="kicker">Novidades</span>
+            <h2 class="news__title">Em <em>movimento</em>.</h2>
+            <p class="news__lead">
+              Acompanhe notícias, exposições, programas e pesquisas
+              que mantêm o modernismo vivo e atual.
+            </p>
+            <a class="link" href="#">
+              Ver todas as notícias <span>→</span>
+            </a>
+          </div>
+          <div class="news__grid">
+            <article class="newscard">
+              <div class="newscard__art">
+                <Ornaments type="landscape" />
+              </div>
+              <div class="newscard__meta">24 MAIO 2026</div>
+              <h3 class="newscard__title">Nova exposição destaca Oscar Niemeyer e a arquitetura de Brasília</h3>
+              <span class="newscard__kicker">Exposição</span>
+            </article>
+            <article class="newscard">
+              <div class="newscard__art">
+                 <div style="background: var(--verde); width: 100%; height: 100%;"></div>
+              </div>
+              <div class="newscard__meta">10 MAIO 2026</div>
+              <h3 class="newscard__title">Burle Marx: natureza, desenho e paisagem moderna</h3>
+              <span class="newscard__kicker">Pesquisa</span>
+            </article>
+          </div>
         </div>
-        <div class="footer-links">
-          <a href="https://github.com/franklinbaldo/brazilian-modernism" class="tracked-caps">Repositório</a>
-          <a href="https://github.com/franklinbaldo/verne" class="tracked-caps">Verne CLI</a>
+      </section>
+
+      <section class="quotesec">
+        <div class="wrap quotesec__inner">
+          <div class="quotesec__deco">
+            <Ornaments type="landscape" />
+          </div>
+          <blockquote class="quotesec__q">
+            <p>
+              “A cidade é, antes de tudo, feita de encontros, de caminhos e de
+              memória. Design é serviço público.”
+            </p>
+            <footer>
+              <span class="quotesec__author">Lina Bo Bardi</span>
+              <span class="quotesec__role">arquiteta · 1914–1992</span>
+            </footer>
+          </blockquote>
         </div>
-      </div>
-    </footer>
-  </main>
+      </section>
+
+      <footer class="site-footer">
+        <div class="wrap">
+          <p>© 2026 Instituto Brasil Moderno. Todos os direitos reservados.</p>
+        </div>
+      </footer>
+    </main>
+  </div>
 </BaseLayout>
 
 <style>
-  /* HERO */
-  .hero {
-    padding: 8rem 0 12rem;
-    position: relative;
+  .site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .hero__art {
+    aspect-ratio: 4/3;
+    border-radius: var(--r-soft);
     overflow: hidden;
-    background-color: var(--color-surface);
+    box-shadow: var(--shadow-2);
+    border: 1px solid var(--concreto-90);
   }
 
-  .hero-content {
-    position: relative;
-    z-index: 10;
-  }
-
-  .hero-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.9;
-    margin: 1rem 0 2rem;
-    color: var(--color-text);
-  }
-
-  .hero-subtitle {
-    font-size: 1.5rem;
-    max-width: 600px;
-    margin-bottom: 3rem;
-    color: var(--color-text-dim);
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .secondary-link {
-    text-decoration: none;
-    color: var(--color-text);
-    border-bottom: 2px solid var(--color-accent);
-    padding-bottom: 2px;
-    transition: var(--duration-snap) var(--ease-curva);
-  }
-
-  .secondary-link:hover {
-    color: var(--color-accent);
-  }
-
-  .hero-curve {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background-color: var(--color-bg);
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  }
-
-  /* DOCTRINE */
-  .doctrine-section {
-    padding: 6rem 0;
-  }
-
-  .doctrine-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
-
-  .doctrine-card {
-    background-color: var(--color-surface);
-    padding: 3rem;
-    border-radius: var(--radius-arch) 0 0 0;
-    box-shadow: var(--shadow-pool);
-  }
-
-  .body-lede {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--color-text);
-    font-family: var(--font-display);
-  }
-
-  .section-title {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    margin-bottom: 2.5rem;
-    color: var(--color-text);
-  }
-
-  /* TOKENS */
-  .token-group {
-    margin: 4rem 0;
-  }
-
-  .token-group h3 {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .color-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .color-swatch {
-    height: 140px;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-  }
-
-  .swatch-dark {
-    color: white;
-  }
-
-  .swatch-dark code {
-    color: rgba(255,255,255,0.8);
-  }
-
-  .color-label {
-    font-size: 0.7rem;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-
-  .typo-demo {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
-
-  .typo-label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  /* COMPONENTS */
-  .component-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 2rem;
-    margin-bottom: 4rem;
-  }
-
-  .component-card {
-    background: var(--color-surface);
-    padding: 2.5rem;
-    border: 1px solid var(--color-border);
-  }
-
-  .demo-area {
-    margin-top: 2rem;
-    padding: 2rem;
-    background: var(--color-bg);
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .card-demo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
-  .card-footer {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  /* FOOTER */
-  .site-footer {
-    margin-top: 10rem;
-    padding: 6rem 0;
-    background: var(--color-text);
-    color: var(--color-bg);
-  }
-
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
-  .footer-brand span {
-    font-size: 3rem;
-    display: block;
-    line-height: 1;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .footer-links a {
-    color: var(--color-bg);
-    text-decoration: none;
-    opacity: 0.7;
-    transition: 150ms;
-  }
-
-  .footer-links a:hover {
-    opacity: 1;
-  }
-
-  @media (max-width: 768px) {
-    .hero { padding: 4rem 0 8rem; }
-    .doctrine-grid { grid-template-columns: 1fr; }
-    .doctrine-card { border-radius: 0; }
-    .component-grid { grid-template-columns: 1fr; }
+  .quotesec__deco {
+    aspect-ratio: 3/2;
+    border-radius: var(--r-soft);
+    overflow: hidden;
+    box-shadow: var(--shadow-1);
   }
 </style>
