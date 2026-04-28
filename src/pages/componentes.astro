@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProfileCard from '../components/ProfileCard.svelte';
+import DataTable from '../components/DataTable.svelte';
+import SearchBar from '../components/SearchBar.svelte';
+import Button from '../components/Button.svelte';
+import Badge from '../components/Badge.svelte';
+
+const tableHeaders = [
+  { key: 'id', label: 'ID Processo' },
+  { key: 'entidade', label: 'Entidade' },
+  { key: 'valor', label: 'Valor (R$)', align: 'right' },
+  { key: 'status', label: 'Status', align: 'center' }
+];
+
+const tableData = [
+  { id: '2024.001.29', entidade: 'Prefeitura de Brasília', valor: '1.240.000,00', status: 'Ativo' },
+  { id: '2024.015.88', entidade: 'Ministério da Cultura', valor: '450.000,00', status: 'Pendente' },
+  { id: '2023.992.10', entidade: 'Instituto Bo Bardi', valor: '89.000,00', status: 'Concluido' },
+  { id: '2024.022.05', entidade: 'Governo do Estado', valor: '2.100.500,00', status: 'Cancelado' }
+];
+
+const mockFilters = [
+  { id: 'all', label: 'Todos', active: true },
+  { id: 'pncp', label: 'PNCP', active: false },
+  { id: 'ibge', label: 'IBGE', active: false },
+  { id: 'legal', label: 'Jurídico', active: false }
+];
+---
+
+<BaseLayout title="Biblioteca de Componentes | Instituto Brasil Moderno">
+  <div class="app-wrapper">
+    <aside class="tile-sidebar">
+      <div class="sidebar-tiles pattern-bulcao"></div>
+    </aside>
+
+    <main class="main-content">
+      <nav class="container site-nav">
+        <div class="nav-brand font-logo">Design System Library</div>
+        <div class="nav-links">
+          <a href="/brazilian-modernism/">Home</a>
+          <a href="/brazilian-modernism/manifesto/">Manifesto</a>
+          <a href="#">Instalação</a>
+        </div>
+      </nav>
+
+      <header class="container page-header">
+        <h1 class="display-serif">Biblioteca de<br/>Componentes</h1>
+        <p class="lede">Estes componentes foram desenhados para serem exportados e utilizados nos projetos <strong>Baliza, Verne, Ficha, Quem-são-eles e CausaGanha</strong>.</p>
+      </header>
+
+      <section class="container component-section">
+        <h2 class="section-title">Busca e Exploração</h2>
+        <p class="section-desc">Componente de busca inteligente para o <strong>Baliza</strong> e <strong>Quem-são-eles</strong>.</p>
+        
+        <SearchBar 
+          client:load 
+          placeholder="Pesquisar por CNPJ, órgão ou processo..." 
+          filters={mockFilters}
+        />
+      </section>
+
+      <section class="container component-section">
+        <h2 class="section-title">Dados e Tabelas</h2>
+        <p class="section-desc">Essencial para o <strong>Baliza</strong> (PNCP) e <strong>CausaGanha</strong> (Processos).</p>
+        
+        <DataTable 
+          client:load 
+          headers={tableHeaders} 
+          data={tableData} 
+          caption="Rastreamento de Processos Ativos"
+          variant="striped"
+        />
+      </section>
+
+      <section class="container component-section">
+        <h2 class="section-title">Perfis e Entidades</h2>
+        <p class="section-desc">Para o <strong>Quem-são-eles</strong> e <strong>Ficha</strong>.</p>
+        
+        <div class="component-grid">
+          <ProfileCard 
+            client:load
+            name="Oscar Niemeyer"
+            role="Arquiteto Chefe"
+            tags={['Curvas', 'Concreto']}
+          />
+          <ProfileCard 
+            client:load
+            name="Athos Bulcão"
+            role="Artista Plástico"
+            tags={['Azulejaria', 'Ritmo']}
+          />
+          <ProfileCard 
+            client:load
+            name="Lina Bo Bardi"
+            role="Arquiteta e Designer"
+            tags={['Vidro', 'Social']}
+          />
+        </div>
+      </section>
+
+      <section class="container component-section">
+        <h2 class="section-title">Ações e Status</h2>
+        <div class="component-grid">
+          <div class="lab-item">
+            <p class="kicker">Botões Primários</p>
+            <Button client:load>Executar Ação</Button>
+          </div>
+          <div class="lab-item">
+            <p class="kicker">Badges de Status</p>
+            <div style="display: flex; gap: 0.5rem;">
+              <Badge client:load variant="verde">Confirmado</Badge>
+              <Badge client:load variant="default">Pendente</Badge>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="container site-footer">
+        <p class="tracked-caps">DS v0.1.0 — Distribuível via NPM / TypeScript Node</p>
+      </footer>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .display-serif {
+    font-family: var(--font-display-alt);
+    font-size: 5rem;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+  }
+
+  .lede {
+    font-size: 1.25rem;
+    color: var(--fg-muted);
+    max-width: 600px;
+  }
+
+  .component-section {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    color: var(--fg-muted);
+    margin-bottom: 3rem;
+  }
+
+  .component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 3rem;
+  }
+
+  .lab-item {
+    background: var(--bg-sunken);
+    padding: 2rem;
+    border-radius: var(--r-soft);
+  }
+</style>

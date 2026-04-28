@@ -12,17 +12,17 @@
 
 <style>
   .concrete-card {
-    background-color: var(--color-surface);
-    border-radius: var(--radius-0);
-    padding: 2rem;
+    background-color: var(--papel-00);
+    border-radius: var(--r-1);
+    padding: 2.5rem;
     position: relative;
-    border: 1px solid var(--color-border);
-    transition: transform var(--duration-bossa) var(--ease-curva), box-shadow var(--duration-bossa) var(--ease-curva);
+    border: 1px solid var(--border);
+    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
   }
 
   .concrete-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-pool-sm);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   }
 
   .card-inner {
