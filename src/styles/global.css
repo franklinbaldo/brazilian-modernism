@@ -266,3 +266,155 @@ a { color: inherit; text-decoration: none; }
 }
 
 .font-logo { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.05em; font-size: 1.25rem; }
+
+/* ============================================================
+   Prose (Longform / Blog)
+   ============================================================ */
+:root {
+  /* Prose typography scale */
+  --prose-fs-base: 1.125rem;
+  --prose-line-height: 1.75;
+  --prose-h1-fs: 2.5rem;
+  --prose-h2-fs: 2rem;
+  --prose-h3-fs: 1.5rem;
+  --prose-blockquote-fs: 1.375rem;
+
+  /* Prose colors */
+  --prose-text: var(--fg);
+  --prose-link: var(--azul);
+  --prose-link-hover: var(--vermelho);
+  --prose-border: var(--border);
+  --prose-muted: var(--fg-muted);
+}
+
+.prose-cobogo {
+  font-family: var(--font-serif);
+  font-size: var(--prose-fs-base);
+  line-height: var(--prose-line-height);
+  color: var(--prose-text);
+  max-width: 720px; /* Optimal reading width */
+}
+
+.prose-cobogo p {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose-cobogo a {
+  color: var(--prose-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  transition: color 0.2s;
+}
+
+.prose-cobogo a:hover {
+  color: var(--prose-link-hover);
+}
+
+.prose-cobogo h1,
+.prose-cobogo h2,
+.prose-cobogo h3,
+.prose-cobogo h4 {
+  font-family: var(--font-display);
+  color: var(--fg-heading);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+}
+
+.prose-cobogo h1 { font-size: var(--prose-h1-fs); }
+.prose-cobogo h2 { font-size: var(--prose-h2-fs); }
+.prose-cobogo h3 { font-size: var(--prose-h3-fs); }
+
+.prose-cobogo blockquote {
+  font-family: var(--font-display-alt);
+  font-size: var(--prose-blockquote-fs);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--fg-heading);
+  margin: 3rem 0;
+  padding: 2rem 2.5rem;
+  background: var(--bg-raised);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--r-soft) var(--r-soft) 0;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.prose-cobogo pre {
+  background: var(--concreto-90);
+  color: var(--papel-10);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  padding: 1.5rem;
+  border-radius: var(--r-soft);
+  overflow-x: auto;
+  margin: 2rem 0;
+  border: 1px solid var(--concreto-80);
+}
+
+.prose-cobogo code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875em;
+  background: var(--papel-20);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+.prose-cobogo pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.prose-cobogo ul,
+.prose-cobogo ol {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose-cobogo li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-cobogo ul li::marker {
+  color: var(--accent);
+}
+
+.prose-cobogo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--r-soft);
+  margin: 2.5rem 0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--prose-border);
+}
+
+.prose-cobogo table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+
+.prose-cobogo th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--fg-heading);
+  border-bottom: 2px solid var(--border-strong);
+  padding: 0.75rem 1rem;
+  background: var(--papel-00);
+}
+
+.prose-cobogo td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose-cobogo tr:nth-child(even) td {
+  background: var(--papel-00);
+}
