@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SearchBar from '../SearchBar.svelte';
+import PostCard from './PostCard.svelte';
+import TagChip from './TagChip.svelte';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Acervo",
+  description = "Ensaios, notas e reflexões sobre design de serviço público."
+} = Astro.props;
+
+// Mock data for the archive
+const posts = [
+  {
+    title: "O Modernismo como Serviço Público",
+    description: "Como as lições de Lina Bo Bardi e Athos Bulcão podem informar o design de interfaces cívicas hoje.",
+    pubDate: "12 Mar 2026",
+    slug: "modernismo-servico-publico",
+    tags: ["Design System", "História"],
+    heroImage: "https://images.unsplash.com/photo-1541893309623-64e320f26210?q=80&w=1200&auto=format&fit=crop"
+  },
+  {
+    title: "Densidade de Informação em Telas de Triagem",
+    description: "Estudo de caso no projeto CausaGanha: porque espaços em branco em excesso atrapalham a leitura técnica.",
+    pubDate: "05 Fev 2026",
+    slug: "densidade-informacao-triagem",
+    tags: ["UX", "Estudo de Caso"]
+  },
+  {
+    title: "Construindo o componente Cobogó",
+    description: "Os desafios técnicos de criar padrões SVG modulares e acessíveis.",
+    pubDate: "20 Jan 2026",
+    slug: "construindo-componente-cobogo",
+    tags: ["Desenvolvimento", "Acessibilidade"]
+  }
+];
+
+const allTags = ["Design System", "História", "UX", "Estudo de Caso", "Desenvolvimento", "Acessibilidade", "Brasília", "Tipografia"];
+---
+
+<BaseLayout title={`${title} | COBOGÓ Blog`}>
+  <div class="archive-app">
+    <!-- Header Minimal -->
+    <header class="archive-header">
+      <div class="archive-container">
+        <a href="/cobogo/blog-application" class="archive-brand">COBOGÓ <span class="archive-brand__sub">Blog</span></a>
+      </div>
+    </header>
+
+    <main class="archive-main">
+      <div class="archive-container">
+
+        <header class="archive-hero">
+          <h1 class="archive-title">{title}</h1>
+          <p class="archive-desc">{description}</p>
+
+          <div class="archive-search">
+            <SearchBar client:load placeholder="Buscar no acervo..." onSearch={() => {}} />
+          </div>
+        </header>
+
+        <div class="archive-layout">
+          <!-- Sidebar Filters -->
+          <aside class="archive-sidebar">
+            <div class="filter-group">
+              <h3 class="filter-title">Tópicos</h3>
+              <div class="tags-cloud">
+                {allTags.map(tag => (
+                  <TagChip tag={tag} />
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          <!-- Feed -->
+          <div class="archive-feed">
+            <div class="posts-list">
+              {posts.map(post => (
+                <PostCard
+                  title={post.title}
+                  description={post.description}
+                  pubDate={post.pubDate}
+                  slug={post.slug}
+                  tags={post.tags}
+                  heroImage={post.heroImage}
+                  variant="compact"
+                />
+              ))}
+            </div>
+
+            <div class="archive-pagination">
+              <button class="btn btn--secondary">Carregar mais antigos</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="archive-footer">
+      <div class="archive-container">
+        <p>© 2026 COBOGÓ. Um sistema visual brasileiro.</p>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .archive-app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+  }
+
+  .archive-container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .archive-header {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .archive-brand {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    color: var(--fg-heading);
+  }
+
+  .archive-brand__sub {
+    font-weight: 400;
+    color: var(--fg-muted);
+  }
+
+  .archive-main {
+    flex: 1;
+    padding: 4rem 0 8rem;
+  }
+
+  .archive-hero {
+    max-width: 800px;
+    margin-bottom: 4rem;
+  }
+
+  .archive-title {
+    font-size: var(--t-h1);
+    margin-bottom: 1rem;
+  }
+
+  .archive-desc {
+    font-size: var(--t-lede);
+    color: var(--fg-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .archive-search {
+    max-width: 480px;
+  }
+
+  .archive-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .archive-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .filter-title {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .archive-pagination {
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .archive-footer {
+    padding: 4rem 0;
+    background: var(--bg-raised);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: 0.875rem;
+  }
+</style>
