@@ -5,19 +5,19 @@ import Card from '../components/Card.svelte';
 import Badge from '../components/Badge.svelte';
 ---
 
-<BaseLayout title="Manifesto do Sistema | Instituto Brasil Moderno">
+<BaseLayout title="Manifesto do Sistema | COBOGÓ">
   <div class="app-wrapper">
     <aside class="tile-sidebar">
-      <div class="sidebar-tiles pattern-bulcao"></div>
+      <div class="sidebar-tiles pattern-cobogo-hexagonal"></div>
     </aside>
 
     <main class="main-content">
       <nav class="container site-nav">
-        <div class="nav-brand font-logo">Instituto Brasil Moderno</div>
+        <div class="nav-brand font-logo">COBOGÓ</div>
         <div class="nav-links">
           <a href="/cobogo/">Homepage</a>
-          <a href="#">Manifesto</a>
-          <a href="#">Componentes</a>
+          <a href="/cobogo/manifesto/">Manifesto</a>
+          <a href="/cobogo/componentes/">Components</a>
         </div>
       </nav>
 
@@ -25,33 +25,36 @@ import Badge from '../components/Badge.svelte';
         <div class="manifesto-grid">
           <div class="manifesto-intro">
             <h1 class="display-serif">Manifesto<br/>do sistema</h1>
-            <p class="subtitle">Calçadas de Ipanema + tipografia editorial paulista + modernismo brasileiro como linguagem de interface.</p>
-            <div class="pattern-ipanema" style="margin-top: 2rem; opacity: 0.8;"></div>
+            <p class="subtitle">Calçadas de Ipanema + tipografia editorial paulista + modernismo brasileiro como linguagem de interface cívica.</p>
+
+            <blockquote class="modern-quote" style="margin-top: 2rem; max-width: 450px;">
+              <p style="font-size: 1.125rem;">“COBOGÓ não é nostalgia modernista. É uma gramática visual para software brasileiro contemporâneo. Usa cor sem carnavalizar, geometria sem endurecer, ornamento sem ruído, e serviço público sem cara de repartição.”</p>
+            </blockquote>
           </div>
           <div class="manifesto-principles-grid">
             <div class="principle">
-              <strong>1. Ritmo em ondas</strong>
-              <p>A interface deve ter cadência visual, repetição e pausa.</p>
+              <strong>C. Cívico</strong>
+              <p>Design orientado ao interesse e serviço público.</p>
             </div>
             <div class="principle">
-              <strong>2. Clareza editorial</strong>
-              <p>Informação primeiro, com hierarquia tipográfica forte.</p>
+              <strong>O. Organizado</strong>
+              <p>Informação estruturada com hierarquia editorial forte.</p>
             </div>
             <div class="principle">
-              <strong>3. Espaço público</strong>
-              <p>O layout deve respirar como praça, calçada e avenida.</p>
+              <strong>B. Brasileiro</strong>
+              <p>Referências locais com sofisticação contemporânea, sem caricatura.</p>
             </div>
             <div class="principle">
-              <strong>4. Contraste civil</strong>
-              <p>Preto, branco e cor com função, não excesso.</p>
+              <strong>O. Objetivo</strong>
+              <p>Clareza em primeiro lugar; ornamento apenas com função.</p>
             </div>
             <div class="principle">
-              <strong>5. Brasil sem caricatura</strong>
-              <p>Referências locais com sofisticação contemporânea.</p>
+              <strong>G. Geométrico</strong>
+              <p>Grids, blocos e padrões que constroem interfaces sólidas.</p>
             </div>
             <div class="principle">
-              <strong>6. Modularidade viva</strong>
-              <p>Componentes sólidos, combináveis e adaptáveis.</p>
+              <strong>Ó. Ótimo</strong>
+              <p>Performance, acessibilidade e modularidade para o software moderno.</p>
             </div>
           </div>
         </div>

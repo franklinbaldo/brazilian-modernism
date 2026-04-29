@@ -1,5 +1,14 @@
 {
-  "name": "brazilian-modernism",
+  "name": "cobogo",
+  "description": "A Brazilian modernist design system for public-interest software.",
+  "keywords": [
+    "cobogo",
+    "design-system",
+    "brazilian-modernism",
+    "astro",
+    "svelte",
+    "civic-tech"
+  ],
   "type": "module",
   "version": "0.1.0",
   "main": "./src/styles/global.css",
