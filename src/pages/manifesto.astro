@@ -241,4 +241,13 @@ import Badge from '../components/Badge.svelte';
     .manifesto-grid { grid-template-columns: 1fr; gap: 4rem; }
     .display-serif { font-size: 4rem; }
   }
+
+  @media (max-width: 768px) {
+    .manifesto-grid, .manifesto-principles-grid {
+      grid-template-columns: 1fr;
+    }
+    .display-serif {
+      font-size: clamp(3rem, 8vw, 6rem);
+    }
+  }
 </style>

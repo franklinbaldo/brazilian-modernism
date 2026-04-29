@@ -61,7 +61,7 @@ import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
       </section>
 
       <section class="patterns-showcase" style="padding: 2rem 0; background: var(--bg-sunken); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-        <div class="wrap" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border);">
+        <div class="wrap patterns-showcase-grid">
           <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
             <CobogoCircular client:load tile={false} size={80} color="var(--azul)" density={1} />
             <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Circular</span>
@@ -274,5 +274,28 @@ import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
     border-radius: var(--r-soft);
     overflow: hidden;
     box-shadow: var(--shadow-1);
+  }
+
+  .patterns-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .patterns-showcase-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .site-nav, .nav-links {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .patterns-showcase-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

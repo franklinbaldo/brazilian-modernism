@@ -97,4 +97,10 @@
   .striped tr:nth-child(even) td {
     background: rgba(0,0,0,0.02);
   }
+
+  @media (max-width: 768px) {
+    .table-container {
+      overflow-x: auto;
+    }
+  }
 </style>
