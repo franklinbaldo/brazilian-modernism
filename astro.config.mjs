@@ -4,6 +4,6 @@ import svelte from '@astrojs/svelte';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://franklinbaldo.github.io',
-  base: '/brazilian-modernism',
+  base: '/cobogo',
   integrations: [svelte()],
 });
