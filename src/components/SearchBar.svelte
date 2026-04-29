@@ -150,4 +150,10 @@
     color: var(--papel-00);
     border-color: var(--azul);
   }
+
+  @media (max-width: 768px) {
+    .search-container {
+      width: 100%;
+    }
+  }
 </style>

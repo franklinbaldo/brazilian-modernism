@@ -128,4 +128,10 @@ import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
     border-radius: var(--r-soft);
     border: 1px solid var(--border);
   }
+
+  @media (max-width: 768px) {
+    .display-serif {
+      font-size: clamp(3rem, 8vw, 5rem);
+    }
+  }
 </style>
