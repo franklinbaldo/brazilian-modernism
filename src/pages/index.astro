@@ -1,52 +1,82 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Ornaments from '../components/Ornaments.astro';
+import CobogoCircular from '../components/patterns/CobogoCircular.svelte';
+import CobogoHexagonal from '../components/patterns/CobogoHexagonal.svelte';
+import CobogoLosango from '../components/patterns/CobogoLosango.svelte';
+import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
 ---
 
-<BaseLayout title="Instituto Brasil Moderno | Patrimônio, Cidade e Futuro">
+<BaseLayout title="COBOGÓ | Brazilian Modernist Design System">
   <div class="app-wrapper">
     <aside class="tile-sidebar">
-      <div class="sidebar-tiles pattern-bulcao"></div>
+      <div class="sidebar-tiles pattern-cobogo-circular"></div>
     </aside>
 
     <main class="main-content">
       <nav class="container site-nav">
-        <div class="nav-brand font-logo">Instituto Brasil Moderno</div>
+        <div class="nav-brand font-logo">COBOGÓ</div>
         <div class="nav-links">
           <a href="/cobogo/manifesto/">Manifesto</a>
-          <a href="/cobogo/componentes/">Componentes</a>
-          <a href="#">Arquitetura</a>
-          <a href="#">Design</a>
+          <a href="#">Foundations</a>
+          <a href="/cobogo/componentes/">Components</a>
+          <a href="/cobogo/patterns/">Patterns</a>
+          <a href="#">Applications</a>
         </div>
         <div class="nav-actions">
           <button class="link">Buscar</button>
-          <a href="#" class="btn btn--azul">Seja membro</a>
+          <a href="https://github.com/franklinbaldo/cobogo" class="btn btn--azul">Github</a>
         </div>
       </nav>
 
       <section class="hero">
         <div class="hero__inner wrap">
           <div class="hero__copy">
-            <span class="kicker kicker--vermelho">Patrimônio, cidade e futuro</span>
+            <span class="kicker kicker--vermelho">Brazilian Modernist Design System</span>
             <h1 class="hero__title">
-              Modernismo brasileiro como <em>espaço</em>, cultura e vida pública.
+              Modernismo brasileiro, traduzido em <em>interface</em>.
             </h1>
             <p class="hero__lead">
-              Arquitetura, design, arte e memória que conectam passado, presente e
-              futuro para construir cidades mais humanas.
+              Um design system inspirado em cobogós, calçadas, Brasília, cartazes
+              culturais e interfaces cívicas — feito para transformar dados
+              públicos em experiências claras, humanas e memoráveis.
             </p>
             <div class="hero__cta">
-              <a href="#" class="btn btn--azul btn--lg">
-                Explorar acervo <span class="btn__arrow">→</span>
+              <a href="/cobogo/manifesto/" class="btn btn--azul btn--lg">
+                Ver manifesto <span class="btn__arrow">→</span>
+              </a>
+              <a href="/cobogo/componentes/" class="btn btn--secondary btn--lg">
+                Explorar componentes <span class="btn__arrow">→</span>
               </a>
               <a href="#" class="btn btn--secondary btn--lg">
-                Planejar visita <span class="btn__arrow">→</span>
+                Aplicar no Baliza <span class="btn__arrow">→</span>
               </a>
             </div>
           </div>
 
           <div class="hero__art">
             <Ornaments type="landscape" />
+          </div>
+        </div>
+      </section>
+
+      <section class="patterns-showcase" style="padding: 2rem 0; background: var(--bg-sunken); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="wrap" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border);">
+          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
+            <CobogoCircular client:load tile={false} size={80} color="var(--azul)" density={1} />
+            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Circular</span>
+          </div>
+          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
+            <CobogoHexagonal client:load tile={false} size={80} color="var(--vermelho)" density={1} />
+            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Hexagonal</span>
+          </div>
+          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
+            <CobogoLosango client:load tile={false} size={80} color="var(--ocre)" density={1} />
+            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Losango</span>
+          </div>
+          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
+            <CobogoCruz client:load tile={false} size={80} color="var(--verde)" density={1} />
+            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Cruz</span>
           </div>
         </div>
       </section>
@@ -58,28 +88,28 @@ import Ornaments from '../components/Ornaments.astro';
               <Ornaments type="pillar" name="acervo" size={28} color="var(--papel-00)" />
             </div>
             <div class="pillar__body">
-              <div class="pillar__title">Acervo</div>
-              <p class="pillar__desc">Explore nosso acervo digital com milhares de obras, documentos e imagens históricas.</p>
+              <div class="pillar__title">Foundations</div>
+              <p class="pillar__desc">Cor, tipografia, grid, ritmo, borda, sombra e ornamentação para interfaces brasileiras.</p>
             </div>
             <span class="pillar__arrow">→</span>
           </a>
-          <a class="pillar pillar--verde" href="#">
+          <a class="pillar pillar--verde" href="/cobogo/componentes/">
             <div class="pillar__icon">
               <Ornaments type="pillar" name="exposicoes" size={28} color="var(--papel-00)" />
             </div>
             <div class="pillar__body">
-              <div class="pillar__title">Exposições</div>
-              <p class="pillar__desc">Confira as exposições em cartaz e as próximas mostras temporárias e itinerantes.</p>
+              <div class="pillar__title">Components</div>
+              <p class="pillar__desc">Botões, cards, badges, filtros, inputs, toolbars, alertas e estados vazios.</p>
             </div>
             <span class="pillar__arrow">→</span>
           </a>
-          <a class="pillar pillar--vermelho" href="#">
+          <a class="pillar pillar--vermelho" href="/cobogo/patterns/">
             <div class="pillar__icon">
               <Ornaments type="pillar" name="educacao" size={28} color="var(--papel-00)" />
             </div>
             <div class="pillar__body">
-              <div class="pillar__title">Educação</div>
-              <p class="pillar__desc">Programas, cursos e conteúdos para todas as idades sobre o modernismo brasileiro.</p>
+              <div class="pillar__title">Patterns</div>
+              <p class="pillar__desc">Busca pública, painel de cidade, mapa, lista de resultados, detalhe de item e linha do tempo.</p>
             </div>
             <span class="pillar__arrow">→</span>
           </a>
@@ -88,8 +118,8 @@ import Ornaments from '../components/Ornaments.astro';
               <Ornaments type="pillar" name="cidade" size={28} color="var(--papel-00)" />
             </div>
             <div class="pillar__body">
-              <div class="pillar__title">Cidade</div>
-              <p class="pillar__desc">Projetos e pesquisas sobre a cidade, o patrimônio e a vida pública contemporânea.</p>
+              <div class="pillar__title">Applications</div>
+              <p class="pillar__desc">Baliza, Verne, CausaGanha e outros produtos usando a mesma linguagem visual.</p>
             </div>
             <span class="pillar__arrow">→</span>
           </a>
@@ -99,20 +129,20 @@ import Ornaments from '../components/Ornaments.astro';
       <section class="statsband">
         <div class="statsband__stats wrap">
           <div class="bigstat">
-            <div class="bigstat__n">12K+</div>
-            <div class="bigstat__label">obras no acervo</div>
+            <div class="bigstat__n">6</div>
+            <div class="bigstat__label">princípios</div>
           </div>
           <div class="bigstat">
-            <div class="bigstat__n">860+</div>
-            <div class="bigstat__label">arquitetos e designers</div>
+            <div class="bigstat__n">12</div>
+            <div class="bigstat__label">componentes</div>
           </div>
           <div class="bigstat">
-            <div class="bigstat__n">48</div>
-            <div class="bigstat__label">exposições em cartaz</div>
+            <div class="bigstat__n">4</div>
+            <div class="bigstat__label">padrões</div>
           </div>
           <div class="bigstat">
-            <div class="bigstat__n">98K+</div>
-            <div class="bigstat__label">visitantes por ano</div>
+            <div class="bigstat__n">1</div>
+            <div class="bigstat__label">linguagem comum</div>
           </div>
         </div>
       </section>
@@ -120,32 +150,43 @@ import Ornaments from '../components/Ornaments.astro';
       <section class="news">
         <div class="wrap news__head">
           <div class="news__intro">
-            <span class="kicker">Novidades</span>
-            <h2 class="news__title">Em <em>movimento</em>.</h2>
+            <span class="kicker">Ecosistema</span>
+            <h2 class="news__title">Em <em>aplicação</em>.</h2>
             <p class="news__lead">
-              Acompanhe notícias, exposições, programas e pesquisas
-              que mantêm o modernismo vivo e atual.
+              Produtos construídos com a mesma linguagem visual de utilidade pública.
             </p>
             <a class="link" href="#">
-              Ver todas as notícias <span>→</span>
+              Ver todos os projetos <span>→</span>
             </a>
           </div>
           <div class="news__grid">
             <article class="newscard">
-              <div class="newscard__art">
-                <Ornaments type="landscape" />
+              <div class="newscard__art" style="background: var(--azul-soft); display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--azul);">Baliza</span>
               </div>
-              <div class="newscard__meta">24 MAIO 2026</div>
-              <h3 class="newscard__title">Nova exposição destaca Oscar Niemeyer e a arquitetura de Brasília</h3>
-              <span class="newscard__kicker">Exposição</span>
+              <h3 class="newscard__title">Baliza</h3>
+              <p style="font-size: 0.875rem; color: var(--fg-muted);">Painéis cívicos para acompanhar compras públicas da cidade.</p>
             </article>
             <article class="newscard">
-              <div class="newscard__art">
-                 <div style="background: var(--verde); width: 100%; height: 100%;"></div>
+              <div class="newscard__art" style="background: var(--vermelho-soft); display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--vermelho);">Verne</span>
               </div>
-              <div class="newscard__meta">10 MAIO 2026</div>
-              <h3 class="newscard__title">Burle Marx: natureza, desenho e paisagem moderna</h3>
-              <span class="newscard__kicker">Pesquisa</span>
+              <h3 class="newscard__title">Verne</h3>
+              <p style="font-size: 0.875rem; color: var(--fg-muted);">Interface documental com densidade, ritmo e legibilidade.</p>
+            </article>
+            <article class="newscard">
+              <div class="newscard__art" style="background: var(--verde-soft); display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--verde);">CausaGanha</span>
+              </div>
+              <h3 class="newscard__title">CausaGanha</h3>
+              <p style="font-size: 0.875rem; color: var(--fg-muted);">Experimentos de UX para busca, triagem e análise jurídica.</p>
+            </article>
+            <article class="newscard">
+              <div class="newscard__art" style="background: var(--ocre-soft); display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--ocre-deep);">COBOGÓ Kit</span>
+              </div>
+              <h3 class="newscard__title">COBOGÓ Kit</h3>
+              <p style="font-size: 0.875rem; color: var(--fg-muted);">Componentes Svelte/Astro para produtos públicos brasileiros.</p>
             </article>
           </div>
         </div>
@@ -171,7 +212,7 @@ import Ornaments from '../components/Ornaments.astro';
 
       <footer class="site-footer">
         <div class="wrap">
-          <p>© 2026 Instituto Brasil Moderno. Todos os direitos reservados.</p>
+          <p>© 2026 COBOGÓ. Um sistema visual brasileiro para interfaces públicas.</p>
         </div>
       </footer>
     </main>

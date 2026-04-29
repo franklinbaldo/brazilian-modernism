@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CobogoCircular from '../components/patterns/CobogoCircular.svelte';
+import CobogoHexagonal from '../components/patterns/CobogoHexagonal.svelte';
+import CobogoLosango from '../components/patterns/CobogoLosango.svelte';
+import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
+---
+
+<BaseLayout title="Padrões | COBOGÓ">
+  <div class="app-wrapper">
+    <aside class="tile-sidebar">
+      <div class="sidebar-tiles pattern-cobogo-cruz"></div>
+    </aside>
+
+    <main class="main-content">
+      <nav class="container site-nav">
+        <div class="nav-brand font-logo">COBOGÓ</div>
+        <div class="nav-links">
+          <a href="/cobogo/">Home</a>
+          <a href="/cobogo/manifesto/">Manifesto</a>
+          <a href="/cobogo/componentes/">Components</a>
+          <a href="/cobogo/patterns/">Patterns</a>
+        </div>
+      </nav>
+
+      <header class="container page-header">
+        <h1 class="display-serif">Padrões<br/>Geométricos</h1>
+        <p class="lede">
+          Texturas visuais de baixa opacidade para compor fundos, sidebars e áreas de respiro.<br/>
+          Empregando a filosofia de <em>background honesto</em>.
+        </p>
+      </header>
+
+      <section class="container component-section">
+        <h2 class="section-title">Galeria de Padrões (Background Tiled)</h2>
+        <p class="section-desc">Exibindo os padrões contínuos em contêineres usando Svelte Runes e SVG inline.</p>
+
+        <div class="component-grid">
+          <div class="lab-item" style="padding: 0; overflow: hidden; height: 160px; position: relative;">
+            <div style="position: absolute; top: 0; left: 0; padding: 0.5rem; background: var(--papel-00); font-weight: 800; font-size: 0.75rem; z-index: 10;">Circular</div>
+            <CobogoCircular client:load tile={true} size={60} color="var(--azul)" density={0.15} />
+          </div>
+          <div class="lab-item" style="padding: 0; overflow: hidden; height: 160px; position: relative;">
+            <div style="position: absolute; top: 0; left: 0; padding: 0.5rem; background: var(--papel-00); font-weight: 800; font-size: 0.75rem; z-index: 10;">Hexagonal</div>
+            <CobogoHexagonal client:load tile={true} size={60} color="var(--vermelho)" density={0.15} />
+          </div>
+          <div class="lab-item" style="padding: 0; overflow: hidden; height: 160px; position: relative;">
+            <div style="position: absolute; top: 0; left: 0; padding: 0.5rem; background: var(--papel-00); font-weight: 800; font-size: 0.75rem; z-index: 10;">Losango</div>
+            <CobogoLosango client:load tile={true} size={60} color="var(--ocre)" density={0.15} />
+          </div>
+          <div class="lab-item" style="padding: 0; overflow: hidden; height: 160px; position: relative;">
+            <div style="position: absolute; top: 0; left: 0; padding: 0.5rem; background: var(--papel-00); font-weight: 800; font-size: 0.75rem; z-index: 10;">Cruz</div>
+            <CobogoCruz client:load tile={true} size={60} color="var(--verde)" density={0.15} />
+          </div>
+        </div>
+      </section>
+
+      <section class="container component-section">
+        <h2 class="section-title">Isolados (Escalados)</h2>
+        <p class="section-desc">Padrões em formato SVG único, sem repetição, aplicados com cores variadas e opacidade plena.</p>
+
+        <div class="component-grid" style="gap: 1rem;">
+          <div class="lab-item" style="display: flex; justify-content: center; align-items: center;">
+            <CobogoCircular client:load tile={false} size={200} color="var(--azul)" density={1} />
+          </div>
+          <div class="lab-item" style="display: flex; justify-content: center; align-items: center;">
+            <CobogoHexagonal client:load tile={false} size={200} color="var(--vermelho)" density={1} />
+          </div>
+          <div class="lab-item" style="display: flex; justify-content: center; align-items: center;">
+            <CobogoLosango client:load tile={false} size={200} color="var(--ocre)" density={1} />
+          </div>
+          <div class="lab-item" style="display: flex; justify-content: center; align-items: center;">
+            <CobogoCruz client:load tile={false} size={200} color="var(--verde)" density={1} />
+          </div>
+        </div>
+      </section>
+
+      <footer class="container site-footer">
+        <p class="tracked-caps">DS v0.1.0 — Distribuível via NPM / TypeScript Node</p>
+      </footer>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .display-serif {
+    font-family: var(--font-display-alt);
+    font-size: 5rem;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+  }
+
+  .lede {
+    font-size: 1.25rem;
+    color: var(--fg-muted);
+    max-width: 600px;
+  }
+
+  .component-section {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    color: var(--fg-muted);
+    margin-bottom: 3rem;
+  }
+
+  .component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 3rem;
+  }
+
+  .lab-item {
+    background: var(--bg-sunken);
+    padding: 2rem;
+    border-radius: var(--r-soft);
+    border: 1px solid var(--border);
+  }
+</style>

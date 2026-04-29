@@ -1,5 +1,7 @@
-# Brazilian Modernism Design System
-Inspirado na arquitetura e estética do modernismo brasileiro.
+# COBOGÓ — Modernismo brasileiro, traduzido em interface.
+A Brazilian modernist design system for public-interest software.
+
+Um design system focado em software público e de interesse cívico, inspirado nos princípios do modernismo brasileiro de funcionalidade, geometria e acessibilidade.
 
 ## Objetivo
 Unificar a interface dos projetos:
