@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const docs = await getCollection('docs', ({ data }) => !data.draft);
+type DocEntry = CollectionEntry<'docs'>;
 const sections = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
 ---
 
@@ -12,13 +13,13 @@ const sections = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
     <p class="lede">Tudo que você precisa pra usar o COBOGÓ.</p>
     <div class="docs-section-grid">
       {sections.map((section) => {
-        const entries = docs.filter((d) => d.data.section === section).sort((a, b) => a.data.order - b.data.order);
+        const entries = docs.filter((d: DocEntry) => d.data.section === section).sort((a: DocEntry, b: DocEntry) => a.data.order - b.data.order);
         if (!entries.length) return null;
         return (
           <section class="docs-section-card">
             <h2>{section}</h2>
             <ul>
-              {entries.map((e) => (
+              {entries.map((e: DocEntry) => (
                 <li>
                   <a href={`/cobogo/docs/${e.slug}/`}>{e.data.title}</a>
                 </li>

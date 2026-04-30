@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import DocsSidebar from '../components/docs/DocsSidebar.svelte';
 import PrevNextNav from '../components/docs/PrevNextNav.svelte';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const { frontmatter } = Astro.props;
 
@@ -10,7 +10,7 @@ const allDocs = await getCollection('docs', ({ data }) => !data.draft);
 
 // Sort logic: first by section order, then by item order
 const sectionOrder = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
-allDocs.sort((a, b) => {
+allDocs.sort((a: CollectionEntry<'docs'>, b: CollectionEntry<'docs'>) => {
   const sectionA = sectionOrder.indexOf(a.data.section);
   const sectionB = sectionOrder.indexOf(b.data.section);
 
@@ -18,14 +18,14 @@ allDocs.sort((a, b) => {
   return a.data.order - b.data.order;
 });
 
-const entries = allDocs.map((doc) => ({
+const entries = allDocs.map((doc: CollectionEntry<'docs'>) => ({
   slug: doc.slug,
   title: doc.data.title,
   section: doc.data.section,
   order: doc.data.order,
 }));
 
-const currentIndex = allDocs.findIndex((doc) => doc.data.title === frontmatter.title && doc.data.section === frontmatter.section);
+const currentIndex = allDocs.findIndex((doc: CollectionEntry<'docs'>) => doc.data.title === frontmatter.title && doc.data.section === frontmatter.section);
 
 const prev = currentIndex > 0 ? entries[currentIndex - 1] : undefined;
 const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : undefined;
