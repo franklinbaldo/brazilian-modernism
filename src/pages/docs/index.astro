@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const docs = await getCollection('docs', ({ data }) => !data.draft);
+const sections = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
+---
+
+<BaseLayout title="Docs | COBOGÓ">
+  <div class="wrap" style="padding: 3rem 0;">
+    <h1>Documentação</h1>
+    <p class="lede">Tudo que você precisa pra usar o COBOGÓ.</p>
+    <div class="docs-section-grid">
+      {sections.map((section) => {
+        const entries = docs.filter((d) => d.data.section === section).sort((a, b) => a.data.order - b.data.order);
+        if (!entries.length) return null;
+        return (
+          <section class="docs-section-card">
+            <h2>{section}</h2>
+            <ul>
+              {entries.map((e) => (
+                <li>
+                  <a href={`/cobogo/docs/${e.slug}/`}>{e.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .docs-section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .docs-section-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-soft);
+  }
+  .docs-section-card h2 {
+    text-transform: capitalize;
+    font-size: var(--t-h4);
+    margin-bottom: 1rem;
+  }
+  .docs-section-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .docs-section-card li {
+    margin-bottom: 0.5rem;
+  }
+  .docs-section-card a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .docs-section-card a:hover {
+    text-decoration: underline;
+  }
+  .lede {
+    font-size: var(--t-lede);
+    color: var(--fg-muted);
+    margin-bottom: 2rem;
+  }
+</style>
