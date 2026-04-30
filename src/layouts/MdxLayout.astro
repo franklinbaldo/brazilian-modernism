@@ -1,0 +1,72 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import DocsSidebar from '../components/docs/DocsSidebar.svelte';
+import PrevNextNav from '../components/docs/PrevNextNav.svelte';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const { frontmatter } = Astro.props;
+
+const allDocs = await getCollection('docs', ({ data }) => !data.draft);
+
+// Sort logic: first by section order, then by item order
+const sectionOrder = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
+allDocs.sort((a: CollectionEntry<'docs'>, b: CollectionEntry<'docs'>) => {
+  const sectionA = sectionOrder.indexOf(a.data.section);
+  const sectionB = sectionOrder.indexOf(b.data.section);
+
+  if (sectionA !== sectionB) return sectionA - sectionB;
+  return a.data.order - b.data.order;
+});
+
+const entries = allDocs.map((doc: CollectionEntry<'docs'>) => ({
+  slug: doc.slug,
+  title: doc.data.title,
+  section: doc.data.section,
+  order: doc.data.order,
+}));
+
+const currentIndex = allDocs.findIndex((doc: CollectionEntry<'docs'>) => doc.data.title === frontmatter.title && doc.data.section === frontmatter.section);
+
+const prev = currentIndex > 0 ? entries[currentIndex - 1] : undefined;
+const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : undefined;
+---
+
+<BaseLayout title={`${frontmatter.title} | COBOGÓ Docs`}>
+  <div class="docs-grid">
+    <DocsSidebar client:load entries={entries} currentSlug={Astro.url.pathname} />
+    <article class="prose-cobogo docs-article">
+      <h1>{frontmatter.title}</h1>
+      {frontmatter.description && <p class="lede">{frontmatter.description}</p>}
+      <slot />
+      <PrevNextNav prev={prev} next={next} />
+    </article>
+    <!-- TOC space for future -->
+    <!-- <div class="docs-toc"></div> -->
+  </div>
+</BaseLayout>
+
+<style>
+  .docs-grid {
+    display: grid;
+    /* Future TOC: grid-template-columns: 220px 1fr 200px; */
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+  .docs-article {
+    max-width: 720px;
+  }
+  .lede {
+    font-size: var(--t-lede);
+    color: var(--fg-muted);
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 1024px) {
+    .docs-grid {
+      grid-template-columns: 1fr;
+      padding: 2rem 1rem;
+    }
+  }
+</style>
