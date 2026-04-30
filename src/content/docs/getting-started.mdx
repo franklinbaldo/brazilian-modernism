@@ -17,8 +17,7 @@ import DocsCodeBlock from '../../components/docs/DocsCodeBlock.astro';
 Instale via GitHub (até existir release no NPM):
 
 <DocsCodeBlock lang="bash" filename="Terminal">
-<pre><code>bun add github:franklinbaldo/cobogo#v0.1.0
-# ou: npm install github:franklinbaldo/cobogo#v0.1.0</code></pre>
+<pre><code>bun add github:franklinbaldo/cobogo#v0.1.0{"\n"}# ou: npm install github:franklinbaldo/cobogo#v0.1.0</code></pre>
 </DocsCodeBlock>
 
 <DocsCallout type="warning" title="Peer dependencies">
@@ -42,16 +41,7 @@ Isso traz toda a paleta, tipografia, escala, radius e sombras como CSS variables
 ### Importar componentes Svelte
 
 <DocsCodeBlock lang="astro">
-<pre><code>---
-import Button from 'cobogo/components/Button';
-import Card from 'cobogo/components/Card';
-import Badge from 'cobogo/components/Badge';
----
-
-&lt;Button variant="azul"&gt;Ver manifesto&lt;/Button&gt;
-&lt;Card&gt;...&lt;/Card&gt;
-&lt;Badge&gt;Novo&lt;/Badge&gt;
-</code></pre>
+<pre><code>---{"\n"}import Button from 'cobogo/components/Button';{"\n"}import Card from 'cobogo/components/Card';{"\n"}import Badge from 'cobogo/components/Badge';{"\n"}---{"\n\n"}&lt;Button variant="azul"&gt;Ver manifesto&lt;/Button&gt;{"\n"}&lt;Card&gt;...&lt;/Card&gt;{"\n"}&lt;Badge&gt;Novo&lt;/Badge&gt;</code></pre>
 </DocsCodeBlock>
 
 ### Componentes disponíveis
@@ -65,7 +55,5 @@ Importe 1 componente e veja se a tipografia herda corretamente antes de migrar p
 ### Configurar imports
 
 <DocsCodeBlock lang="ts" filename="src/lib/cobogo.ts">
-<pre><code>export &#123; default as Button &#125; from 'cobogo/components/Button';
-export &#123; default as Card &#125; from 'cobogo/components/Card';
-</code></pre>
+<pre><code>export &#123; default as Button &#125; from 'cobogo/components/Button';{"\n"}export &#123; default as Card &#125; from 'cobogo/components/Card';</code></pre>
 </DocsCodeBlock>
