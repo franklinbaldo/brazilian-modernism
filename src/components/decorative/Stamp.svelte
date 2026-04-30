@@ -13,9 +13,13 @@
     rotation = -8
   }: Props = $props();
 
-  // Per-instance ID so multiple <Stamp/> on the same page don't share
-  // a DOM id and confuse <textPath href> resolution.
-  const curveId = `stamp-curve-${Math.random().toString(36).slice(2, 10)}`;
+  // SSR-stable per-instance id so multiple <Stamp/> on the same page
+  // don't share a DOM id (which would confuse <textPath href> resolution),
+  // and so the same id is used during server render and client hydration
+  // (avoids hydration mismatch warnings). $props.id() must be assigned
+  // directly to a top-level variable — can't go inside template literals.
+  const stampId = $props.id();
+  const curveId = `stamp-curve-${stampId}`;
 </script>
 
 <div class="stamp-container" style="--stamp-color: {color}; transform: rotate({rotation}deg);">

@@ -29,6 +29,16 @@
   } = $props();
 
   const svg = $derived(registry[name]);
+
+  // A11y: role="img" requires an accessible name (aria-label). If the caller
+  // didn't pass a title and didn't explicitly mark aria-hidden, default to
+  // decorative — exposing an unlabeled <span role="img"> creates noisy
+  // screen-reader output and is a known a11y anti-pattern.
+  // Normalize aria-hidden because consumers can pass "false" as a string;
+  // raw truthiness would treat "false" as truthy and incorrectly drop the role.
+  const explicitHidden = $derived(ariaHidden === true || ariaHidden === 'true');
+  const explicitShown = $derived(ariaHidden === false || ariaHidden === 'false');
+  const isDecorative = $derived(explicitHidden || (!explicitShown && !title));
 </script>
 
 {#if svg}
@@ -37,9 +47,9 @@
     style:width="{size}px"
     style:height="{size}px"
     style:color={color ?? 'inherit'}
-    role={ariaHidden ? undefined : 'img'}
-    aria-hidden={ariaHidden}
-    aria-label={title}
+    role={isDecorative ? undefined : 'img'}
+    aria-hidden={isDecorative ? 'true' : undefined}
+    aria-label={isDecorative ? undefined : title}
   >
     {@html svg}
   </span>
