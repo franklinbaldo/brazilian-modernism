@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrIcon from '../../components/BrIcon.svelte';
+---
+
+<BaseLayout title="Icons | COBOGÓ">
+  <div class="wrap" style="padding: 4rem 0;">
+    <h1>Iconografia brasileira</h1>
+    <p class="lede">Biblioteca de ícones cobogó organizados em 3 estilos: geometric, civic, folk.</p>
+
+    <h2>Geometric</h2>
+    <p>currentColor — tinta via CSS. Use pra patterns e ícones funcionais.</p>
+    <div class="icon-grid" style="color: var(--azul);">
+      <div class="icon-cell"><BrIcon client:load name="calcada-onda" size={80} /><span class="icon-cell-name">calcada-onda</span></div>
+      <div class="icon-cell"><BrIcon client:load name="pedra-portuguesa" size={80} /><span class="icon-cell-name">pedra-portuguesa</span></div>
+      <div class="icon-cell"><BrIcon client:load name="azulejo-modernista" size={80} /><span class="icon-cell-name">azulejo-modernista</span></div>
+      <div class="icon-cell"><BrIcon client:load name="marajoara" size={80} /><span class="icon-cell-name">marajoara</span></div>
+      <div class="icon-cell"><BrIcon client:load name="concretismo" size={80} /><span class="icon-cell-name">concretismo</span></div>
+    </div>
+
+    <h2>Civic</h2>
+    <p>Silhueta com paleta fixa quando icônica. Use pra ornamentos figurativos cívicos.</p>
+    <div class="icon-grid">
+      <div class="icon-cell"><BrIcon client:load name="orelhao" size={80} /><span class="icon-cell-name">orelhao</span></div>
+      <div class="icon-cell"><BrIcon client:load name="bonde" size={80} /><span class="icon-cell-name">bonde</span></div>
+      <div class="icon-cell"><BrIcon client:load name="coreto" size={80} /><span class="icon-cell-name">coreto</span></div>
+      <div class="icon-cell"><BrIcon client:load name="palafita" size={80} /><span class="icon-cell-name">palafita</span></div>
+      <div class="icon-cell"><BrIcon client:load name="caixa-dagua" size={80} /><span class="icon-cell-name">caixa-dagua</span></div>
+    </div>
+
+    <h2>Folk</h2>
+    <p>Linha xilográfica. Use com peso histórico, em contextos folk pontuais.</p>
+    <div class="icon-grid">
+      <div class="icon-cell"><BrIcon client:load name="carranca" size={80} /><span class="icon-cell-name">carranca</span></div>
+      <div class="icon-cell"><BrIcon client:load name="berimbau" size={80} /><span class="icon-cell-name">berimbau</span></div>
+      <div class="icon-cell"><BrIcon client:load name="sanfona" size={80} /><span class="icon-cell-name">sanfona</span></div>
+      <div class="icon-cell"><BrIcon client:load name="cordel-ornament" size={80} /><span class="icon-cell-name">cordel-ornament</span></div>
+      <div class="icon-cell"><BrIcon client:load name="estandarte-maracatu" size={80} /><span class="icon-cell-name">estandarte-maracatu</span></div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 2rem; padding: 2rem 0; }
+  .icon-cell { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--r-soft); background: var(--bg-raised); }
+  .icon-cell-name { font-size: var(--t-small); color: var(--fg-muted); font-family: var(--font-sans); }
+</style>
