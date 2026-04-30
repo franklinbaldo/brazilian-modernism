@@ -1,10 +1,21 @@
 ---
 interface Props {
-  slug: string;
+  /**
+   * Real collection entry id (e.g. "getting-started.mdx", "foundations/tokens.md").
+   * Includes subdirectory and extension. Preferred — produces a working
+   * GitHub edit URL even for nested or .mdx entries.
+   */
+  entryId?: string;
+  /**
+   * Fallback slug (no extension, no dir). Used only if `entryId` is missing,
+   * and assumes the entry lives at top-level as `.md`.
+   */
+  fallbackSlug?: string;
 }
 
-const { slug } = Astro.props;
-const editUrl = `https://github.com/franklinbaldo/cobogo/edit/main/src/content/docs/${slug}.md`;
+const { entryId, fallbackSlug } = Astro.props;
+const path = entryId ?? (fallbackSlug ? `${fallbackSlug}.md` : 'README.md');
+const editUrl = `https://github.com/franklinbaldo/cobogo/edit/main/src/content/docs/${path}`;
 ---
 
 <div class="edit-link-container">

@@ -8,7 +8,7 @@ import DocsEditLink from '../components/docs/DocsEditLink.astro';
 import DocsThemeToggle from '../components/docs/DocsThemeToggle.svelte';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-const { frontmatter, headings = [] } = Astro.props;
+const { frontmatter, headings = [], entryId } = Astro.props;
 
 const allDocs = await getCollection('docs', ({ data }) => !data.draft);
 
@@ -52,7 +52,7 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
       {frontmatter.description && <p class="lede">{frontmatter.description}</p>}
       <slot />
       <PrevNextNav prev={prev} next={next} />
-      <DocsEditLink slug={frontmatter.slug || frontmatter.title.toLowerCase().replace(/\s+/g, '-')} />
+      <DocsEditLink entryId={entryId} fallbackSlug={frontmatter.slug || frontmatter.title.toLowerCase().replace(/\s+/g, '-')} />
     </article>
     <DocsTOC headings={headings} client:load />
   </div>

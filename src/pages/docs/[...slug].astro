@@ -15,9 +15,9 @@ type Props = {
 };
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 ---
 
-<MdxLayout frontmatter={entry.data}>
+<MdxLayout frontmatter={entry.data} headings={headings} entryId={entry.id}>
   <Content />
 </MdxLayout>

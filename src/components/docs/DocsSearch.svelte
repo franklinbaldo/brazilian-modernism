@@ -10,7 +10,7 @@
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        dialog?.showModal();
+        handleOpen();
       }
     };
     window.addEventListener('keydown', handleKeydown);
