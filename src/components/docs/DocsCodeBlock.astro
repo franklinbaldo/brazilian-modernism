@@ -1,0 +1,148 @@
+---
+interface Props {
+  lang?: string;
+  filename?: string;
+  highlight?: number[];
+}
+
+const { lang, filename, highlight } = Astro.props;
+---
+
+<div class="code-block-wrapper">
+  {filename && (
+    <div class="code-block-header">
+      <span class="filename">{filename}</span>
+      <button class="copy-btn" aria-label="Copy code">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span class="tooltip">Copied!</span>
+      </button>
+    </div>
+  )}
+  {!filename && (
+    <button class="copy-btn absolute-copy" aria-label="Copy code">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span class="tooltip">Copied!</span>
+    </button>
+  )}
+  <div class="code-content">
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      const wrapper = btn.closest('.code-block-wrapper');
+      if (!wrapper) return;
+
+      const pre = wrapper.querySelector('pre');
+      if (!pre) return;
+
+      const text = pre.textContent || '';
+
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy text', err);
+      }
+    });
+  });
+</script>
+
+<style>
+  .code-block-wrapper {
+    position: relative;
+    background: var(--bg-soft, #f8f9fa);
+    border: 1px solid var(--concreto-30, #e0e0e0);
+    border-radius: var(--r-2, 8px);
+    margin: 1.5rem 0;
+    overflow: hidden;
+  }
+
+  .code-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--concreto-30, #e0e0e0);
+    background: var(--bg, #fff);
+  }
+
+  .filename {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--concreto-60, #6c757d);
+  }
+
+  .copy-btn {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: var(--concreto-60, #6c757d);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .copy-btn:hover {
+    color: var(--fg, #212529);
+    background: var(--concreto-20, #f1f3f5);
+  }
+
+  .absolute-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--bg, #fff);
+    border: 1px solid var(--concreto-30, #e0e0e0);
+    z-index: 10;
+  }
+
+  .tooltip {
+    position: absolute;
+    top: -2rem;
+    right: 50%;
+    transform: translateX(50%);
+    background: var(--fg, #212529);
+    color: var(--bg, #fff);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    white-space: nowrap;
+    font-family: var(--font-sans);
+  }
+
+  .copy-btn.copied .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .copy-btn.copied {
+    color: var(--verde, #28a745);
+  }
+
+  .code-content {
+    /* To handle Astro/Shiki pre styles */
+  }
+
+  .code-content :global(pre) {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    background: transparent !important; /* override shiki bg to use ours */
+  }
+</style>

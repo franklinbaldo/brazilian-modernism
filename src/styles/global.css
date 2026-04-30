@@ -4,7 +4,7 @@
    Design Base: bm2.zip
    =================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Bevan:ital@0;1&family=Caveat:wght@400..700&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=PT+Serif+Caption:ital@0;1&family=Piazzolla:ital,opsz,wght@0,8..30,100..900;1,8..30,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Piazzolla:ital,opsz,wght@0,8..30,100..900;1,8..30,100..900&display=swap');
 
 :root {
   /* ——— Paper / Concrete (neutrals) ——— */
@@ -29,9 +29,6 @@
   --ocre-soft: #F7EED6;
   --verde: #2E6B4A;
   --verde-soft: #DDEBE1;
-  --terracota: #A0522D;
-  --terracota-soft: #E8D5C4;
-  --amarelo-festa: #F5D547;
 
   /* ——— Semantic ——— */
   --bg:           var(--papel-10);
@@ -49,9 +46,6 @@
   --font-display-alt: "Fraunces", Georgia, serif;
   --font-sans:   "Archivo", sans-serif;
   --font-serif:  "Piazzolla", Georgia, serif;
-  --font-letreiro: "Caveat", "Comic Sans MS", cursive;
-  --font-jornal: "PT Serif Caption", Georgia, serif;
-  --font-cordel: "Bevan", Impact, sans-serif;
 
   /* Scale */
   /* SCALE & RADIUS */
