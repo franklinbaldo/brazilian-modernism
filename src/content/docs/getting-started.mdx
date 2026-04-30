@@ -4,23 +4,25 @@ description: Instale e use o COBOGÓ no seu projeto Astro+Svelte
 section: intro
 order: 1
 ---
-import DocsCallout from '../../components/docs/DocsCallout.astro';
 
 # Getting Started
 
 Instale e use o COBOGÓ no seu projeto Astro+Svelte.
 
+import DocsCallout from '../../components/docs/DocsCallout.astro';
+import DocsCodeBlock from '../../components/docs/DocsCodeBlock.astro';
+
 ## Instalação
 
 Instale via GitHub (até existir release no NPM):
 
-```bash
-bun add github:franklinbaldo/cobogo#v0.1.0
-# ou: npm install github:franklinbaldo/cobogo#v0.1.0
-```
+<DocsCodeBlock lang="bash" filename="Terminal">
+<pre><code>bun add github:franklinbaldo/cobogo#v0.1.0
+# ou: npm install github:franklinbaldo/cobogo#v0.1.0</code></pre>
+</DocsCodeBlock>
 
 <DocsCallout type="warning" title="Peer dependencies">
-  Cobogó precisa de `astro ^5 || ^6` e `svelte ^5`. Versões anteriores não suportam Runes.
+Cobogó precisa de `astro ^5 || ^6` e `svelte ^5`. Versões anteriores não suportam Runes.
 </DocsCallout>
 
 ## Uso
@@ -39,30 +41,31 @@ Isso traz toda a paleta, tipografia, escala, radius e sombras como CSS variables
 
 ### Importar componentes Svelte
 
-```astro
----
+<DocsCodeBlock lang="astro">
+<pre><code>---
 import Button from 'cobogo/components/Button';
 import Card from 'cobogo/components/Card';
 import Badge from 'cobogo/components/Badge';
 ---
 
-<Button variant="azul">Ver manifesto</Button>
-<Card>...</Card>
-<Badge>Novo</Badge>
-```
+&lt;Button variant="azul"&gt;Ver manifesto&lt;/Button&gt;
+&lt;Card&gt;...&lt;/Card&gt;
+&lt;Badge&gt;Novo&lt;/Badge&gt;
+</code></pre>
+</DocsCodeBlock>
 
 ### Componentes disponíveis
 
 Componentes disponíveis incluem `Button`, `Card`, `Badge`, `ProfileCard`, `DataTable`, `SearchBar`, e os padrões cobogó.
 
 <DocsCallout type="tip" title="Comece pequeno">
-  Importe 1 componente e veja se a tipografia herda corretamente antes de migrar páginas inteiras.
+Importe 1 componente e veja se a tipografia herda corretamente antes de migrar páginas inteiras.
 </DocsCallout>
 
 ### Configurar imports
 
-```ts
-// src/lib/cobogo.ts
-export { default as Button } from 'cobogo/components/Button';
-export { default as Card } from 'cobogo/components/Card';
-```
+<DocsCodeBlock lang="ts" filename="src/lib/cobogo.ts">
+<pre><code>export &#123; default as Button &#125; from 'cobogo/components/Button';
+export &#123; default as Card &#125; from 'cobogo/components/Card';
+</code></pre>
+</DocsCodeBlock>

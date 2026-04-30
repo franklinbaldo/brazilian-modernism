@@ -146,14 +146,6 @@ e mapeamento para componentes/tokens existentes ou planejados.
 | 67 | **Canga de praia** | Tecido + franjas | ❌ falta | `cotidiano/canga.svg` |
 | 68 | **Sacola de feira listrada** | Listras verticais coloridas | ❌ falta | `cotidiano/sacola-feira.svg` |
 
-### Bloco 12 — Display fonts brasileiros
-
-| Token | Família | Vibe | Uso |
-|---|---|---|---|
-| `--font-letreiro` | Caveat | Handpaint padaria/comércio | Letreiros, sinalização cívica fictícia |
-| `--font-jornal` | PT Serif Caption | Manchete editorial densa | Headlines de impacto, blockquotes históricas |
-| `--font-cordel` | Bevan | Display chunky tipo woodcut | Carimbos, faixas, cabeçalhos folk |
-
 ## Estilo dos ícones — 4 categorias com regras claras
 
 | Categoria | Vibe | Cor | Stroke | viewBox | Casos |
@@ -331,7 +323,6 @@ Compostos a partir dos ícones: `Stamp.svelte`, `Lambe.svelte`, `Sign.svelte`, `
 4. **Geometric = combinável infinitamente.** Esses são pra usar livre como background, ícone, pattern.
 5. **Tabuleiro de acarajé não vira ícone.** Comida regional figurativa específica não cabe — só a referência cromática (azuis baianos).
 6. **Cotidiano não é folk.** Pasta AZ, copo americano, kombi não são "tema brasileiro" — são objetos materiais que sinalizam o país sem caricaturização. Tratar com sobriedade silhuetária, não com nostalgia decorativa.
-7. **Tudo no repo aparece no Pages.** Nenhum componente, ícone, pattern, theme ou recipe é "interno". Se está versionado, está documentado e showcased em alguma página de `/foundations` ou `/components`.
 
 ## Não-fazer
 
