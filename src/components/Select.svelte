@@ -59,8 +59,9 @@
 	}
 
 	.select-input:focus-visible {
-		outline: 2px solid var(--accent);
+		outline: 2px solid var(--azul);
 		outline-offset: 2px;
+		border-color: var(--azul);
 	}
 
 	.select-input:disabled {

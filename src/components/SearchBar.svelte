@@ -17,30 +17,32 @@
 
 <div class="search-container">
   <div class="search-field">
-    <div class="search-icon">
+    <div class="search-icon" aria-hidden="true">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
       </svg>
     </div>
     <input 
-      type="text" 
+      type="search"
       {placeholder} 
       bind:value 
       on:input={handleInput}
       class="search-input"
+      aria-label={placeholder}
     />
     <button class="search-btn">Buscar</button>
   </div>
 
   {#if filters.length > 0}
     <div class="filter-bar">
-      <span class="filter-label">Filtrar por:</span>
-      <div class="filter-list">
+      <span class="filter-label" id="filter-label">Filtrar por:</span>
+      <div class="filter-list" role="group" aria-labelledby="filter-label">
         {#each filters as filter}
           <button 
             class="filter-tag" 
             class:active={filter.active}
             on:click={() => toggleFilter(filter.id)}
+            aria-pressed={filter.active}
           >
             {filter.label}
           </button>
@@ -90,6 +92,12 @@
 
   .search-input:focus {
     outline: none;
+  }
+
+  .search-input:focus-visible {
+    outline: 2px solid var(--azul);
+    outline-offset: 2px;
+    border-radius: var(--r-1);
   }
 
   .search-btn {

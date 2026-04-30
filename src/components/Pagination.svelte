@@ -67,6 +67,7 @@
 			class="pagination-btn nav-btn"
 			onclick={handleFirst}
 			disabled={currentPage === 1}
+			aria-disabled={currentPage === 1}
 			aria-label="First page"
 		>
 			«
@@ -77,6 +78,7 @@
 		class="pagination-btn nav-btn"
 		onclick={handlePrev}
 		disabled={currentPage === 1}
+		aria-disabled={currentPage === 1}
 		aria-label="Previous page"
 	>
 		‹
@@ -84,7 +86,7 @@
 
 	{#each pages as page}
 		{#if page === '...'}
-			<span class="pagination-ellipsis">...</span>
+			<span class="pagination-ellipsis" aria-hidden="true">...</span>
 		{:else}
 			<button
 				class="pagination-btn {currentPage === page ? 'active' : ''}"
@@ -101,6 +103,7 @@
 		class="pagination-btn nav-btn"
 		onclick={handleNext}
 		disabled={currentPage === totalPages}
+		aria-disabled={currentPage === totalPages}
 		aria-label="Next page"
 	>
 		›
@@ -111,6 +114,7 @@
 			class="pagination-btn nav-btn"
 			onclick={handleLast}
 			disabled={currentPage === totalPages}
+			aria-disabled={currentPage === totalPages}
 			aria-label="Last page"
 		>
 			»
