@@ -2,9 +2,13 @@
 import BaseLayout from './BaseLayout.astro';
 import DocsSidebar from '../components/docs/DocsSidebar.svelte';
 import PrevNextNav from '../components/docs/PrevNextNav.svelte';
+import DocsTOC from '../components/docs/DocsTOC.svelte';
+import DocsSearch from '../components/docs/DocsSearch.svelte';
+import DocsEditLink from '../components/docs/DocsEditLink.astro';
+import DocsThemeToggle from '../components/docs/DocsThemeToggle.svelte';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings = [], entryId } = Astro.props;
 
 const allDocs = await getCollection('docs', ({ data }) => !data.draft);
 
@@ -32,6 +36,15 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
 ---
 
 <BaseLayout title={`${frontmatter.title} | COBOGÓ Docs`}>
+  <header class="docs-header">
+    <div class="docs-header-inner">
+      <div class="brand">COBOGÓ</div>
+      <div class="docs-header-actions">
+        <DocsSearch client:load />
+        <DocsThemeToggle client:load />
+      </div>
+    </div>
+  </header>
   <div class="docs-grid">
     <DocsSidebar client:load entries={entries} currentSlug={Astro.url.pathname} />
     <article class="prose-cobogo docs-article">
@@ -39,17 +52,41 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
       {frontmatter.description && <p class="lede">{frontmatter.description}</p>}
       <slot />
       <PrevNextNav prev={prev} next={next} />
+      <DocsEditLink entryId={entryId} fallbackSlug={frontmatter.slug || frontmatter.title.toLowerCase().replace(/\s+/g, '-')} />
     </article>
-    <!-- TOC space for future -->
-    <!-- <div class="docs-toc"></div> -->
+    <DocsTOC headings={headings} client:load />
   </div>
 </BaseLayout>
 
 <style>
+  .docs-header {
+    border-bottom: 1px solid var(--concreto-30, #e0e0e0);
+    position: sticky;
+    top: 0;
+    background: var(--bg, #fff);
+    z-index: 40;
+  }
+  .docs-header-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  .docs-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
   .docs-grid {
     display: grid;
-    /* Future TOC: grid-template-columns: 220px 1fr 200px; */
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 220px 1fr 200px;
     gap: 3rem;
     max-width: 1240px;
     margin: 0 auto;

@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Themes | Foundations | COBOGÓ">
+  <div class="wrap">
+    <div style="padding: 4rem 0;">
+      <a href="/cobogo/foundations" style="font-family: var(--font-sans); font-size: 0.875rem; font-weight: 700; color: var(--fg-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
+        <span>←</span> Voltar para Foundations
+      </a>
+      <h1 class="kicker">Foundations</h1>
+      <h2 class="hero__title">Theme Variants & Textures</h2>
+      <p class="hero__lead">Expressões temáticas e texturas decorativas do cotidiano brasileiro.</p>
+    </div>
+
+    <section style="margin-bottom: 6rem;">
+      <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 2rem;">Themes</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+
+        <div>
+          <div class="theme-lambe" style="margin-bottom: 1rem;">
+            A CIDADE É NOSSA
+          </div>
+          <code style="font-size: 0.875rem; color: var(--fg-muted);">.theme-lambe</code>
+        </div>
+
+        <div>
+          <div style="padding: 2rem; background: var(--papel-10); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <div class="theme-carimbo">
+              RECEBIDO 30/04/2026
+            </div>
+          </div>
+          <code style="font-size: 0.875rem; color: var(--fg-muted);">.theme-carimbo</code>
+        </div>
+
+        <div>
+          <div class="theme-boteco" style="margin-bottom: 1rem; text-align: center; font-size: 2rem;">
+            BOTECO DA ESQUINA — CHOPP GELADO
+          </div>
+          <code style="font-size: 0.875rem; color: var(--fg-muted);">.theme-boteco</code>
+        </div>
+
+        <div>
+          <div class="theme-faixa-caminhao" style="margin-bottom: 1rem;">
+            DEUS NO COMANDO SEMPRE
+          </div>
+          <code style="font-size: 0.875rem; color: var(--fg-muted);">.theme-faixa-caminhao</code>
+        </div>
+
+      </div>
+    </section>
+
+    <section style="margin-bottom: 6rem;">
+      <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 2rem;">Textures</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+
+        <div>
+          <div class="texture-papel-velho" style="height: 200px; background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--r-soft); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <span style="font-family: var(--font-sans); font-weight: 700; color: var(--fg-muted);">Papel Velho</span>
+          </div>
+          <code style="font-size: 0.875rem; color: var(--fg-muted);">.texture-papel-velho</code>
+        </div>
+
+        <div>
+          <div class="texture-concreto" style="height: 200px; background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--r-soft); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; overflow: hidden;">
+            <span style="font-family: var(--font-sans); font-weight: 700; color: var(--fg-muted); z-index: 1;">Concreto</span>
+          </div>
+          <code style="font-size: 0.875rem; color: var(--fg-muted);">.texture-concreto</code>
+        </div>
+
+        <div>
+          <div class="texture-palha" style="height: 200px; background-color: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--r-soft); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <span style="font-family: var(--font-sans); font-weight: 700; color: var(--fg-muted); background: var(--papel-00); padding: 0.25rem 0.5rem; border-radius: var(--r-1);">Palha</span>
+          </div>
+          <code style="font-size: 0.875rem; color: var(--fg-muted);">.texture-palha</code>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</BaseLayout>
