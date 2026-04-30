@@ -78,49 +78,207 @@ e mapeamento para componentes/tokens existentes ou planejados.
 | 24 | **Athos Bulcão** | Tile geométrico azul/preto/amarelo, repetição modular | ⚠️ parcial | `pattern-bulcao` simples existe; falta variantes coloridas + `pattern-bulcao-{azul,vermelho,verde,amarelo}` |
 | 25 | **Concretismo tropical** | Mavignier/Barsotti, geometria pura, primárias | ⚠️ parcial | tokens cobrem isso; falta `pattern-concretismo` explícito |
 
-## Mapa de waves de implementação
+### Bloco 7 — Festa, religião, popular
 
-### Wave A — Pattern library expansion
-6-8 SVGs novos em `public/patterns/` + classes CSS:
-- `calcada-onda`, `calcada-ipanema`, `pedra-portuguesa`, `azulejo-modernista`, `marajoara`, `concretismo`
-- Enrich `bulcao-{azul,vermelho,verde,amarelo}` (variantes coloridas)
+| # | Referência | Visual | Status | Mapeamento |
+|---|---|---|---|---|
+| 26 | **Bandeirinhas de festa junina** | Bunting colorido suspenso, céu noturno, igreja | ❌ falta | `Bandeirinhas.svelte` (ornamento horizontal) — uso festivo, recipes comunitárias |
+| 27 | **Estampa de chita** | Floral saturado vermelho/verde/azul, tecido popular | ❌ falta | `pattern-chita` — fundo de seções comunitárias/feira |
+| 28 | **Renda renascença** | Lace branco filé delicado | ❌ falta | `pattern-renda` — overlay decorativo sutil |
+| 29 | **Berimbau** | Arco de madeira, cabaça, instrumento de capoeira | ❌ falta | `Berimbau.svelte` — ícone folk linha xilográfica |
+| 30 | **Carranca do São Francisco** | Figura em proa de barco, expressão dramática | ❌ falta | `Carranca.svelte` — ornamento dramático em hero/manifesto |
+| 31 | **Fitinhas do Bonfim** | Fitas coloridas amarradas no portão, votivas | ❌ falta | `Fitinhas.svelte` (decorativo vertical) |
+| 32 | **Estandarte de maracatu** | Bandeira pernambucana com Leão Coroado, dourado/azul | ❌ falta | `Estandarte.svelte` (ornamento de seção, opcional) |
+| 33 | **Sanfona nordestina** | Acordeão preto/vermelho, instrumento icônico | ❌ falta | `Sanfona.svelte` ícone folk |
 
-### Wave B — Brazilian display fonts + tonal themes
-Modifica `global.css`:
-- `--font-letreiro`, `--font-jornal`, `--font-cordel` (Google Fonts)
-- `--terracota` token novo
-- `.theme-lambe`, `.theme-carimbo`, `.theme-boteco`
-- `.texture-papel-velho`, `.texture-concreto`, `.texture-palha`
+### Bloco 8 — Arquitetura e mobiliário cívico
 
-### Wave C — Decorative components
-`src/components/decorative/`:
-- `Stamp.svelte` (carimbo)
-- `Lambe.svelte` (lambe-lambe wheatpaste card)
-- `Sign.svelte` (letreiro pintado)
-- `Foliage.svelte` (monstera tropical)
-- `Orelhao.svelte` (silhueta amarela)
-- `Pennant.svelte` (flâmula carnaval)
-- `RiverMap.svelte` (rios brasileiros)
+| # | Referência | Visual | Status | Mapeamento |
+|---|---|---|---|---|
+| 34 | **Palafita amazônica** | Casa de madeira sobre estacas, rio | ❌ falta | `Palafita.svelte` ícone silhueta |
+| 35 | **Fachada art déco brasileira** | Predio anos 30/40, simetria, ornamento estilizado | ❌ falta | `Fachada.svelte` ícone silhueta |
+| 36 | **Bonde de Santa Teresa** | Bonde amarelo aberto, trilho urbano | ❌ falta | `Bonde.svelte` ícone silhueta cívica (amarelo+vermelho fixos) |
+| 37 | **Caixa d'água azul** | Reservatório azul cilíndrico em telhado | ❌ falta | `CaixaDagua.svelte` ícone silhueta |
+| 38 | **Coreto de praça** | Quiosque circular branco, ornamento metálico | ❌ falta | `Coreto.svelte` ícone silhueta |
+| 39 | **Rosácea barroca** | Janela circular ornamentada igreja colonial | ❌ falta | `pattern-rosacea` ou `Rosacea.svelte` ornamento radial |
+| 40 | **Faixa de caminhão** | "DEUS NO COMANDO SEMPRE" letreiro vermelho/branco | ❌ falta | `theme-faixa-caminhao` — variante de banner/Alert tipográfico |
+
+### Bloco 9 — Natureza e mar
+
+| # | Referência | Visual | Status | Mapeamento |
+|---|---|---|---|---|
+| 41 | **Jardim de Burle Marx** | Curvas orgânicas, paisagismo modernista | ❌ falta | `pattern-burle-marx` — curvas orgânicas como pattern |
+| 42 | **Pipa de rua** | Pipa colorida com cauda, céu | ❌ falta | `Pipa.svelte` ícone festivo |
+| 43 | **Guarda-sol de praia** | Listras vermelho/branco, tropical | ❌ falta | `Guardasol.svelte` ícone silhueta |
+| 44 | **Jangada nordestina** | Jangada com vela triangular | ❌ falta | `Jangada.svelte` ícone silhueta |
+| 45 | **Barco ribeirinho** | Lancha amazônica colorida | ❌ falta | `Barco.svelte` ícone silhueta |
+
+### Bloco 10 — Objetos e vestuário
+
+| # | Referência | Visual | Status | Mapeamento |
+|---|---|---|---|---|
+| 46 | **Bule esmaltado** | Bule azul com pintinhas brancas | ❌ falta | `Bule.svelte` ícone silhueta cívica |
+| 47 | **Cadeira de fio** | Cadeira acapulco brasileira, fio multicolor | ❌ falta | `Cadeira.svelte` ícone silhueta |
+| 48 | **Canga de praia** | Tecido tropical estampa folhagem/animal | ❌ falta | `pattern-canga` |
+| 49 | **Cestaria indígena** | Cesta trançada padrão geométrico marrom | ❌ falta | `pattern-cestaria` (geométrico, paralelo a marajoara) |
+| 50 | **Tabuleiro de acarajé** | Tigelas coloridas, comida de baiana | ⏭️ skip | (figurativo demais; não vira ícone — referência cromática só) |
+
+## Estilo dos ícones — 3 categorias com regras claras
+
+| Categoria | Vibe | Cor | Stroke | viewBox | Casos |
+|---|---|---|---|---|---|
+| **Geométrico funcional** | Modernista limpo | `currentColor` (herda) | 8px stroke, fill=none | 100×100 | Patterns, ícones de seção, tinta-via-CSS |
+| **Silhueta cívica** | Sinalização pública | Paleta cobogó fixa quando icônica (orelhão amarelo, bonde amarelo+vermelho); senão `currentColor` | preenchido + detalhes finos | 100×100 | Ícones grandes 48-200px, ornamentos figurativos |
+| **Folk linha xilográfica** | Cordel/Carranca/Berimbau | preto sólido (ou `currentColor`) | traços grossos irregulares (~3-5px), zero fill | 100×100 | Ornamentos especiais, contextos folk pontuais |
+
+## Estrutura técnica — `src/icons/` + `BrIcon.svelte`
+
+```
+src/icons/
+  geometric/
+    cobogo-circular.svg
+    cobogo-hexagonal.svg
+    cobogo-losango.svg
+    cobogo-cruz.svg
+    calcada-onda.svg
+    calcada-ipanema.svg
+    pedra-portuguesa.svg
+    azulejo-modernista.svg
+    bulcao.svg
+    concretismo.svg
+    marajoara.svg
+    cestaria.svg
+    chita.svg
+    rosacea-barroca.svg
+    burle-marx.svg
+  civic/
+    orelhao.svg
+    bonde.svg
+    coreto.svg
+    palafita.svg
+    fachada-art-deco.svg
+    caixa-dagua.svg
+    jangada.svg
+    barco-ribeirinho.svg
+    guardasol.svg
+    bule.svg
+    cadeira-fio.svg
+  folk/
+    carranca.svg
+    berimbau.svg
+    sanfona.svg
+    estandarte-maracatu.svg
+    cordel-ornament.svg
+```
+
+`src/components/BrIcon.svelte`:
+
+```svelte
+<script lang="ts" module>
+  // Vite glob import — todos os SVGs como raw strings
+  const modules = import.meta.glob('/src/icons/**/*.svg', { eager: true, query: '?raw', import: 'default' });
+  const registry: Record<string, string> = {};
+  for (const [path, content] of Object.entries(modules)) {
+    const match = path.match(/\/icons\/[^/]+\/([^/]+)\.svg$/);
+    if (match) registry[match[1]] = content as string;
+  }
+  export const ICON_NAMES = Object.keys(registry).sort();
+</script>
+
+<script lang="ts">
+  let {
+    name,
+    size = 48,
+    color,
+    title,
+    'aria-hidden': ariaHidden,
+  }: {
+    name: string;
+    size?: number;
+    color?: string;
+    title?: string;
+    'aria-hidden'?: boolean | 'true' | 'false';
+  } = $props();
+
+  const svg = $derived(registry[name]);
+</script>
+
+{#if svg}
+  <span
+    class="br-icon"
+    style:width="{size}px"
+    style:height="{size}px"
+    style:color={color ?? 'inherit'}
+    role={ariaHidden ? undefined : 'img'}
+    aria-hidden={ariaHidden}
+    aria-label={title}
+  >
+    {@html svg}
+  </span>
+{:else}
+  <span class="br-icon br-icon--missing" style:width="{size}px" style:height="{size}px">?</span>
+{/if}
+
+<style>
+  .br-icon { display: inline-flex; align-items: center; justify-content: center; }
+  .br-icon :global(svg) { width: 100%; height: 100%; }
+  .br-icon--missing {
+    border: 1px dashed var(--vermelho);
+    color: var(--vermelho);
+    font-family: var(--font-display);
+  }
+</style>
+```
+
+Uso:
+
+```astro
+<BrIcon name="cobogo-circular" size={64} color="var(--azul)" />
+<BrIcon name="orelhao" size={120} title="Orelhão" />
+<BrIcon name="berimbau" size={48} aria-hidden />
+```
+
+### Pattern auto-gerado (futuro, fora desta wave)
+
+Cada SVG geométrico também serve como `background-image` via build step que gera `dist/patterns/{name}.svg` na public dir + classes `.pattern-{name}` em `global.css`. Isso unifica icon library + pattern library — mas só implementa quando os SVGs estiverem prontos.
+
+## Mapa de waves (revisado pós-50-references)
+
+### Wave A0 — Icon library scaffold + 15 ícones de validação
+1 sessão. Cria `src/icons/{geometric,civic,folk}/` + `BrIcon.svelte` + 15 SVGs (5 de cada estilo) pra validar consistência:
+- **Geometric**: calcada-onda, pedra-portuguesa, azulejo-modernista, marajoara, concretismo
+- **Civic**: orelhao, bonde, coreto, palafita, caixa-dagua
+- **Folk**: carranca, berimbau, sanfona, cordel-ornament, estandarte-maracatu
+
+Owner revisa o PR, ajusta padrão visual se necessário antes de escalar.
+
+### Wave A1 — Geometric tier (10 SVGs restantes paralelos)
+Move os 4 cobogó-* já existentes em `public/patterns/` pra `src/icons/geometric/` + adiciona: bulcao, cestaria, chita, rosacea-barroca, burle-marx, calcada-ipanema.
+
+### Wave A2 — Civic tier (6 SVGs restantes)
+fachada-art-deco, jangada, barco-ribeirinho, guardasol, bule, cadeira-fio.
+
+### Wave A3 — Folk extras (opcional, ~3 SVGs)
+Refinos no folk + qualquer extra (ex: pipa, bandeirinhas em variante linha).
+
+### Wave B — Brazilian display fonts + tonal themes (independente)
+Como antes: `--font-letreiro`, `--font-jornal`, `--font-cordel`, `theme-lambe`, `theme-carimbo`, etc.
+
+### Wave C — Decorative wrapper components
+Compostos a partir dos ícones: `Stamp.svelte`, `Lambe.svelte`, `Sign.svelte`, `Pennant.svelte`, `Bandeirinhas.svelte`, `Foliage.svelte`, `RiverMap.svelte`.
 
 ### Wave D — Page integration / showcase
-- Hero com `pattern-calcada-onda` em background (opacity baixa)
-- Manifesto: seção "Referências visuais" com mini-galeria do moodboard mapeada
-- Footer com `Foliage` ornament
-- Showcase no `/inspirations` ou `/foundations/references`
+- Hero usa `BrIcon` ou pattern de fundo
+- `/foundations/icons` na docs com showcase de todos
+- Manifesto seção "Referências visuais"
 
-## Princípios de uso
+## Princípios atualizados
 
-1. **Densidade modernista, não densidade nostálgica.** Padrões devem
-   organizar layout, não decorar por decoração.
-2. **Saturação com função.** Cores fortes (vermelho, ocre, amarelo
-   carnaval) são pra alerta/destaque, não tom geral.
-3. **Brasil sem caricatura.** Marajoara, cordel, azulejo: usar com
-   peso histórico, não como "tema brasileiro" turístico.
-4. **Geometria como linguagem comum.** Cobogó, bulcão, concretismo,
-   azulejo — tudo é grid + módulo. Componentes herdam isso.
-5. **Cívico antes de decorativo.** Carimbo, lambe, letreiro, orelhão
-   são todos signos de espaço público brasileiro. Reforçar a tese
-   "design system pra software cívico".
+1. **3 estilos coexistem mas não se misturam num mesmo bloco.** Não combinar geometric + folk no mesmo cartão.
+2. **Folk com peso histórico, não decoração.** Carranca, marajoara, cordel sempre com legenda/contexto, nunca solto.
+3. **Cor cívica é semântica.** Orelhão amarelo, bonde amarelo+vermelho, faixa-caminhão vermelho — essas cores são parte da identidade do objeto, não escolha estilística.
+4. **Geometric = combinável infinitamente.** Esses são pra usar livre como background, ícone, pattern.
+5. **Tabuleiro de acarajé não vira ícone.** Comida regional figurativa específica não cabe — só a referência cromática (azuis baianos).
 
 ## Não-fazer
 
