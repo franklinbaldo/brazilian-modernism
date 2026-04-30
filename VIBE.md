@@ -123,18 +123,61 @@ e mapeamento para componentes/tokens existentes ou planejados.
 | 49 | **Cestaria indígena** | Cesta trançada padrão geométrico marrom | ❌ falta | `pattern-cestaria` (geométrico, paralelo a marajoara) |
 | 50 | **Tabuleiro de acarajé** | Tigelas coloridas, comida de baiana | ⏭️ skip | (figurativo demais; não vira ícone — referência cromática só) |
 
-## Estilo dos ícones — 3 categorias com regras claras
+### Bloco 11 — Cotidiano brasileiro ("grita Brasil" imediato)
+
+| # | Referência | Visual | Status | Mapeamento |
+|---|---|---|---|---|
+| 51 | **Chuveiro elétrico** | Cabeça branca + corpo aquecedor + botão temp | ❌ falta | `cotidiano/chuveiro-eletrico.svg` |
+| 52 | **Filtro de barro** | Cilindro terracota + tampa cônica + torneira | ❌ falta | `cotidiano/filtro-barro.svg` |
+| 53 | **Placa de BR** | Placa amarela rodoviária retangular | ❌ falta | `cotidiano/placa-br.svg` |
+| 54 | **Copo americano** | Trapézio + estrias horizontais | ❌ falta | `cotidiano/copo-americano.svg` |
+| 55 | **Botijão de gás** | P13 vermelho + alça + amarelo | ❌ falta | `cotidiano/botijao-gas.svg` |
+| 56 | **Pote de sorvete reutilizado** | Pote redondo + tampa | ❌ falta | `cotidiano/pote-sorvete.svg` |
+| 57 | **Faixa de caminhão** | Faixa traseira pintada | ❌ falta | `cotidiano/faixa-caminhao.svg` |
+| 58 | **Carimbo de protocolo** | Selo redondo "RECEBIDO" | ❌ falta | `cotidiano/carimbo-protocolo.svg` |
+| 59 | **Pasta AZ** | Lombada + alavanca metal | ❌ falta | `cotidiano/pasta-az.svg` |
+| 60 | **Kombi** | Silhueta lateral creme | ❌ falta | `cotidiano/kombi.svg` |
+| 61 | **Letreiro pintado à mão** | Moldura ornamentada + handpaint | ❌ falta | `cotidiano/letreiro-pintado.svg` |
+| 62 | **Estufa de salgado** | Vidro + base metal | ❌ falta | `cotidiano/estufa-salgado.svg` |
+| 63 | **Mesa de plástico de bar** | Quadrada + 4 pernas | ❌ falta | `cotidiano/mesa-plastico.svg` |
+| 64 | **Cadeira de plástico de bar** | Encosto vazado | ❌ falta | `cotidiano/cadeira-plastico.svg` |
+| 65 | **Guardanapeira de boteco** | Cilindro inox + guardanapos | ❌ falta | `cotidiano/guardanapeira.svg` |
+| 66 | **Cadeira longarina** | Fileira repartição | ❌ falta | `cotidiano/cadeira-longarina.svg` |
+| 67 | **Canga de praia** | Tecido + franjas | ❌ falta | `cotidiano/canga.svg` |
+| 68 | **Sacola de feira listrada** | Listras verticais coloridas | ❌ falta | `cotidiano/sacola-feira.svg` |
+
+## Estilo dos ícones — 4 categorias com regras claras
 
 | Categoria | Vibe | Cor | Stroke | viewBox | Casos |
 |---|---|---|---|---|---|
 | **Geométrico funcional** | Modernista limpo | `currentColor` (herda) | 8px stroke, fill=none | 100×100 | Patterns, ícones de seção, tinta-via-CSS |
 | **Silhueta cívica** | Sinalização pública | Paleta cobogó fixa quando icônica (orelhão amarelo, bonde amarelo+vermelho); senão `currentColor` | preenchido + detalhes finos | 100×100 | Ícones grandes 48-200px, ornamentos figurativos |
 | **Folk linha xilográfica** | Cordel/Carranca/Berimbau | preto sólido (ou `currentColor`) | traços grossos irregulares (~3-5px), zero fill | 100×100 | Ornamentos especiais, contextos folk pontuais |
+| **Cotidiano brasileiro** | "Grita Brasil" imediato — doméstico/comercial/burocrático | Paleta cobogó fixa quando icônica (botijão vermelho, kombi creme); `currentColor` quando neutro | Silhueta sinalética + detalhes mínimos | 100×100 | Ícones de seção de aplicação, recipes cívicas, ornamentos cotidianos |
 
 ## Estrutura técnica — `src/icons/` + `BrIcon.svelte`
 
 ```
 src/icons/
+  cotidiano/
+    botijao-gas.svg
+    cadeira-longarina.svg
+    cadeira-plastico.svg
+    canga.svg
+    carimbo-protocolo.svg
+    chuveiro-eletrico.svg
+    copo-americano.svg
+    estufa-salgado.svg
+    faixa-caminhao.svg
+    filtro-barro.svg
+    guardanapeira.svg
+    kombi.svg
+    letreiro-pintado.svg
+    mesa-plastico.svg
+    pasta-az.svg
+    placa-br.svg
+    pote-sorvete.svg
+    sacola-feira.svg
   geometric/
     cobogo-circular.svg
     cobogo-hexagonal.svg
@@ -279,6 +322,7 @@ Compostos a partir dos ícones: `Stamp.svelte`, `Lambe.svelte`, `Sign.svelte`, `
 3. **Cor cívica é semântica.** Orelhão amarelo, bonde amarelo+vermelho, faixa-caminhão vermelho — essas cores são parte da identidade do objeto, não escolha estilística.
 4. **Geometric = combinável infinitamente.** Esses são pra usar livre como background, ícone, pattern.
 5. **Tabuleiro de acarajé não vira ícone.** Comida regional figurativa específica não cabe — só a referência cromática (azuis baianos).
+6. **Cotidiano não é folk.** Pasta AZ, copo americano, kombi não são "tema brasileiro" — são objetos materiais que sinalizam o país sem caricaturização. Tratar com sobriedade silhuetária, não com nostalgia decorativa.
 
 ## Não-fazer
 
