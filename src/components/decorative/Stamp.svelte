@@ -13,6 +13,9 @@
     rotation = -8
   }: Props = $props();
 
+  // Per-instance ID so multiple <Stamp/> on the same page don't share
+  // a DOM id and confuse <textPath href> resolution.
+  const curveId = `stamp-curve-${Math.random().toString(36).slice(2, 10)}`;
 </script>
 
 <div class="stamp-container" style="--stamp-color: {color}; transform: rotate({rotation}deg);">
@@ -22,9 +25,9 @@
     </div>
 
     <svg class="stamp-text-svg" viewBox="0 0 100 100">
-      <path id="stamp-curve" d="M 20,50 A 30,30 0 0,1 80,50" fill="none" stroke="none" />
+      <path id={curveId} d="M 20,50 A 30,30 0 0,1 80,50" fill="none" stroke="none" />
       <text class="stamp-text" fill="var(--stamp-color)">
-        <textPath href="#stamp-curve" startOffset="50%" text-anchor="middle">
+        <textPath href={`#${curveId}`} startOffset="50%" text-anchor="middle">
           {text}
         </textPath>
       </text>
