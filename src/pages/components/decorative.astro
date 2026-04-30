@@ -1,0 +1,227 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Stamp from '../../components/decorative/Stamp.svelte';
+import Lambe from '../../components/decorative/Lambe.svelte';
+import Sign from '../../components/decorative/Sign.svelte';
+import Pennant from '../../components/decorative/Pennant.svelte';
+import Bandeirinhas from '../../components/decorative/Bandeirinhas.svelte';
+import Foliage from '../../components/decorative/Foliage.svelte';
+import RiverMap from '../../components/decorative/RiverMap.svelte';
+---
+
+<BaseLayout title="Componentes decorativos | COBOGÓ">
+  <div class="app-wrapper">
+    <aside class="tile-sidebar">
+      <div class="sidebar-tiles pattern-cobogo-losango"></div>
+    </aside>
+
+    <main class="main-content">
+      <nav class="container site-nav">
+        <div class="nav-brand font-logo">COBOGÓ</div>
+        <div class="nav-links">
+          <a href="/cobogo/">Home</a>
+          <a href="/cobogo/manifesto/">Manifesto</a>
+          <a href="/cobogo/componentes/">Components</a>
+          <a href="/cobogo/patterns/">Patterns</a>
+        </div>
+      </nav>
+
+      <header class="container page-header">
+        <h1 class="display-serif">Componentes Decorativos</h1>
+        <p class="lede">Elementos de interface que carregam sabor local e identidade brasileira de maneira não-funcional, apenas como tempero visual (Wave C).</p>
+      </header>
+
+      <section class="container showcase-grid">
+
+        <!-- Stamp -->
+        <article class="showcase-card">
+          <div class="showcase-preview">
+            <Stamp text="APROVADO" date="24/09/2024" color="var(--azul)" rotation={12} />
+            <Stamp />
+          </div>
+          <div class="showcase-info">
+            <h2>Stamp</h2>
+            <pre><code>import Stamp from 'cobogo/components/decorative/Stamp.svelte';
+
+&lt;Stamp text="APROVADO" color="var(--azul)" rotation=&#123;12&#125; /&gt;
+&lt;Stamp /&gt; &lt;!-- Default (RECEBIDO, vermelho) --&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- Lambe -->
+        <article class="showcase-card">
+          <div class="showcase-preview" style="background: var(--bg-sunken); padding: 2rem;">
+            <Lambe kicker="Atenção" title="Trago o amor em 3 dias" color="amarelo" />
+            <Lambe title="Festa na Rua" subtitle="A partir das 18h" color="vermelho" />
+          </div>
+          <div class="showcase-info">
+            <h2>Lambe</h2>
+            <pre><code>import Lambe from 'cobogo/components/decorative/Lambe.svelte';
+
+&lt;Lambe kicker="Atenção" title="Trago o amor..." color="amarelo" /&gt;
+&lt;Lambe title="Festa na Rua" subtitle="..." color="vermelho" /&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- Sign -->
+        <article class="showcase-card">
+          <div class="showcase-preview">
+            <Sign text="Borracharia" accent="azul" />
+            <Sign text="Bar do Luiz" accent="vermelho" />
+          </div>
+          <div class="showcase-info">
+            <h2>Sign (Letreiro)</h2>
+            <pre><code>import Sign from 'cobogo/components/decorative/Sign.svelte';
+
+&lt;Sign text="Borracharia" accent="azul" /&gt;
+&lt;Sign text="Bar do Luiz" accent="vermelho" /&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- Pennant -->
+        <article class="showcase-card">
+          <div class="showcase-preview" style="gap: 4rem;">
+            <Pennant text="Folia" color="azul" />
+            <Pennant text="Festa" color="ocre" />
+            <Pennant text="Luta" color="vermelho" />
+          </div>
+          <div class="showcase-info">
+            <h2>Pennant (Flâmula)</h2>
+            <pre><code>import Pennant from 'cobogo/components/decorative/Pennant.svelte';
+
+&lt;Pennant text="Folia" color="azul" /&gt;
+&lt;Pennant text="Festa" color="ocre" /&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- Bandeirinhas -->
+        <article class="showcase-card" style="grid-column: 1 / -1;">
+          <div class="showcase-preview" style="padding-top: 4rem;">
+            <div style="width: 100%;">
+              <Bandeirinhas count={12} />
+            </div>
+          </div>
+          <div class="showcase-info">
+            <h2>Bandeirinhas</h2>
+            <pre><code>import Bandeirinhas from 'cobogo/components/decorative/Bandeirinhas.svelte';
+
+&lt;Bandeirinhas count=&#123;12&#125; /&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- Foliage -->
+        <article class="showcase-card">
+          <div class="showcase-preview" style="min-height: 300px; position: relative; overflow: hidden; background: var(--bg-sunken);">
+            <Foliage position="top-left" size={150} />
+            <Foliage position="bottom-right" color="var(--azul)" />
+          </div>
+          <div class="showcase-info">
+            <h2>Foliage</h2>
+            <pre><code>import Foliage from 'cobogo/components/decorative/Foliage.svelte';
+
+&lt;Foliage position="top-left" size=&#123;150&#125; /&gt;
+&lt;Foliage position="bottom-right" color="var(--azul)" /&gt;</code></pre>
+          </div>
+        </article>
+
+        <!-- RiverMap -->
+        <article class="showcase-card">
+          <div class="showcase-preview" style="min-height: 300px; position: relative; overflow: hidden; background: var(--bg-raised);">
+            <RiverMap color="var(--vermelho)" opacity={0.3} />
+            <div style="position: relative; z-index: 1; padding: 2rem;">
+              <h3 style="font-family: var(--font-display); font-size: 2rem;">Hero Content Here</h3>
+            </div>
+          </div>
+          <div class="showcase-info">
+            <h2>RiverMap</h2>
+            <pre><code>import RiverMap from 'cobogo/components/decorative/RiverMap.svelte';
+
+&lt;div style="position: relative;"&gt;
+  &lt;RiverMap color="var(--vermelho)" opacity=&#123;0.3&#125; /&gt;
+  &lt;!-- Content over background --&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+        </article>
+
+      </section>
+
+      <footer class="container site-footer" style="padding: 4rem 0; border-top: 1px solid var(--border); margin-top: 4rem;">
+        <p class="tracked-caps" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg-muted);">
+          COBOGÓ Design System — Componentes Decorativos
+        </p>
+      </footer>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .display-serif {
+    font-family: var(--font-display-alt);
+    font-size: 5rem;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+  }
+
+  .lede {
+    font-size: 1.25rem;
+    color: var(--fg-muted);
+    max-width: 600px;
+  }
+
+  .showcase-grid {
+    padding: 6rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 4rem;
+  }
+
+  .showcase-card {
+    border: 1px solid var(--border);
+    border-radius: var(--r-soft);
+    overflow: hidden;
+  }
+
+  .showcase-preview {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--papel-00);
+  }
+
+  .showcase-info {
+    padding: 2rem;
+    background: var(--bg-sunken);
+  }
+
+  .showcase-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .showcase-info pre {
+    background: var(--concreto-90);
+    color: var(--papel-10);
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    overflow-x: auto;
+  }
+
+  @media (max-width: 768px) {
+    .display-serif {
+      font-size: clamp(3rem, 8vw, 5rem);
+    }
+    .showcase-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
