@@ -1,6 +1,10 @@
 <script lang="ts" module>
-  // Vite glob import — todos os SVGs como raw strings
-  const modules = import.meta.glob('/src/icons/**/*.svg', { eager: true, query: '?raw', import: 'default' });
+  // Vite glob import — todos os SVGs como raw strings.
+  // Path relativo ao componente (não /src/...) pra que a resolução funcione
+  // tanto neste repo quanto em consumidores que importem cobogo como dep
+  // (Vite resolve /src/... relative ao project root da app consumidora,
+  // resultando em registry vazio downstream).
+  const modules = import.meta.glob('../icons/**/*.svg', { eager: true, query: '?raw', import: 'default' });
   const registry: Record<string, string> = {};
   for (const [path, content] of Object.entries(modules)) {
     const match = path.match(/\/icons\/[^/]+\/([^/]+)\.svg$/);
