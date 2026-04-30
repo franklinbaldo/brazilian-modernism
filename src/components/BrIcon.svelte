@@ -29,6 +29,12 @@
   } = $props();
 
   const svg = $derived(registry[name]);
+
+  // A11y: role="img" requires an accessible name. If no title is provided
+  // and the caller didn't explicitly mark hidden, default to decorative
+  // (aria-hidden) instead of exposing an unlabeled image to screen readers.
+  const explicitHidden = $derived(ariaHidden === true || ariaHidden === 'true');
+  const isDecorative = $derived(explicitHidden || !title);
 </script>
 
 {#if svg}
@@ -37,9 +43,9 @@
     style:width="{size}px"
     style:height="{size}px"
     style:color={color ?? 'inherit'}
-    role={ariaHidden ? undefined : 'img'}
-    aria-hidden={ariaHidden}
-    aria-label={title}
+    role={isDecorative ? undefined : 'img'}
+    aria-hidden={isDecorative ? 'true' : undefined}
+    aria-label={isDecorative ? undefined : title}
   >
     {@html svg}
   </span>
