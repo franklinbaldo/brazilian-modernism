@@ -11,7 +11,7 @@
 	 * @prop {boolean} [required=false] - Whether the field is required (adds an asterisk).
 	 * @prop {string} [helper] - Optional helper text displayed below the field.
 	 * @prop {string} [error] - Optional error text displayed below the field. Overrides helper text if present.
-	 * @prop {Snippet} children - The form control component (e.g. TextInput, Select).
+	 * @prop {Snippet<[{ id: string; 'aria-describedby'?: string }]>} children - The form control component snippet.
 	 */
 	let {
 		label,
@@ -26,8 +26,14 @@
 		required?: boolean;
 		helper?: string;
 		error?: string;
-		children: Snippet;
+		children: Snippet<[{ id: string; 'aria-describedby'?: string }]>;
 	} = $props();
+
+	let describedBy = $derived.by(() => {
+		if (error) return `${htmlFor}-error`;
+		if (helper) return `${htmlFor}-helper`;
+		return undefined;
+	});
 </script>
 
 <div class="form-field">
@@ -39,7 +45,7 @@
 	</label>
 
 	<div class="control">
-		{@render children()}
+		{@render children({ id: htmlFor, 'aria-describedby': describedBy })}
 	</div>
 
 	{#if error}
