@@ -1,5 +1,16 @@
-<script>
-  let { children, type = "button", onclick = undefined, class: className = "", variant = "primary", ...rest } = $props();
+<script lang="ts">
+  import type { Snippet } from 'svelte';
+
+  type Props = {
+    children?: Snippet;
+    type?: 'button' | 'submit' | 'reset';
+    onclick?: (event: MouseEvent) => void;
+    class?: string;
+    variant?: 'primary' | 'outline' | 'small' | string;
+    [key: string]: any;
+  };
+
+  let { children, type = "button", onclick = undefined, class: className = "", variant = "primary", ...rest }: Props = $props();
 </script>
 
 <button {type} {onclick} class="button {variant} {className}" {...rest}>

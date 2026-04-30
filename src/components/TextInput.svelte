@@ -17,14 +17,16 @@
 		placeholder,
 		disabled = false,
 		invalid = false,
-		size = 'md'
+		size = 'md',
+		...rest
 	}: {
-		value: string;
+		value?: string;
 		type?: 'text' | 'email' | 'url' | 'search' | 'tel' | 'password';
 		placeholder?: string;
 		disabled?: boolean;
 		invalid?: boolean;
 		size?: 'sm' | 'md' | 'lg';
+		[key: string]: any;
 	} = $props();
 </script>
 
@@ -36,6 +38,7 @@
 	aria-invalid={invalid}
 	class="text-input text-input-{size}"
 	class:invalid
+	{...rest}
 />
 
 <style>

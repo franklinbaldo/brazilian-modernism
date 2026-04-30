@@ -15,13 +15,15 @@
 		options,
 		placeholder,
 		disabled = false,
-		size = 'md'
+		size = 'md',
+		...rest
 	}: {
-		value: string;
+		value?: string;
 		options: Array<{ value: string; label: string }>;
 		placeholder?: string;
 		disabled?: boolean;
 		size?: 'sm' | 'md' | 'lg';
+		[key: string]: any;
 	} = $props();
 </script>
 
@@ -30,6 +32,7 @@
 	{disabled}
 	class="select-input select-input-{size}"
 	class:has-placeholder={!value && placeholder}
+	{...rest}
 >
 	{#if placeholder}
 		<option value="" disabled selected hidden>{placeholder}</option>
