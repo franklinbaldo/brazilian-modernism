@@ -30,6 +30,13 @@
   --verde: #2E6B4A;
   --verde-soft: #DDEBE1;
 
+  /* ——— Brazilian extras (cotidiano + festa) ——— */
+  --amarelo: #F5D547;
+  --amarelo-festa: #F5D547;
+  --amarelo-soft: #FCF1B7;
+  --terracota: #A0522D;
+  --terracota-soft: #E8D5C4;
+
   /* ——— Semantic ——— */
   --bg:           var(--papel-10);
   --bg-raised:    var(--papel-00);
