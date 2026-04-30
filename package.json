@@ -24,16 +24,25 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:ui": "playwright test"
   },
   "module": "./src/index.ts",
   "types": "./src/index.ts",
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/svelte": "^7.0.0",
+    "@playwright/test": "^1.59.1",
+    "@sveltejs/vite-plugin-svelte": "^7.0.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/svelte": "^5.3.1",
     "astro": "^5.0.0",
+    "jsdom": "^29.1.1",
     "svelte": "^5.0.0",
-    "typescript": "^5.9.3"
+    "svelte-jester": "^5.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.5"
   },
   "peerDependencies": {
     "astro": "^5 || ^6",
