@@ -1,6 +1,6 @@
 # VIBE — Cobogó visual identity reference
 
-Este arquivo é a **fonte única** do que cobogó quer parecer. Toda
+Este arquivo é a **fonte única** do que Cobogó quer parecer. Toda
 adição visual ao design system (patterns, fonts, themes, componentes
 decorativos, recipes) deve dialogar com pelo menos uma das 25
 referências abaixo. Sessões Jules trabalhando em waves de
