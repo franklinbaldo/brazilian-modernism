@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
+
   /**
    * Radio Component
    *
@@ -10,12 +12,14 @@
    * @prop {string} [id] - The ID for the input, used for label/ARIA association.
    * @prop {any} group - The bindable group value for radio binding.
    * @prop {boolean} [disabled=false] - Whether the radio is disabled.
+   * @prop {boolean} [invalid=false] - Whether the radio is invalid.
    */
   type Props = {
     value: string;
     id?: string;
     group: any;
     disabled?: boolean;
+    invalid?: boolean;
     [key: string]: any;
   };
 
@@ -24,15 +28,27 @@
     id,
     group = $bindable(),
     disabled = false,
+    invalid = false,
     ...rest
   }: Props = $props();
 
+  // Consume FormField context if it exists
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  let ctx = $derived(formFieldContext ? formFieldContext() : null);
+
+  let finalId = $derived(id || ctx?.id);
+  let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
+  let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalRequired = $derived(rest.required || ctx?.required || false);
+
 </script>
 
-<div class="radio-container" class:disabled>
+<div class="radio-container" class:disabled class:invalid={finalInvalid}>
   <input
     type="radio"
-    {id}
+    id={finalId}
+    aria-describedby={finalAriaDescribedby}
+    required={finalRequired}
     {disabled}
     {value}
     bind:group
@@ -87,6 +103,14 @@
   input:focus-visible + .radio-visual {
     outline: 2px solid var(--azul);
     outline-offset: 2px;
+  }
+
+  .invalid .radio-visual {
+    border-color: var(--vermelho);
+  }
+
+  .invalid input:focus-visible + .radio-visual {
+    outline-color: var(--vermelho);
   }
 
   .radio-dot {

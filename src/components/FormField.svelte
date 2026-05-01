@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { setContext } from 'svelte';
 	import type { Snippet } from 'svelte';
 
 	/**
@@ -34,6 +35,14 @@
 		if (helper) return `${htmlFor}-helper`;
 		return undefined;
 	});
+
+	// Provide context for child inputs to consume state automatically
+	setContext('cobogo-form-field', () => ({
+		id: htmlFor,
+		'aria-describedby': describedBy,
+		invalid: !!error,
+		required
+	}));
 </script>
 
 <div class="form-field">

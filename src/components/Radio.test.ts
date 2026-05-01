@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, fireEvent, cleanup } from '@testing-library/svelte';
+import { render, fireEvent, cleanup, screen } from '@testing-library/svelte';
 import Radio from './Radio.svelte';
 
 describe('Radio Component (BDD)', () => {
@@ -24,6 +24,13 @@ describe('Radio Component (BDD)', () => {
     const { getByRole } = render(Radio, { value: 'option1', group: null, disabled: true });
     const radio = getByRole('radio') as HTMLInputElement;
     expect(radio.disabled).toBe(true);
+  });
+
+  it('renders invalid state correctly when explicitly passed', () => {
+    render(Radio, { props: { value: '1', group: '2', invalid: true } });
+    const input = screen.getByRole('radio');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
   });
 });
 

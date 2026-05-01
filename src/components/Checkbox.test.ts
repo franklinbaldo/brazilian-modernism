@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, fireEvent, cleanup } from '@testing-library/svelte';
+import { render, fireEvent, cleanup, screen } from '@testing-library/svelte';
 import Checkbox from './Checkbox.svelte';
 
 describe('Checkbox Component (BDD)', () => {
@@ -35,6 +35,14 @@ describe('Checkbox Component (BDD)', () => {
     const checkbox = getByRole('checkbox') as HTMLInputElement;
     expect(checkbox.id).toBe('cb-1');
     expect(checkbox.getAttribute('aria-describedby')).toBe('helper-1');
+  });
+
+  it('renders invalid state correctly when explicitly passed', () => {
+    render(Checkbox, { props: { invalid: true } });
+    const input = screen.getByRole('checkbox');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
   });
 });
 
