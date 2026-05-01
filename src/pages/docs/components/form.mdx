@@ -85,9 +85,15 @@ By providing a `legend` prop, the form renders its content inside a semantic `<f
   </Form>
 </div>
 
-## Form-Level Errors
+## Validation States
 
-For situations where validation spans multiple fields or fails on the server, you can pass an `error` prop. This will display a highly visible, assertive alert summary at the top of the form using the `vermelho` color scheme.
+Form fields and their wrappers provide robust validation states adhering to the *Curva & Concreto* doctrine. Validation dynamically updates border, background, and text colors.
+
+In **Dark Mode**, the base values (`--papel` and `--concreto`) invert, and the validation "soft" backgrounds (`--vermelho-soft`, `--verde-soft`) also invert nicely, while the strong semantic accents (`--vermelho`, `--verde`) remain intentionally vibrant to ensure clarity.
+
+### Form-Level Errors
+
+For situations where validation spans multiple fields or fails on the server, you can pass an `error` prop to `<Form>`. This will display a highly visible, assertive alert summary at the top of the form using the `vermelho` color scheme.
 
 ```svelte
 <Form error="The username and password combination is incorrect.">
@@ -110,6 +116,36 @@ For situations where validation spans multiple fields or fails on the server, yo
       <TextInput type="password" id="demo-pass-3" invalid />
     </FormField>
     <Button type="submit">Try Again</Button>
+  </Form>
+</div>
+
+### Field-Level Validation (Valid & Invalid)
+
+You can pass `error` or `valid` message strings directly to the `<FormField>` wrapper. It will automatically propagate `invalid` and `valid` boolean properties down to any standard form control wrapped inside (like `TextInput`, `Select`, `Checkbox`, etc.).
+
+```svelte
+<Form>
+  <FormField label="Email" htmlFor="user-email" error="This email is already in use.">
+    <TextInput type="email" id="user-email" />
+  </FormField>
+
+  <FormField label="Username" htmlFor="user-name" valid="Username is available!">
+    <TextInput id="user-name" />
+  </FormField>
+</Form>
+```
+
+<div class="not-content" style="padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--r-1); margin: 2rem 0;">
+  <Form client:load>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+      <FormField label="Email" htmlFor="demo-email-err" error="This email is already in use.">
+        <TextInput type="email" id="demo-email-err" value="jane@example.com" />
+      </FormField>
+
+      <FormField label="Username" htmlFor="demo-name-val" valid="Username is available!">
+        <TextInput id="demo-name-val" value="jane_doe" />
+      </FormField>
+    </div>
   </Form>
 </div>
 

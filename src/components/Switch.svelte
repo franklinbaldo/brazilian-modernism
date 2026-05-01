@@ -12,12 +12,14 @@
    * @prop {string} [id] - The ID for the input, used for label/ARIA association.
    * @prop {boolean} [disabled=false] - Whether the switch is disabled.
    * @prop {boolean} [invalid=false] - Whether the switch is invalid.
+   * @prop {boolean} [valid=false] - Whether the switch is valid.
    */
   type Props = {
     checked?: boolean;
     id?: string;
     disabled?: boolean;
     invalid?: boolean;
+    valid?: boolean;
     [key: string]: any;
   };
 
@@ -26,21 +28,23 @@
     id,
     disabled = false,
     invalid = false,
+    valid = false,
     ...rest
   }: Props = $props();
 
   // Consume FormField context if it exists
-  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
   let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
   let finalId = $derived(id || ctx?.id);
   let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
   let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
   let finalRequired = $derived(rest.required || ctx?.required || false);
 
 </script>
 
-<label class="switch-container" class:disabled class:invalid={finalInvalid}>
+<label class="switch-container" class:disabled class:invalid={finalInvalid} class:valid={finalValid}>
   <input
     type="checkbox"
     role="switch"
@@ -110,6 +114,18 @@
 
   .invalid input:focus-visible + .switch-visual {
     outline-color: var(--vermelho);
+  }
+
+  .valid .switch-visual {
+    border-color: var(--verde);
+  }
+
+  .valid input:not(:checked) + .switch-visual {
+    background-color: var(--verde-soft);
+  }
+
+  .valid input:focus-visible + .switch-visual {
+    outline-color: var(--verde);
   }
 
   .switch-thumb {

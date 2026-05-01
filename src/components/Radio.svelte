@@ -13,6 +13,7 @@
    * @prop {any} group - The bindable group value for radio binding.
    * @prop {boolean} [disabled=false] - Whether the radio is disabled.
    * @prop {boolean} [invalid=false] - Whether the radio is invalid.
+   * @prop {boolean} [valid=false] - Whether the radio is valid.
    */
   type Props = {
     value: string;
@@ -20,6 +21,7 @@
     group: any;
     disabled?: boolean;
     invalid?: boolean;
+    valid?: boolean;
     [key: string]: any;
   };
 
@@ -29,21 +31,23 @@
     group = $bindable(),
     disabled = false,
     invalid = false,
+    valid = false,
     ...rest
   }: Props = $props();
 
   // Consume FormField context if it exists
-  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
   let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
   let finalId = $derived(id || ctx?.id);
   let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
   let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
   let finalRequired = $derived(rest.required || ctx?.required || false);
 
 </script>
 
-<div class="radio-container" class:disabled class:invalid={finalInvalid}>
+<div class="radio-container" class:disabled class:invalid={finalInvalid} class:valid={finalValid}>
   <input
     type="radio"
     id={finalId}
@@ -115,6 +119,18 @@
 
   .invalid input:focus-visible + .radio-visual {
     outline-color: var(--vermelho);
+  }
+
+  .valid .radio-visual {
+    border-color: var(--verde);
+  }
+
+  .valid input:not(:checked) + .radio-visual {
+    background-color: var(--verde-soft);
+  }
+
+  .valid input:focus-visible + .radio-visual {
+    outline-color: var(--verde);
   }
 
   .radio-dot {
