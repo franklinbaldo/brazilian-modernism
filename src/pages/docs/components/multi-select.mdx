@@ -1,0 +1,69 @@
+---
+layout: ../../../layouts/MdxLayout.astro
+title: MultiSelect
+description: A complex form organism combining textual input and checkboxes for multiple option selection.
+---
+
+import MultiSelect from '../../../components/MultiSelect.svelte';
+import FormField from '../../../components/FormField.svelte';
+
+# MultiSelect
+
+The `MultiSelect` component is a complex form organism that allows users to select multiple options from a dropdown list. Selected options are displayed as removable badges (chips) within the input area. It supports searching/filtering to easily find options in long lists.
+
+Following the **Curva & Concreto** doctrine, the interactive input area uses gentle curves (`var(--r-1)`), while the dropdown menu exposing the data options uses sharp concrete geometry (`0 radius`) and an honest pool shadow.
+
+## Usage
+
+```svelte
+<script>
+  import MultiSelect from 'cobogo/components/MultiSelect';
+
+  let selected = $state(['br', 'ar']);
+  let options = [
+    { value: 'br', label: 'Brasil' },
+    { value: 'ar', label: 'Argentina' },
+    { value: 'uy', label: 'Uruguai' },
+    { value: 'cl', label: 'Chile' }
+  ];
+</script>
+
+<MultiSelect client:load
+  bind:value={selected}
+  {options}
+  placeholder="Selecione os países..."
+/>
+```
+
+## Props
+
+| Name | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `value` | `string[]` | `[]` | The bindable array of selected values. |
+| `options` | `Array<{value: string, label: string}>` | `[]` | The list of available options to select. |
+| `placeholder` | `string` | `'Selecione...'` | Text shown when no options are selected. |
+| `searchable` | `boolean` | `false` | If true, the input area accepts typing to filter options. |
+| `disabled` | `boolean` | `false` | Whether the MultiSelect is disabled. |
+| `invalid` | `boolean` | `false` | Whether the input is visually marked as invalid. |
+
+## Examples
+
+### Default (Non-searchable)
+
+<MultiSelect client:load options={[{value: 'a', label: 'Opção A'}, {value: 'b', label: 'Opção B'}]} placeholder="Selecione as opções" />
+
+### Searchable
+
+<MultiSelect client:load searchable options={[{value: 'sp', label: 'São Paulo'}, {value: 'rj', label: 'Rio de Janeiro'}, {value: 'mg', label: 'Minas Gerais'}, {value: 'ba', label: 'Bahia'}, {value: 'pe', label: 'Pernambuco'}]} placeholder="Busque por estado..." />
+
+### With FormField Wrapper
+
+Like all form inputs in Cobogó, `MultiSelect` works seamlessly inside a `FormField`, inheriting ID, required state, and error states automatically.
+
+<FormField client:load label="Tags" hint="Selecione as categorias relevantes" required invalid error="Você precisa selecionar pelo menos uma categoria.">
+  <MultiSelect client:load options={[{value: 'design', label: 'Design'}, {value: 'dev', label: 'Development'}]} />
+</FormField>
+
+### Disabled State
+
+<MultiSelect client:load disabled options={[{value: '1', label: 'Um'}]} value={['1']} />
