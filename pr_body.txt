@@ -1,20 +1,8 @@
-What
-Implemented the `Tooltip` molecule component to provide context-sensitive, non-essential supplementary information.
-
-Why
-Overlay components like tooltips are fundamental for keyboard and visual accessibility, allowing us to describe UI elements without cluttering the screen or hijacking focus. This directly addresses the "a11y" and "micro-interactions" themes in `DESIGN.md`.
-
-Decisions
-- **Svelte 5 Runes**: Built using `$props` and `$state` to natively react to interactions.
-- **WAI-ARIA**: Manages `aria-describedby` automatically by generating a stable `tooltipId` and injecting it onto the trigger wrapper when open. The tooltip node uses `role="tooltip"`. We use Svelte 5 Snippets `{#snippet children(props)}` to allow spreading the aria-describedby attribute directly onto the semantic focusable target (button, link, etc.) to ensure screen readers read it correctly on focus.
-- **Curva & Concreto**: Since a tooltip presents static context data, it relies exclusively on the "Concreto" doctrine. The popup has a `border-radius` of `0px` with `--concreto-90` background.
-
-Trade-offs
-- Used absolute positioning relative to a wrapper div (`display: inline-flex`). While a library like Floating UI could handle edge collisions dynamically, keeping it zero-dependency and relying on CSS mapping to `.cobogo-tooltip-popup--{position}` is much lighter and aligns with the strict `<5KB` rule. Developers can choose `top`, `bottom`, `left`, or `right`.
-
-Coexistence notes
-- (none or gh unavailable)
-
-Test evidence
-- Vitest BDD tests pass (57 tests).
-- E2E accessibility behavior verified in JSDOM testing focus/blur/mouseenter/mouseleave sequences.
+What: Implement native `DatePicker` and `TimePicker` form controls.
+Why: The system needed semantic date and time inputs that adhere to the Curva & Concreto visual language and integrate correctly with the `FormField` composition pattern for accessibility.
+Roadmap Items Advanced: `task-5e6f-date-time-pickers` (parent: `tactical-3c4d-native-inputs`).
+Decisions: Kept strictly to native HTML5 inputs (`<input type="date">` / `<input type="time">`) to avoid heavy third-party dependencies, guaranteeing excellent accessibility out of the box while skinning them to our strict token definitions. Svelte context injection is used to inherit properties from `FormField`.
+Trade-offs: Native pickers look different across browsers, but this tradeoff is acceptable compared to the bundle bloat of building custom, accessible calendar widgets from scratch.
+Test evidence: Added full Vitest coverage for `DatePicker` and `TimePicker`, confirming correct rendering, size class application, and `FormField` context inheritance.
+Link to session log: `.jules/agent/brad_frost/2026-05-04T13-30-00Z_datepicker-timepicker.md`
+Next session hint: Tackle `FileInput` to complete native input mappings.
