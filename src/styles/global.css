@@ -48,6 +48,8 @@
   --border-strong: var(--concreto-80);
   --accent:       var(--azul);
   
+  --shadow-color: var(--concreto-90);
+
   /* ——— Type ——— */
   --font-display: "Archivo", "Archivo Black", sans-serif;
   --font-display-alt: "Fraunces", Georgia, serif;

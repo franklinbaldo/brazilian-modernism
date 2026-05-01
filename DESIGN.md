@@ -93,7 +93,7 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 - Admonition mapping strictly by color: info (azul), tip (verde), warning (ocre), danger (vermelho), note (concreto-60).
 
 ## 6. Dark Mode
-[Not yet defined. Should map `--concreto` inverted when implemented, maintaining contrast and preserving specific saturated primary semantics.]
+Dark Mode is defined in `.dark-mode` globally. It strictly inverts the `--papel` and `--concreto` variables to maintain geometric contrast while deeply adjusting the `--soft` variables of primary colors to their dark equivalents. The saturated primary colors (`--azul`, `--vermelho`, `--ocre`, `--verde`) remain intentionally vibrant as they are the core identity markers.
 
 ## Form Organisms
 - **MultiSelect**: Adapts the Combobox pattern for multiple selections. Displays selected items as `Badge` atoms inside the input. Maintains accessibility via `role="combobox"` and `role="listbox"`, utilizing the `Checkbox` atom internally for selection state. Strictly adheres to `--vermelho-soft` and `--vermelho` for invalid states.
