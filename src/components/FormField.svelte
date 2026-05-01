@@ -46,7 +46,7 @@
 </script>
 
 <div class="form-field">
-	<label for={htmlFor} class="label">
+	<label for={htmlFor} class="label" class:invalid={!!error}>
 		{label}
 		{#if required}
 			<span class="required" aria-hidden="true">*</span>
@@ -83,6 +83,10 @@
 		font-size: var(--t-small);
 		font-weight: 700;
 		color: var(--fg-heading);
+	}
+
+	.label.invalid {
+		color: var(--vermelho);
 	}
 
 	.required {
