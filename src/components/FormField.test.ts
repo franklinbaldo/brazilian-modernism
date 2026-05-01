@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/svelte';
 import FormFieldWrapper from './FormFieldWrapper.test.svelte';
+import FormFieldToggleWrapper from './FormFieldToggleWrapper.test.svelte';
 
 describe('FormField Component', () => {
   it('renders label and passes id and required context to child input', () => {
@@ -56,5 +57,19 @@ describe('FormField Component', () => {
     expect(input).toHaveAttribute('aria-describedby', 'test-input-error');
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(input).toHaveClass('invalid');
+  });
+
+  it('passes error context properly to a Switch component', () => {
+    render(FormFieldToggleWrapper, { props: { error: 'Switch error' } });
+
+    const error = screen.getByText('Switch error');
+    expect(error).toBeInTheDocument();
+
+    const switchInput = screen.getByTestId('mock-switch');
+    expect(switchInput).toHaveAttribute('aria-describedby', 'test-switch-error');
+    expect(switchInput).toHaveAttribute('aria-invalid', 'true');
+    // Ensure the switch container gets the invalid class as well
+    const switchContainer = switchInput.closest('label');
+    expect(switchContainer).toHaveClass('invalid');
   });
 });

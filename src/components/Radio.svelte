@@ -109,6 +109,10 @@
     border-color: var(--vermelho);
   }
 
+  .invalid input:not(:checked) + .radio-visual {
+    background-color: var(--vermelho-soft);
+  }
+
   .invalid input:focus-visible + .radio-visual {
     outline-color: var(--vermelho);
   }

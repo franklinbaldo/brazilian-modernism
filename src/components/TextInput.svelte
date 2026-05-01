@@ -76,6 +76,7 @@
 
 	.text-input.invalid {
 		border-color: var(--vermelho);
+		background-color: var(--vermelho-soft);
 	}
 
 	.text-input.invalid:focus-visible {

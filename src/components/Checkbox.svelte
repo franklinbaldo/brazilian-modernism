@@ -135,6 +135,10 @@
     border-color: var(--vermelho);
   }
 
+  .invalid input:not(:checked) + .checkbox-visual {
+    background-color: var(--vermelho-soft);
+  }
+
   .invalid input:focus-visible + .checkbox-visual {
     outline-color: var(--vermelho);
   }
