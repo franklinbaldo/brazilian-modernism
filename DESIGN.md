@@ -74,6 +74,7 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 - Global responsive media queries are consolidated at the end of `src/styles/global.css`.
 
 ## 4. Components & Patterns (Atoms -> Molecules -> Organisms)
+- **Complex Organisms:** Combobox and MultiSelect expose native mechanics and array states cleanly. Svelte state variables within them must be defined responsively ($state).
 - **Curva & Concreto:** Curves (border-radius) for interactive elements, sharp geometry (concrete) for static data. Nested curves are forbidden.
 - Svelte 5 Runes ($props, $state, $derived) are strictly required for all components.
 - Props defined using TypeScript `type` aliases.
