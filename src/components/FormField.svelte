@@ -58,9 +58,15 @@
 	</div>
 
 	{#if error}
-		<p class="error" id="{htmlFor}-error" aria-live="polite">{error}</p>
+		<p class="error" id="{htmlFor}-error" aria-live="polite">
+			<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feedback-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+			<span>{error}</span>
+		</p>
 	{:else if helper}
-		<p class="helper" id="{htmlFor}-helper">{helper}</p>
+		<p class="helper" id="{htmlFor}-helper">
+			<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feedback-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+			<span>{helper}</span>
+		</p>
 	{/if}
 </div>
 
@@ -88,16 +94,25 @@
 		width: 100%;
 	}
 
-	.helper {
+		.helper, .error {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.375rem;
 		margin: 0;
 		font-size: var(--t-micro);
+	}
+
+	.helper {
 		color: var(--fg-muted);
 	}
 
 	.error {
-		margin: 0;
-		font-size: var(--t-micro);
 		color: var(--vermelho);
 		font-weight: 700;
+	}
+
+	.feedback-icon {
+		flex-shrink: 0;
+		margin-top: 0.125rem;
 	}
 </style>

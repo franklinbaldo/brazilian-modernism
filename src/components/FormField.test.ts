@@ -26,7 +26,10 @@ describe('FormField Component', () => {
 
     const helper = screen.getByText('Helper text');
     expect(helper).toBeInTheDocument();
-    expect(helper).toHaveAttribute('id', 'test-input-helper');
+
+    const helperContainer = helper.closest('p');
+    expect(helperContainer).toHaveAttribute('id', 'test-input-helper');
+    expect(helperContainer?.querySelector('svg.feedback-icon')).toBeInTheDocument();
 
     const input = screen.getByTestId('mock-input');
     expect(input).toHaveAttribute('aria-describedby', 'test-input-helper');
@@ -38,7 +41,10 @@ describe('FormField Component', () => {
 
     const error = screen.getByText('Error text');
     expect(error).toBeInTheDocument();
-    expect(error).toHaveAttribute('id', 'test-input-error');
+
+    const errorContainer = error.closest('p');
+    expect(errorContainer).toHaveAttribute('id', 'test-input-error');
+    expect(errorContainer?.querySelector('svg.feedback-icon')).toBeInTheDocument();
 
     const helper = screen.queryByText('Helper text');
     expect(helper).not.toBeInTheDocument();
