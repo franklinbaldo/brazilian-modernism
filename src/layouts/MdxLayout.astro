@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import DocsSidebar from '../components/docs/DocsSidebar.svelte';
+import DocsMobileNav from '../components/docs/DocsMobileNav.svelte';
 import PrevNextNav from '../components/docs/PrevNextNav.svelte';
 import DocsTOC from '../components/docs/DocsTOC.svelte';
 import DocsSearch from '../components/docs/DocsSearch.svelte';
@@ -35,16 +36,41 @@ const prev = currentIndex > 0 ? entries[currentIndex - 1] : undefined;
 const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : undefined;
 ---
 
+<script>
+  const trigger = document.getElementById('mobile-nav-trigger');
+  if (trigger) {
+    trigger.addEventListener('click', () => {
+      // Dispatch a custom event so the Svelte component can listen to it
+      window.dispatchEvent(new CustomEvent('toggleMobileNav'));
+    });
+  }
+</script>
+
 <BaseLayout title={`${frontmatter.title} | COBOGÓ Docs`}>
   <header class="docs-header">
     <div class="docs-header-inner">
       <div class="brand">COBOGÓ</div>
       <div class="docs-header-actions">
+        <button
+          class="hamburger"
+          id="mobile-nav-trigger"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
         <DocsSearch client:load />
         <DocsThemeToggle client:load />
       </div>
     </div>
   </header>
+  <DocsMobileNav client:load entries={entries} currentSlug={Astro.url.pathname} open={false} />
+
   <div class="docs-grid">
     <DocsSidebar client:load entries={entries} currentSlug={Astro.url.pathname} />
     <article class="prose-cobogo docs-article">
@@ -84,6 +110,14 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     align-items: center;
     gap: 1rem;
   }
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--fg);
+    padding: 0.5rem;
+  }
   .docs-grid {
     display: grid;
     grid-template-columns: 220px 1fr 200px;
@@ -104,6 +138,9 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     .docs-grid {
       grid-template-columns: 1fr;
       padding: 2rem 1rem;
+    }
+    .hamburger {
+      display: flex;
     }
   }
 </style>

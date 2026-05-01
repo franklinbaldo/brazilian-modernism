@@ -107,6 +107,34 @@
   --font-display-legacy: var(--font-display);
 }
 
+.dark-mode {
+  --papel-00: #1A1814;
+  --papel-10: #232017;
+  --papel-20: #2E2A24;
+  --papel-30: #3A3530;
+  --concreto-40: #6B6455;
+  --concreto-60: #B8B0A0;
+  --concreto-80: #DCD4BE;
+  --concreto-90: #F5F1E8;
+
+  --azul-soft: #1B2B4B;
+  --vermelho-soft: #4A1A0F;
+  --ocre-soft: #3A2810;
+  --verde-soft: #1A2E1F;
+
+  --bg:           var(--papel-10);
+  --bg-raised:    var(--papel-00);
+  --bg-sunken:    var(--papel-20);
+  --fg:           var(--concreto-80);
+  --fg-muted:     var(--concreto-60);
+  --fg-heading:   var(--concreto-90);
+  --border:       var(--papel-30);
+  --border-strong: var(--concreto-80);
+
+  /* Brazilian primaries stay vibrant — they ARE the identity */
+  /* --azul, --vermelho, --ocre, --verde are unchanged */
+}
+
 /* ============================================================
    Polimento & Textura (Gallery Grade)
    ============================================================ */
@@ -119,6 +147,11 @@ body::before {
   opacity: 0.04;
   pointer-events: none;
   z-index: 9999;
+}
+
+.dark-mode body::before {
+  opacity: 0.08;
+  filter: invert(1);
 }
 
 /* Custom Scrollbar */
@@ -305,6 +338,18 @@ a { color: inherit; text-decoration: none; }
 .prose-cobogo p {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.dark-mode .prose-cobogo blockquote {
+  background: var(--papel-20);
+  border-left-color: var(--azul-bright);
+}
+.dark-mode .prose-cobogo pre {
+  background: var(--papel-00);
+  border-color: var(--papel-30);
+}
+.dark-mode .prose-cobogo code {
+  background: var(--papel-20);
 }
 
 .prose-cobogo a {
