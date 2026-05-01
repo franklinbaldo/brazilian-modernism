@@ -15,6 +15,7 @@
    */
   type Props = {
     title: string;
+    name?: string;
     open?: boolean;
     disabled?: boolean;
     children: Snippet;
@@ -22,10 +23,17 @@
 
   let {
     title,
+    name,
     open = $bindable(false),
     disabled = false,
     children
   }: Props = $props();
+
+  import { getContext } from 'svelte';
+
+  // If wrapped in an Accordion, it might provide a group name via context
+  const getAccordionName = getContext<(() => string) | undefined>('accordion-name');
+  let detailsName = $derived(name || (getAccordionName ? getAccordionName() : undefined));
 
   // Prevent default toggle if disabled, otherwise sync open state
   function handleToggle(event: Event) {
@@ -53,6 +61,7 @@
 
 <details
   class="disclosure"
+  name={detailsName}
   {open}
   aria-disabled={disabled}
   ontoggle={handleToggle}
