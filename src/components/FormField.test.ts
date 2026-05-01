@@ -39,6 +39,9 @@ describe('FormField Component', () => {
   it('passes error aria-describedby and invalid context to child input and overrides helper', () => {
     render(FormFieldWrapper, { props: { helper: 'Helper text', error: 'Error text' } });
 
+    const label = screen.getByText('Test Label');
+    expect(label).toHaveClass('invalid');
+
     const error = screen.getByText('Error text');
     expect(error).toBeInTheDocument();
 
