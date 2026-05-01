@@ -1,25 +1,20 @@
-**What**
-Implemented the `Disclosure` structural molecule using native `<details>` and `<summary>`. Documented its behavior with an MDX file in `/docs/components/disclosure.mdx`. Handled `open` state synchronization and disabled states strictly according to the 'Curva & Concreto' doctrine. Wrote a BDD test wrapper.
+What
+Implemented the `Tooltip` molecule component to provide context-sensitive, non-essential supplementary information.
 
-**Why**
-The system lacked a native primitive for hiding and showing dense information. The previous session successfully built the grouped options structural molecule (`OptionGroup`); moving on to the `Disclosure` component begins to equip the system to handle arrays of static data. I specifically leaned heavily on `<details>` and `<summary>` as they are the browsers' native abstraction for this exact interaction.
+Why
+Overlay components like tooltips are fundamental for keyboard and visual accessibility, allowing us to describe UI elements without cluttering the screen or hijacking focus. This directly addresses the "a11y" and "micro-interactions" themes in `DESIGN.md`.
 
-**Decisions**
-Built the `Disclosure` completely native without heavy JavaScript overhead, intercepting `toggle` and `click` only to handle disabled states properly (which jsdom and native differ slightly on). Followed the Curva & Concreto logic explicitly: the `summary` interactable component utilizes `--r-1` curves, and the opened `.content` section uses sharp, 0px radius "concrete" edges since it holds static data.
+Decisions
+- **Svelte 5 Runes**: Built using `$props` and `$state` to natively react to interactions.
+- **WAI-ARIA**: Manages `aria-describedby` automatically by generating a stable `tooltipId` and injecting it onto the trigger wrapper when open. The tooltip node uses `role="tooltip"`. We use Svelte 5 Snippets `{#snippet children(props)}` to allow spreading the aria-describedby attribute directly onto the semantic focusable target (button, link, etc.) to ensure screen readers read it correctly on focus.
+- **Curva & Concreto**: Since a tooltip presents static context data, it relies exclusively on the "Concreto" doctrine. The popup has a `border-radius` of `0px` with `--concreto-90` background.
 
-**Trade-offs**
-Relies on native `<details>` tags which slightly complicates animation (height transitions are historically difficult on `<details>`), but the semantic AA accessibility win vastly outweighs the need for motion here. Handled `disabled` state manually since native `<details>` doesn't support the `disabled` attribute seamlessly across all contexts.
+Trade-offs
+- Used absolute positioning relative to a wrapper div (`display: inline-flex`). While a library like Floating UI could handle edge collisions dynamically, keeping it zero-dependency and relying on CSS mapping to `.cobogo-tooltip-popup--{position}` is much lighter and aligns with the strict `<5KB` rule. Developers can choose `top`, `bottom`, `left`, or `right`.
 
-**Coexistence notes**
-No open PRs were avoided or pulled-from.
+Coexistence notes
+- (none or gh unavailable)
 
-**Test evidence**
-Vitest (BDD logic): Passes correctly.
-Playwright (E2E): Video and screenshots captured, semantic `summary` targeting successful.
-Typecheck/Astro/Build: Green.
-
-**Link to Log**
-`.jules/agent/brad_frost/2026-05-01T10-00-00Z_disclosure-molecule.md`
-
-**Next-session hint**
-The natural continuation of the `Disclosure` molecule is the `Accordion` organism. An `Accordion` is essentially a grouped list of `Disclosure` molecules, often with mutually-exclusive opening states (where opening one closes the others).
+Test evidence
+- Vitest BDD tests pass (57 tests).
+- E2E accessibility behavior verified in JSDOM testing focus/blur/mouseenter/mouseleave sequences.
