@@ -1,0 +1,51 @@
+---
+layout: ../../../layouts/MdxLayout.astro
+title: TimePicker
+description: A form component for selecting a time, adhering to the Curva & Concreto doctrine.
+---
+
+import TimePicker from '../../../components/TimePicker.svelte';
+import FormField from '../../../components/FormField.svelte';
+
+# TimePicker
+
+O `TimePicker` permite a seleção precisa de um horário (hora e minuto). Assim como o `DatePicker`, ele separa a área de interação em curva (input) da área de listagem de dados em concreto (popover sem arredondamento).
+
+## Basic Usage
+
+```svelte
+<script>
+  import TimePicker from 'cobogo/components/TimePicker';
+  let time = $state('');
+</script>
+
+<TimePicker bind:value={time} />
+```
+
+<div class="not-content" style="margin-top: 2rem; margin-bottom: 2rem; padding: 2rem; border: 1px solid var(--border); border-radius: var(--r-soft); background: var(--bg-raised);">
+  <TimePicker client:load />
+</div>
+
+## Inside a FormField
+
+Integra-se nativamente com o wrapper `FormField`, propagando mensagens de ajuda e estado inválido para a hierarquia da DOM via contexto do Svelte 5 e `aria-describedby`.
+
+```svelte
+<script>
+  import TimePicker from 'cobogo/components/TimePicker';
+  import FormField from 'cobogo/components/FormField';
+  let time = $state('');
+</script>
+
+<FormField label="Horário de Início" htmlFor="start-time" helper="Escolha o horário para iniciar a sessão.">
+  {#snippet children(props)}
+    <TimePicker id={props.id} aria-describedby={props['aria-describedby']} bind:value={time} />
+  {/snippet}
+</FormField>
+```
+
+<div class="not-content" style="margin-top: 2rem; margin-bottom: 2rem; padding: 2rem; border: 1px solid var(--border); border-radius: var(--r-soft); background: var(--bg-raised);">
+  <FormField label="Horário de Início" htmlFor="demo-time" helper="Escolha o horário para iniciar a sessão.">
+    <TimePicker client:load id="demo-time" aria-describedby="demo-time-helper" />
+  </FormField>
+</div>

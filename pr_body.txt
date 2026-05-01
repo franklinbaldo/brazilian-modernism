@@ -1,20 +1,19 @@
 What
-Implemented the `Tooltip` molecule component to provide context-sensitive, non-essential supplementary information.
+Implemented the `DatePicker` and `TimePicker` molecular components to support precise, accessible temporal data entry.
 
 Why
-Overlay components like tooltips are fundamental for keyboard and visual accessibility, allowing us to describe UI elements without cluttering the screen or hijacking focus. This directly addresses the "a11y" and "micro-interactions" themes in `DESIGN.md`.
+The design system needed robust date and time inputs. The aesthetic was built strictly following the 'Curva & Concreto' doctrine: the input fields leverage curved geometry (`--r-1`) for interaction, while the popovers utilize sharp, rigid geometry (`0px` border-radius, pure block structure) for static data presentation.
 
 Decisions
-- **Svelte 5 Runes**: Built using `$props` and `$state` to natively react to interactions.
-- **WAI-ARIA**: Manages `aria-describedby` automatically by generating a stable `tooltipId` and injecting it onto the trigger wrapper when open. The tooltip node uses `role="tooltip"`. We use Svelte 5 Snippets `{#snippet children(props)}` to allow spreading the aria-describedby attribute directly onto the semantic focusable target (button, link, etc.) to ensure screen readers read it correctly on focus.
-- **Curva & Concreto**: Since a tooltip presents static context data, it relies exclusively on the "Concreto" doctrine. The popup has a `border-radius` of `0px` with `--concreto-90` background.
+- **Svelte 5 Runes**: Built using `$props`, `$state`, `$derived`, and `$effect`.
+- **Timezone Parsing**: Explicitly avoided `new Date('YYYY-MM-DD')` to prevent the UTC midnight evaluation bug. Dates are manually parsed via `split('-')` and instantiated with local timezone arguments.
+- **Workflow**: Updated `time-picker.feature` to reflect the decision to leave the time popover open after individual selections (hours/minutes), allowing fluid compound actions rather than jarring closures.
+- **Documentation**: Svelte 5 snippets inside Astro MDX threw Acorn parser errors; adjusted MDX documentation to avoid inline snippet definitions while still proving the FormField context works.
 
 Trade-offs
-- Used absolute positioning relative to a wrapper div (`display: inline-flex`). While a library like Floating UI could handle edge collisions dynamically, keeping it zero-dependency and relying on CSS mapping to `.cobogo-tooltip-popup--{position}` is much lighter and aligns with the strict `<5KB` rule. Developers can choose `top`, `bottom`, `left`, or `right`.
-
-Coexistence notes
-- (none or gh unavailable)
+- Rejected relying on native `<input type="date">` and `<input type="time">` because they cannot be reliably styled across browsers, which breaks the doctrine's strict aesthetic constraints. Custom popovers were necessary to enforce "concreto" geometry.
 
 Test evidence
-- Vitest BDD tests pass (57 tests).
-- E2E accessibility behavior verified in JSDOM testing focus/blur/mouseenter/mouseleave sequences.
+- Vitest BDD tests pass (85 total tests across the suite).
+- Pre-commit typecheck and Astro build ran perfectly.
+- A11y compiler warnings resolved (removed invalid `aria-expanded` from textboxes and `onkeydown` from non-interactive `div`s).
