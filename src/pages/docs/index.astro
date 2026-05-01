@@ -68,4 +68,17 @@ const sections = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
     color: var(--fg-muted);
     margin-bottom: 2rem;
   }
+  @media (max-width: 768px) {
+    h1 {
+      font-size: clamp(2.5rem, 8vw, var(--t-h1));
+    }
+    .lede {
+      font-size: clamp(1rem, 4vw, var(--t-lede));
+    }
+  }
+  @media (max-width: 480px) {
+    .docs-section-card {
+      padding: 1.5rem;
+    }
+  }
 </style>

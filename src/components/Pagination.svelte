@@ -178,4 +178,14 @@
 			transition: none;
 		}
 	}
+
+	@media (max-width: 480px) {
+		.pagination-ellipsis {
+			display: none;
+		}
+		.pagination-btn {
+			width: 32px;
+			height: 32px;
+		}
+	}
 </style>
