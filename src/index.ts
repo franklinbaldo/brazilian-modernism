@@ -25,3 +25,4 @@ export { default as Tab } from './components/Tab.svelte';
 export { default as TabPanel } from './components/TabPanel.svelte';
 export { default as Grid } from './components/Grid.svelte';
 export { default as Column } from './components/Column.svelte';
+export { default as Tooltip } from './components/Tooltip.svelte';
