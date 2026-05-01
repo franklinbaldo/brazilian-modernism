@@ -1,0 +1,106 @@
+---
+title: "Grid & Column"
+description: "The foundational 12-column layout atoms for strict geometric structure."
+section: "components"
+order: 1
+---
+
+import Grid from '../../../components/Grid.svelte';
+import Column from '../../../components/Column.svelte';
+import DocsCallout from '../../../components/docs/DocsCallout.astro';
+import DocsPropsTable from '../../../components/docs/DocsPropsTable.svelte';
+
+The `Grid` and `Column` atoms are the bedrock of the Curva & Concreto layout system. They enforce a strict 12-column geometry, ensuring that content aligns cleanly without arbitrary padding values scattered across feature code.
+
+<DocsCallout type="tip" title="Curva & Concreto">
+  Grids are the ultimate "Concreto". They establish the invisible sharp lines upon which all other elements rest. They do not have visual boundaries themselves, but they strictly enforce the spatial boundaries of their children.
+</DocsCallout>
+
+## Basic Usage
+
+By default, `<Grid>` creates a 12-column CSS Grid container. `<Column>` spans all 12 columns on mobile, but you can override this for larger breakpoints using `sm`, `md`, and `lg`.
+
+```svelte
+<Grid gap="1rem">
+  <Column span={12} md={6} lg={4}>
+    <div style="background: var(--papel-20); padding: 1rem; border-radius: var(--r-1);">Col 1</div>
+  </Column>
+  <Column span={12} md={6} lg={4}>
+    <div style="background: var(--papel-20); padding: 1rem; border-radius: var(--r-1);">Col 2</div>
+  </Column>
+  <Column span={12} md={12} lg={4}>
+    <div style="background: var(--papel-20); padding: 1rem; border-radius: var(--r-1);">Col 3</div>
+  </Column>
+</Grid>
+```
+
+<div class="not-prose" style="margin: 2rem 0;">
+  <Grid gap="1rem">
+    <Column span={12} md={6} lg={4}>
+      <div style="background: var(--papel-20); padding: 1rem; border-radius: var(--r-1); border: 1px solid var(--border);">Col 1 (12/6/4)</div>
+    </Column>
+    <Column span={12} md={6} lg={4}>
+      <div style="background: var(--papel-20); padding: 1rem; border-radius: var(--r-1); border: 1px solid var(--border);">Col 2 (12/6/4)</div>
+    </Column>
+    <Column span={12} md={12} lg={4}>
+      <div style="background: var(--papel-20); padding: 1rem; border-radius: var(--r-1); border: 1px solid var(--border);">Col 3 (12/12/4)</div>
+    </Column>
+  </Grid>
+</div>
+
+## Offsets
+
+You can use the `start` prop on a `Column` to offset it within the grid. This is particularly useful for centering content or creating asymmetrical layouts.
+
+```svelte
+<Grid>
+  <Column span={8} start={3}>
+    <div style="background: var(--azul-soft); padding: 1rem;">Centered 8-col</div>
+  </Column>
+</Grid>
+```
+
+<div class="not-prose" style="margin: 2rem 0;">
+  <Grid gap="1rem">
+    <Column span={8} start={3}>
+      <div style="background: var(--azul-soft); padding: 1rem; border-radius: var(--r-1); border: 1px solid var(--border); color: var(--azul);">Centered 8-col via start=3</div>
+    </Column>
+  </Grid>
+</div>
+
+## Semantic Containers
+
+Both `Grid` and `Column` accept an `as` prop to change their underlying HTML element, ensuring you don't sacrifice document semantics for visual layout.
+
+```svelte
+<Grid as="section">
+  <Column as="article" span={12}>...</Column>
+</Grid>
+```
+
+## Props
+
+### Grid
+
+<DocsPropsTable
+  props={[
+    { name: 'columns', type: 'number', default: '12', description: 'Number of columns in the grid.' },
+    { name: 'gap', type: 'string', default: '"2rem"', description: 'Gap between grid items. Uses standard CSS units.' },
+    { name: 'as', type: 'string', default: '"div"', description: 'HTML element to render. Options: div, section, article, main, form, fieldset.' },
+    { name: 'class', type: 'string', default: '""', description: 'Additional CSS classes.' }
+  ]}
+/>
+
+### Column
+
+<DocsPropsTable
+  props={[
+    { name: 'span', type: 'number', default: '12', description: 'Columns to span on mobile (default).' },
+    { name: 'sm', type: 'number', default: 'undefined', description: 'Columns to span on tablet (>= 480px).' },
+    { name: 'md', type: 'number', default: 'undefined', description: 'Columns to span on larger tablet (>= 768px).' },
+    { name: 'lg', type: 'number', default: 'undefined', description: 'Columns to span on desktop (>= 1024px).' },
+    { name: 'start', type: 'number', default: 'undefined', description: 'Column line to start at (for offsets).' },
+    { name: 'as', type: 'string', default: '"div"', description: 'HTML element to render.' },
+    { name: 'class', type: 'string', default: '""', description: 'Additional CSS classes.' }
+  ]}
+/>
