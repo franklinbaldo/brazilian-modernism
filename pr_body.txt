@@ -1,0 +1,25 @@
+**What**
+Implemented the `Disclosure` structural molecule using native `<details>` and `<summary>`. Documented its behavior with an MDX file in `/docs/components/disclosure.mdx`. Handled `open` state synchronization and disabled states strictly according to the 'Curva & Concreto' doctrine. Wrote a BDD test wrapper.
+
+**Why**
+The system lacked a native primitive for hiding and showing dense information. The previous session successfully built the grouped options structural molecule (`OptionGroup`); moving on to the `Disclosure` component begins to equip the system to handle arrays of static data. I specifically leaned heavily on `<details>` and `<summary>` as they are the browsers' native abstraction for this exact interaction.
+
+**Decisions**
+Built the `Disclosure` completely native without heavy JavaScript overhead, intercepting `toggle` and `click` only to handle disabled states properly (which jsdom and native differ slightly on). Followed the Curva & Concreto logic explicitly: the `summary` interactable component utilizes `--r-1` curves, and the opened `.content` section uses sharp, 0px radius "concrete" edges since it holds static data.
+
+**Trade-offs**
+Relies on native `<details>` tags which slightly complicates animation (height transitions are historically difficult on `<details>`), but the semantic AA accessibility win vastly outweighs the need for motion here. Handled `disabled` state manually since native `<details>` doesn't support the `disabled` attribute seamlessly across all contexts.
+
+**Coexistence notes**
+No open PRs were avoided or pulled-from.
+
+**Test evidence**
+Vitest (BDD logic): Passes correctly.
+Playwright (E2E): Video and screenshots captured, semantic `summary` targeting successful.
+Typecheck/Astro/Build: Green.
+
+**Link to Log**
+`.jules/agent/brad_frost/2026-05-01T10-00-00Z_disclosure-molecule.md`
+
+**Next-session hint**
+The natural continuation of the `Disclosure` molecule is the `Accordion` organism. An `Accordion` is essentially a grouped list of `Disclosure` molecules, often with mutually-exclusive opening states (where opening one closes the others).
