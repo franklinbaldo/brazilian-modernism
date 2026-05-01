@@ -11,6 +11,7 @@
    * @prop {string} [id] - The ID for the input, used for label/ARIA association.
    * @prop {boolean} [disabled=false] - Whether the checkbox is disabled.
    * @prop {boolean} [invalid=false] - Whether the checkbox is invalid.
+   * @prop {boolean} [valid=false] - Whether the checkbox is valid.
    * @prop {string} [value] - The value for the checkbox when used in a group.
    * @prop {any} [group] - The bindable group array for multiple checkboxes.
    */
@@ -19,6 +20,7 @@
     id?: string;
     disabled?: boolean;
     invalid?: boolean;
+    valid?: boolean;
     value?: string;
     group?: any[];
     [key: string]: any;
@@ -29,18 +31,20 @@
     id,
     disabled = false,
     invalid = false,
+    valid = false,
     value,
     group = $bindable([]),
     ...rest
   }: Props = $props();
 
   // Consume FormField context if it exists
-  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
   let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
   let finalId = $derived(id || ctx?.id);
   let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
   let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
   let finalRequired = $derived(rest.required || ctx?.required || false);
 
   function handleChange(e: Event) {
@@ -63,7 +67,7 @@
 
 </script>
 
-<div class="checkbox-container" class:disabled class:invalid={finalInvalid}>
+<div class="checkbox-container" class:disabled class:invalid={finalInvalid} class:valid={finalValid}>
   <input
     type="checkbox"
     id={finalId}
@@ -141,6 +145,18 @@
 
   .invalid input:focus-visible + .checkbox-visual {
     outline-color: var(--vermelho);
+  }
+
+  .valid .checkbox-visual {
+    border-color: var(--verde);
+  }
+
+  .valid input:not(:checked) + .checkbox-visual {
+    background-color: var(--verde-soft);
+  }
+
+  .valid input:focus-visible + .checkbox-visual {
+    outline-color: var(--verde);
   }
 
   .disabled .checkbox-visual {

@@ -11,6 +11,7 @@
 	 * @prop {string} [placeholder] - The default placeholder option text.
 	 * @prop {boolean} [disabled=false] - Whether the select is disabled.
 	 * @prop {boolean} [invalid=false] - Whether the select is invalid.
+	 * @prop {boolean} [valid=false] - Whether the select is valid.
 	 * @prop {'sm'|'md'|'lg'} [size='md'] - The size variant of the select.
 	 */
 	let {
@@ -19,6 +20,7 @@
 		placeholder,
 		disabled = false,
 		invalid = false,
+		valid = false,
 		size = 'md',
 		...rest
 	}: {
@@ -27,17 +29,19 @@
 		placeholder?: string;
 		disabled?: boolean;
 		invalid?: boolean;
+		valid?: boolean;
 		size?: 'sm' | 'md' | 'lg';
 		[key: string]: any;
 	} = $props();
 
 	// Consume FormField context if it exists
-	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
 	let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
 	let finalId = $derived(rest.id || ctx?.id);
 	let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
 	let finalInvalid = $derived(invalid || ctx?.invalid || false);
+	let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
 	let finalRequired = $derived(rest.required || ctx?.required || false);
 </script>
 
@@ -51,6 +55,7 @@
 	class="select-input select-input-{size}"
 	class:has-placeholder={!value && placeholder}
 	class:invalid={finalInvalid}
+	class:valid={finalValid}
 	{...rest}
 >
 	{#if placeholder}
@@ -92,6 +97,15 @@
 
 	.select-input.invalid:focus-visible {
 		outline-color: var(--vermelho);
+	}
+
+	.select-input.valid {
+		border-color: var(--verde);
+		background-color: var(--verde-soft);
+	}
+
+	.select-input.valid:focus-visible {
+		outline-color: var(--verde);
 	}
 
 	.select-input:disabled {

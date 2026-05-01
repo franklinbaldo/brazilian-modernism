@@ -20,6 +20,7 @@
 		required = false,
 		helper,
 		error,
+		valid,
 		children
 	}: {
 		label: string;
@@ -27,11 +28,13 @@
 		required?: boolean;
 		helper?: string;
 		error?: string;
+		valid?: string | boolean;
 		children: Snippet<[{ id: string; 'aria-describedby'?: string }]>;
 	} = $props();
 
 	let describedBy = $derived.by(() => {
 		if (error) return `${htmlFor}-error`;
+		if (valid && typeof valid === 'string') return `${htmlFor}-valid`;
 		if (helper) return `${htmlFor}-helper`;
 		return undefined;
 	});
@@ -41,12 +44,13 @@
 		id: htmlFor,
 		'aria-describedby': describedBy,
 		invalid: !!error,
+		valid: !!valid && !error,
 		required
 	}));
 </script>
 
 <div class="form-field">
-	<label for={htmlFor} class="label" class:invalid={!!error}>
+	<label for={htmlFor} class="label" class:invalid={!!error} class:valid={!!valid && !error}>
 		{label}
 		{#if required}
 			<span class="required" aria-hidden="true">*</span>
@@ -61,6 +65,11 @@
 		<p class="error" id="{htmlFor}-error" aria-live="polite">
 			<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feedback-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
 			<span>{error}</span>
+		</p>
+	{:else if valid && typeof valid === 'string'}
+		<p class="valid-text" id="{htmlFor}-valid" aria-live="polite">
+			<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feedback-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+			<span>{valid}</span>
 		</p>
 	{:else if helper}
 		<p class="helper" id="{htmlFor}-helper">
@@ -90,6 +99,10 @@
 		color: var(--vermelho);
 	}
 
+	.label.valid {
+		color: var(--verde);
+	}
+
 	.required {
 		color: var(--vermelho);
 		margin-left: 0.125rem;
@@ -99,7 +112,7 @@
 		width: 100%;
 	}
 
-	.helper, .error {
+	.helper, .error, .valid-text {
 		display: flex;
 		align-items: flex-start;
 		gap: 0.375rem;
@@ -114,6 +127,11 @@
 
 	.error {
 		color: var(--vermelho);
+		font-weight: 700;
+	}
+
+	.valid-text {
+		color: var(--verde);
 		font-weight: 700;
 	}
 
