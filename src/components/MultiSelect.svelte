@@ -42,8 +42,8 @@
 
   let isOpen = $state(false);
   let searchQuery = $state('');
-  let inputRef: HTMLInputElement | null = null;
-  let wrapperRef: HTMLDivElement | null = null;
+  let inputRef: HTMLInputElement | null = $state(null);
+  let wrapperRef: HTMLDivElement | null = $state(null);
 
   let filteredOptions = $derived(
     searchable && searchQuery
@@ -124,7 +124,7 @@
   >
     <div class="selected-items">
       {#each selectedOptions as opt (opt.value)}
-        <Badge variant="neutral">
+        <Badge variant="azul">
           {opt.label}
           <button
             type="button"
