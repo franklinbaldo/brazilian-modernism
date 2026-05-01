@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
+
 	/**
 	 * TextInput Component
 	 *
@@ -28,16 +30,30 @@
 		size?: 'sm' | 'md' | 'lg';
 		[key: string]: any;
 	} = $props();
+
+	// Consume FormField context if it exists
+	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+
+	// Evaluate context inside a derived block so it reacts to dynamic updates
+	let ctx = $derived(formFieldContext ? formFieldContext() : null);
+
+	let finalId = $derived(rest.id || ctx?.id);
+	let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
+	let finalInvalid = $derived(invalid || ctx?.invalid || false);
+	let finalRequired = $derived(rest.required || ctx?.required || false);
 </script>
 
 <input
 	{type}
 	bind:value
+	id={finalId}
+	aria-describedby={finalAriaDescribedby}
 	{placeholder}
 	{disabled}
-	aria-invalid={invalid}
+	aria-invalid={finalInvalid}
+	required={finalRequired}
 	class="text-input text-input-{size}"
-	class:invalid
+	class:invalid={finalInvalid}
 	{...rest}
 />
 
@@ -60,6 +76,10 @@
 
 	.text-input.invalid {
 		border-color: var(--vermelho);
+	}
+
+	.text-input.invalid:focus-visible {
+		outline-color: var(--vermelho);
 	}
 
 	.text-input:disabled {

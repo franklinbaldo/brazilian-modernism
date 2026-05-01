@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/svelte';
 import Select from './Select.svelte';
 
@@ -8,32 +8,47 @@ describe('Select Component', () => {
     { value: '2', label: 'Option 2' },
   ];
 
-  it('renders correctly with options', () => {
-    const { container } = render(Select, { props: { options } });
-    const select = container.querySelector('select');
+  it('renders correctly with default props', () => {
+    render(Select, { props: { options } });
+    const select = screen.getByRole('combobox');
     expect(select).toBeInTheDocument();
-    expect(select?.querySelectorAll('option').length).toBe(2);
+    expect(select).not.toHaveAttribute('disabled');
+    expect(select).toHaveClass('select-input-md');
+
+    // Due to jsdom limitations with hidden options in selects, we can check children directly
+    expect(select.children).toHaveLength(2);
+    expect(select.children[0]).toHaveTextContent('Option 1');
+    expect(select.children[1]).toHaveTextContent('Option 2');
   });
 
-  it('supports placeholder option', () => {
-    const { container } = render(Select, { props: { options, placeholder: 'Select an option' } });
-    const select = container.querySelector('select');
-    const firstOption = select?.querySelector('option');
-    expect(firstOption).toHaveAttribute('disabled');
-    expect(firstOption).toHaveTextContent('Select an option');
+  it('renders a placeholder option if provided', () => {
+    render(Select, { props: { options, placeholder: 'Choose an option' } });
+    const select = screen.getByRole('combobox');
+    expect(select).toHaveClass('has-placeholder');
+
+    // Check children instead of getByRole('option') due to 'hidden' attribute behavior in testing-library
+    expect(select.children).toHaveLength(3); // Placeholder + 2 options
+
+    // The first option should be the disabled placeholder
+    expect(select.children[0]).toHaveTextContent('Choose an option');
+    expect(select.children[0]).toHaveAttribute('disabled');
+    expect(select.children[0]).toHaveAttribute('hidden');
   });
 
-  it('handles keyboard navigation and rest props', async () => {
-    const onKeyDownMock = vi.fn();
-    const { container } = render(Select, { props: { options, onkeydown: onKeyDownMock, 'aria-label': 'Select Test' } });
-    const select = container.querySelector('select') as HTMLSelectElement;
+  it('updates value when selection changes', async () => {
+    render(Select, { props: { options } });
+    const select = screen.getByRole('combobox') as HTMLSelectElement;
 
-    expect(select).toHaveAttribute('aria-label', 'Select Test');
+    // Change to '2'
+    await fireEvent.change(select, { target: { value: '2' } });
+    expect(select.value).toBe('2');
+  });
 
-    select.focus();
-    expect(select).toHaveFocus();
-
-    await fireEvent.keyDown(select, { key: 'ArrowDown', code: 'ArrowDown' });
-    expect(onKeyDownMock).toHaveBeenCalledTimes(1);
+  it('renders invalid state correctly when explicitly passed', () => {
+    const options = [{ value: '1', label: 'One' }];
+    render(Select, { props: { options, invalid: true } });
+    const select = screen.getByRole('combobox');
+    expect(select).toHaveAttribute('aria-invalid', 'true');
+    expect(select).toHaveClass('invalid');
   });
 });

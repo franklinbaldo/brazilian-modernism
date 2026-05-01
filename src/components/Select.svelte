@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
+
 	/**
 	 * Select Component
 	 *
@@ -8,6 +10,7 @@
 	 * @prop {Array<{value: string, label: string}>} options - The available options.
 	 * @prop {string} [placeholder] - The default placeholder option text.
 	 * @prop {boolean} [disabled=false] - Whether the select is disabled.
+	 * @prop {boolean} [invalid=false] - Whether the select is invalid.
 	 * @prop {'sm'|'md'|'lg'} [size='md'] - The size variant of the select.
 	 */
 	let {
@@ -15,6 +18,7 @@
 		options,
 		placeholder,
 		disabled = false,
+		invalid = false,
 		size = 'md',
 		...rest
 	}: {
@@ -22,16 +26,31 @@
 		options: Array<{ value: string; label: string }>;
 		placeholder?: string;
 		disabled?: boolean;
+		invalid?: boolean;
 		size?: 'sm' | 'md' | 'lg';
 		[key: string]: any;
 	} = $props();
+
+	// Consume FormField context if it exists
+	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+	let ctx = $derived(formFieldContext ? formFieldContext() : null);
+
+	let finalId = $derived(rest.id || ctx?.id);
+	let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
+	let finalInvalid = $derived(invalid || ctx?.invalid || false);
+	let finalRequired = $derived(rest.required || ctx?.required || false);
 </script>
 
 <select
 	bind:value
+	id={finalId}
+	aria-describedby={finalAriaDescribedby}
+	aria-invalid={finalInvalid}
+	required={finalRequired}
 	{disabled}
 	class="select-input select-input-{size}"
 	class:has-placeholder={!value && placeholder}
+	class:invalid={finalInvalid}
 	{...rest}
 >
 	{#if placeholder}
@@ -64,6 +83,14 @@
 	.select-input:focus-visible {
 		outline: 2px solid var(--accent);
 		outline-offset: 2px;
+	}
+
+	.select-input.invalid {
+		border-color: var(--vermelho);
+	}
+
+	.select-input.invalid:focus-visible {
+		outline-color: var(--vermelho);
 	}
 
 	.select-input:disabled {

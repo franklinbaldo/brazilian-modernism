@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
+
   /**
    * Checkbox Component
    *
@@ -8,6 +10,7 @@
    * @prop {boolean} checked - The bindable checked state.
    * @prop {string} [id] - The ID for the input, used for label/ARIA association.
    * @prop {boolean} [disabled=false] - Whether the checkbox is disabled.
+   * @prop {boolean} [invalid=false] - Whether the checkbox is invalid.
    * @prop {string} [value] - The value for the checkbox when used in a group.
    * @prop {any} [group] - The bindable group array for multiple checkboxes.
    */
@@ -15,6 +18,7 @@
     checked?: boolean;
     id?: string;
     disabled?: boolean;
+    invalid?: boolean;
     value?: string;
     group?: any[];
     [key: string]: any;
@@ -24,10 +28,20 @@
     checked = $bindable(false),
     id,
     disabled = false,
+    invalid = false,
     value,
     group = $bindable([]),
     ...rest
   }: Props = $props();
+
+  // Consume FormField context if it exists
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  let ctx = $derived(formFieldContext ? formFieldContext() : null);
+
+  let finalId = $derived(id || ctx?.id);
+  let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
+  let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalRequired = $derived(rest.required || ctx?.required || false);
 
   function handleChange(e: Event) {
     const target = e.target as HTMLInputElement;
@@ -49,10 +63,13 @@
 
 </script>
 
-<div class="checkbox-container" class:disabled>
+<div class="checkbox-container" class:disabled class:invalid={finalInvalid}>
   <input
     type="checkbox"
-    {id}
+    id={finalId}
+    aria-describedby={finalAriaDescribedby}
+    aria-invalid={finalInvalid}
+    required={finalRequired}
     {disabled}
     {value}
     bind:checked
@@ -112,6 +129,14 @@
   input:focus-visible + .checkbox-visual {
     outline: 2px solid var(--azul);
     outline-offset: 2px;
+  }
+
+  .invalid .checkbox-visual {
+    border-color: var(--vermelho);
+  }
+
+  .invalid input:focus-visible + .checkbox-visual {
+    outline-color: var(--vermelho);
   }
 
   .disabled .checkbox-visual {
