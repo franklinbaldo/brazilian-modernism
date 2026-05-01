@@ -1,0 +1,42 @@
+---
+title: Switch
+description: A toggle switch component adhering to the Curva & Concreto aesthetic.
+---
+
+import Switch from '../../../components/Switch.svelte';
+
+# Switch
+
+A boolean toggle switch component. Under the hood, it uses an `<input type="checkbox">` for broad compatibility, accessibility, and form binding, but it is visually styled as a pill with a sliding thumb.
+
+## Usage
+
+```svelte
+<script>
+  import Switch from 'cobogo/components/Switch';
+  let isEnabled = $state(false);
+</script>
+
+<Switch bind:checked={isEnabled} aria-label="Enable notifications" />
+```
+
+## Props
+
+| Name | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `checked` | `boolean` | `false` | The bindable checked state. |
+| `id` | `string` | | The ID for the input, used for label/ARIA association. |
+| `disabled` | `boolean` | `false` | Whether the switch is disabled. |
+| `invalid` | `boolean` | `false` | Whether the switch is invalid. |
+
+## Examples
+
+### Default
+<Switch aria-label="Default switch example" />
+
+### Disabled
+<Switch disabled aria-label="Disabled switch example" />
+<Switch disabled checked aria-label="Disabled checked switch example" />
+
+### Invalid
+<Switch invalid aria-label="Invalid switch example" />
