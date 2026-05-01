@@ -1,8 +1,35 @@
-What: Implement native `DatePicker` and `TimePicker` form controls.
-Why: The system needed semantic date and time inputs that adhere to the Curva & Concreto visual language and integrate correctly with the `FormField` composition pattern for accessibility.
-Roadmap Items Advanced: `task-5e6f-date-time-pickers` (parent: `tactical-3c4d-native-inputs`).
-Decisions: Kept strictly to native HTML5 inputs (`<input type="date">` / `<input type="time">`) to avoid heavy third-party dependencies, guaranteeing excellent accessibility out of the box while skinning them to our strict token definitions. Svelte context injection is used to inherit properties from `FormField`.
-Trade-offs: Native pickers look different across browsers, but this tradeoff is acceptable compared to the bundle bloat of building custom, accessible calendar widgets from scratch.
-Test evidence: Added full Vitest coverage for `DatePicker` and `TimePicker`, confirming correct rendering, size class application, and `FormField` context inheritance.
-Link to session log: `.jules/agent/brad_frost/2026-05-04T13-30-00Z_datepicker-timepicker.md`
-Next session hint: Tackle `FileInput` to complete native input mappings.
+**What**
+Implemented the `Combobox` organism component. It combines a `TextInput` for search/filtering with a custom floating listbox. Wrote full Vitest coverage handling keyboard navigation, context inheritance, and manual selection. Created the `combobox.mdx` documentation page with a `_ComboboxDemo.svelte` Vitrine.
+
+**Why**
+The native inputs track was complete, but complex forms often require selecting from datasets too large for a standard native `<select>`. The `Combobox` fills this gap, providing an accessible, filterable dropdown organism that perfectly matches the `TextInput` aesthetics.
+
+**Decisions made**
+Avoided `$effect` for syncing the selected value back to the input during blur/close events because it caused infinite loops and race conditions in headless testing environments. Instead, I explicitly synced the state inside the `openCombobox` and `closeCombobox` functions. We used explicit `tick()` calls and mocked `scrollIntoView` to make the tests robust in `jsdom`.
+
+**Alternatives rejected**
+Rejected importing an external headless UI library (like Melt UI or floating-ui) to manage the popover. The goal of COBOGÓ is to remain dependency-free where possible, and a standard absolute-positioned listbox suffices for our current layout constraints.
+
+**Test Evidence**
+`npm run test src/components/Combobox.test.ts`
+```
+ ✓ src/components/Combobox.test.ts (7 tests) 603ms
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+```
+`npx astro check`
+```
+Result (22 files):
+- 0 errors
+- 0 warnings
+- 0 hints
+```
+
+**Diff Stats**
+8 files changed, 723 insertions(+)
+
+**Next Session Hint**
+The next logical step in the `tactical-9j0k-complex-organisms` track is to implement a `MultiSelect` component, which will likely build upon the lessons learned from the `Combobox` but allow for token/chip selection.
+
+**Session Log**
+`.jules/agent/brad_frost/2026-05-04T15-00-00Z_combobox.md`
