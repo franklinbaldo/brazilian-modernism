@@ -2,6 +2,8 @@
 	import type { Snippet } from 'svelte';
 	import { setContext } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import FocusTrap from '../../utils/FocusTrap.svelte';
+
 
 	type Props = {
 		/** Indicates whether the dialog is currently open. Bound variable controls the modal. */
@@ -80,18 +82,20 @@
 	class="cobogo-dialog"
 >
 	{#if open}
-		<div
-			class="cobogo-dialog-inner"
-			in:fly={{ y: 20, duration: 220, opacity: 0 }}
-			out:fade={{ duration: 150 }}
-			onoutroend={() => {
-				if (dialogElement && dialogElement.open) {
-					dialogElement.close();
-				}
-			}}
-		>
-			{@render children()}
-		</div>
+		<FocusTrap active={true}>
+			<div
+				class="cobogo-dialog-inner"
+				in:fly={{ y: 20, duration: 220, opacity: 0 }}
+				out:fade={{ duration: 150 }}
+				onoutroend={() => {
+					if (dialogElement && dialogElement.open) {
+						dialogElement.close();
+					}
+				}}
+			>
+				{@render children()}
+			</div>
+		</FocusTrap>
 	{/if}
 </dialog>
 

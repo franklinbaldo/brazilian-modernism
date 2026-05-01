@@ -1,30 +1,10 @@
-**What**
-Implemented the `Notification` organism, a transient application-level feedback component, along with full BDD scenarios and vitrine documentation.
-
-**Why**
-The system lacked a standardized way to deliver application-level feedback that doesn't interrupt the user flow. As established in the `epic-1a2b-form-ergonomics` roadmap, we need robust feedback components integrated deeply with our design tokens and doctrine.
-
-**Decisions made**
-- Implemented `Notification` without nesting curves, relying on a structural geometric left border (`var(--accent)`) to indicate the notification's intent, staying true to the Curva & Concreto aesthetic.
-- The component correctly supports dark mode by leveraging the existing global `--soft` variants and gracefully inverting them.
-- Implemented correct `role` (`alert` vs `status`) and `aria-live` regions based on the intent (`danger`/`warning` vs `info`/`tip`).
-
-**DESIGN.md sections cited**
-- Section 4: Components & Patterns (Atoms -> Molecules -> Organisms)
-- Section 6: Dark Mode
-
-**DESIGN.md sections rewritten**
-- Created the **Notification Organisms** section to ratify the Notification component into the doctrine.
-
-**Roadmap items advanced**
-- `task-5t6u-notification-organism` (new task created) under `epic-1a2b-form-ergonomics`.
-
-**Test evidence**
-- Created `features/forms/notification.feature` to document behavior.
-- Added `Notification.test.ts` providing 100% test coverage for the component logic, roles, and dismissability.
-- All unit tests pass: `src/components/Notification.test.ts (4 tests) passed`.
-- Astro check and library build succeeded.
-
-**Visual evidence**
-- Component is fully documented and previewable in the vitrine at `/docs/components/notification`.
-- Responds correctly to dark mode toggle as specified in the doctrine.
+What: Implement strict keyboard focus trapping for overlay components (Dialog and Drawer).
+Why: Native `<dialog>` elements handle focus well on their own, but since we manually intercept closure events (like the `Escape` key) to orchestrate Svelte 5 out-transitions, we risk focus leakage. Implementing a dedicated `FocusTrap` ensures absolute compliance with WCAG 2.1.2 (No Keyboard Trap).
+DESIGN.md sections cited: "2. Accessibility Floor".
+DESIGN.md sections rewritten: Added strict focus trapping mandate to the "Accessibility Floor" section, as the previous text was too vague regarding modal mechanics.
+Roadmap items advanced: epic-v151-visual-governance, epic-bdd5-spec-first, tactical-9j0k-complex-organisms (task-7w8x-focus-trap-overlays).
+Decisions: Built a generic `FocusTrap.svelte` wrapper utility using a fast `onMount` listener instead of a Svelte action.
+Trade-offs: Svelte wrapper components slightly increase DOM nesting (`style="display: contents;"`), but provide a much cleaner API for Svelte 5 snippets than `use:action` directives for entire DOM subtrees.
+Test evidence: Added Gherkin feature and full Playwright E2E coverage in `e2e/dialog-drawer-focus.test.ts` (passing). All existing unit tests pass.
+Session Log: `.jules/agent/brad_frost/2026-05-04T19-30-00Z_focus-trap.md`
+Next Session: Audit the `Tooltip` component against WCAG 1.4.13 (Content on Hover or Focus).

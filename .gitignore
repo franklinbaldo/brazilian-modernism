@@ -5,3 +5,4 @@ dist/
 dev_server.log
 .env
 .env.local
+.svelte-kit
