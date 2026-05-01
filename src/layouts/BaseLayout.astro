@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import DocsThemeToggle from '../components/docs/DocsThemeToggle.svelte';
 
 const { title = "COBOGÓ | Brazilian Modernist Design System" } = Astro.props;
 ---
@@ -17,6 +18,18 @@ const { title = "COBOGÓ | Brazilian Modernist Design System" } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <div class="global-theme-toggle">
+      <DocsThemeToggle client:load />
+    </div>
     <slot />
   </body>
 </html>
+
+<style>
+  .global-theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10000;
+  }
+</style>

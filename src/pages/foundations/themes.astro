@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.svelte';
+import Button from '../../components/Button.svelte';
 ---
 
 <BaseLayout title="Themes | Foundations | COBOGÓ">
@@ -12,6 +14,37 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <h2 class="hero__title">Theme Variants & Textures</h2>
       <p class="hero__lead">Expressões temáticas e texturas decorativas do cotidiano brasileiro.</p>
     </div>
+
+    <section style="margin-bottom: 6rem;">
+      <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 2rem;">Light vs Dark</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+
+        <div class="light-mode-preview" style="padding: 2rem; background: var(--bg-sunken); border-radius: var(--r-soft); border: 1px solid var(--border);">
+          <div style="margin-bottom: 1rem;">
+            <strong style="color: var(--fg-heading); font-family: var(--font-sans);">Light Mode (Forçado)</strong>
+          </div>
+          <Card title="Card no Light Mode">
+            Este card usa a paleta de cores normal do light mode (bg claro, fg escuro).
+            <div style="margin-top: 1rem;">
+              <Button variant="azul">Ação principal</Button>
+            </div>
+          </Card>
+        </div>
+
+        <div class="dark-mode dark-mode-preview" style="padding: 2rem; background: var(--bg-sunken); border-radius: var(--r-soft); border: 1px solid var(--border);">
+          <div style="margin-bottom: 1rem;">
+            <strong style="color: var(--fg-heading); font-family: var(--font-sans);">Dark Mode (Forçado)</strong>
+          </div>
+          <Card title="Card no Dark Mode">
+            Este card usa a paleta de cores do dark mode (bg escuro, fg claro).
+            <div style="margin-top: 1rem;">
+              <Button variant="azul">Ação principal</Button>
+            </div>
+          </Card>
+        </div>
+
+      </div>
+    </section>
 
     <section style="margin-bottom: 6rem;">
       <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 2rem;">Themes</h3>
@@ -79,3 +112,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .light-mode-preview {
+    /* Força os tokens do light mode */
+    --papel-00: #FBF8F1;
+    --papel-10: #F5F1E8;
+    --papel-20: #EDE7D8;
+    --papel-30: #DCD4BE;
+    --concreto-40: #B8B0A0;
+    --concreto-60: #6B6455;
+    --concreto-80: #2E2A24;
+    --concreto-90: #1A1814;
+    --bg: var(--papel-10);
+    --bg-raised: var(--papel-00);
+    --bg-sunken: var(--papel-20);
+    --fg: var(--concreto-80);
+    --fg-muted: var(--concreto-60);
+    --fg-heading: var(--concreto-90);
+    --border: var(--papel-30);
+    --border-strong: var(--concreto-80);
+  }
+</style>
