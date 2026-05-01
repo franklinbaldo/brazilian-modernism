@@ -185,7 +185,14 @@
           <label class="dropdown-item">
             <Checkbox
               value={opt.value}
-              bind:group={value}
+              checked={value.includes(opt.value)}
+              onchange={(e) => {
+                if (e.target.checked) {
+                  value = [...value, opt.value];
+                } else {
+                  value = value.filter(v => v !== opt.value);
+                }
+              }}
               disabled={disabled}
               tabindex={isOpen ? 0 : -1}
             />
