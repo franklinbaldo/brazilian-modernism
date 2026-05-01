@@ -58,6 +58,12 @@ When the `error` prop is provided, `FormField` overrides the `helper` text, disp
     <TextInput value="brad_frost_1929" {...props} />
   {/snippet}
 </FormField>
+
+<FormField label="Accept Terms" htmlFor="demo-terms" error="You must accept the terms to continue.">
+  {#snippet children(props)}
+    <Switch checked={false} {...props} />
+  {/snippet}
+</FormField>
 ```
 
 ### Wrapping Other Inputs
@@ -82,6 +88,12 @@ The `FormField` works seamlessly with different types of inputs, including `Sele
 <FormField label="Enable Tracking" htmlFor="demo-switch" helper="Help us improve the product by sharing anonymous usage data.">
   {#snippet children(props)}
     <Switch checked={true} {...props} />
+  {/snippet}
+</FormField>
+
+<FormField label="Subscribe" htmlFor="demo-subscribe" helper="Receive weekly updates.">
+  {#snippet children(props)}
+    <Checkbox checked={true} {...props} />
   {/snippet}
 </FormField>
 ```

@@ -87,6 +87,7 @@
 
 	.select-input.invalid {
 		border-color: var(--vermelho);
+		background-color: var(--vermelho-soft);
 	}
 
 	.select-input.invalid:focus-visible {

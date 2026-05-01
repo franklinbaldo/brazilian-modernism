@@ -104,6 +104,10 @@
     border-color: var(--vermelho);
   }
 
+  .invalid input:not(:checked) + .switch-visual {
+    background-color: var(--vermelho-soft);
+  }
+
   .invalid input:focus-visible + .switch-visual {
     outline-color: var(--vermelho);
   }

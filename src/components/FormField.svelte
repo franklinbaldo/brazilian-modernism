@@ -74,7 +74,7 @@
 	.form-field {
 		display: flex;
 		flex-direction: column;
-		gap: 0.375rem;
+		gap: 0.5rem;
 		width: 100%;
 		font-family: var(--font-sans);
 	}
@@ -83,6 +83,7 @@
 		font-size: var(--t-small);
 		font-weight: 700;
 		color: var(--fg-heading);
+		transition: color var(--dur-2) var(--ease-out);
 	}
 
 	.label.invalid {
@@ -98,12 +99,13 @@
 		width: 100%;
 	}
 
-		.helper, .error {
+	.helper, .error {
 		display: flex;
 		align-items: flex-start;
 		gap: 0.375rem;
-		margin: 0;
+		margin: 0.125rem 0 0 0;
 		font-size: var(--t-micro);
+		transition: color var(--dur-2) var(--ease-out);
 	}
 
 	.helper {
