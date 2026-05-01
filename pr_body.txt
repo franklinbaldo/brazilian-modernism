@@ -1,21 +1,21 @@
 **What**
-Implemented the `Combobox` organism component. It combines a `TextInput` for search/filtering with a custom floating listbox. Wrote full Vitest coverage handling keyboard navigation, context inheritance, and manual selection. Created the `combobox.mdx` documentation page with a `_ComboboxDemo.svelte` Vitrine.
+Implemented the `Form` component to wrap multiple `FormField`s. Added native `onsubmit` proxying, macro-level error summaries mapped to the `vermelho` admonition style, and semantic `fieldset`/`legend` rendering. Wrote full Vitest test coverage and documentation (`form.mdx`). Expanded test coverage across multiple component tests and fixed a typo in `docs/components/form.mdx` layout string to resolve build issues.
 
 **Why**
-The native inputs track was complete, but complex forms often require selecting from datasets too large for a standard native `<select>`. The `Combobox` fills this gap, providing an accessible, filterable dropdown organism that perfectly matches the `TextInput` aesthetics.
+To fulfill the broader `epic-1a2b-form-ergonomics` goal, we needed a macro-wrapper that enforces our spacing conventions (1.5rem gap) and handles structural concerns (fieldset grouping) that are tedious to implement manually every time. This guarantees that forms built with COBOGÓ automatically inherit our geometric restraint.
 
 **Decisions made**
-Avoided `$effect` for syncing the selected value back to the input during blur/close events because it caused infinite loops and race conditions in headless testing environments. Instead, I explicitly synced the state inside the `openCombobox` and `closeCombobox` functions. We used explicit `tick()` calls and mocked `scrollIntoView` to make the tests robust in `jsdom`.
+Avoided intercepting and replacing standard submit event properties (like `action` or `method`) entirely, preferring native HTML attributes but exposing an optional wrapper for client-side frameworks via the `onsubmit` Svelte handler. Designed the `error` state to assertively display using an `aria-live="assertive"` alert region to ensure screen readers immediately announce form-level failures.
 
 **Alternatives rejected**
-Rejected importing an external headless UI library (like Melt UI or floating-ui) to manage the popover. The goal of COBOGÓ is to remain dependency-free where possible, and a standard absolute-positioned listbox suffices for our current layout constraints.
+Rejected adding complex internal form state management (like tracking which specific field failed inside the `Form`). The `Form` remains visually and semantically responsible for the *macro* state, leaving micro-state to individual `FormField`s, adhering to the "atoms first" doctrine.
 
 **Test Evidence**
-`npm run test src/components/Combobox.test.ts`
+`npm run test src/components/Form.test.ts`
 ```
- ✓ src/components/Combobox.test.ts (7 tests) 603ms
+ ✓ src/components/Form.test.ts (4 tests) 285ms
  Test Files  1 passed (1)
-      Tests  7 passed (7)
+      Tests  4 passed (4)
 ```
 `npx astro check`
 ```
@@ -26,10 +26,10 @@ Result (22 files):
 ```
 
 **Diff Stats**
-8 files changed, 723 insertions(+)
+6 files changed, 281 insertions(+)
 
 **Next Session Hint**
-The next logical step in the `tactical-9j0k-complex-organisms` track is to implement a `MultiSelect` component, which will likely build upon the lessons learned from the `Combobox` but allow for token/chip selection.
+The focus will shift back to the complex organism track with the `MultiSelect` component. I need to ensure it composes correctly with the newly established `Form` wrapper and handles array-based state cleanly, avoiding Svelte 5's array reactivity quirks while maintaining perfect a11y.
 
 **Session Log**
-`.jules/agent/brad_frost/2026-05-04T15-00-00Z_combobox.md`
+`.jules/agent/brad_frost/2026-05-04T16-00-00Z_form-wrapper.md`

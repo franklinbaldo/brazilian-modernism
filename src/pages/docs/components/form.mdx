@@ -1,0 +1,127 @@
+---
+layout: ../../../layouts/MdxLayout.astro
+title: Form
+description: "A macro-level wrapper for grouping form fields, handling form submission, and defining fieldsets."
+---
+
+import Form from '../../../components/Form.svelte';
+import FormField from '../../../components/FormField.svelte';
+import TextInput from '../../../components/TextInput.svelte';
+import Button from '../../../components/Button.svelte';
+
+# Form
+
+The `Form` component acts as a macro-level wrapper that orchestrates multiple `FormField` instances. It supports native form actions, submission event handling, error summaries, and semantic fieldset grouping to abide by the Curva & Concreto structural requirements.
+
+## Basic Usage
+
+When used simply as a wrapper, it provides consistent layout gaps between form fields and standardizes the native `onsubmit` workflow.
+
+```svelte
+<script>
+  import Form from 'cobogo/components/Form';
+  import FormField from 'cobogo/components/FormField';
+  import TextInput from 'cobogo/components/TextInput';
+  import Button from 'cobogo/components/Button';
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert('Submitted!');
+  }
+</script>
+
+<Form onsubmit={handleSubmit}>
+  <FormField label="Email" htmlFor="email">
+    <TextInput type="email" id="email" required />
+  </FormField>
+
+  <FormField label="Password" htmlFor="password">
+    <TextInput type="password" id="password" required />
+  </FormField>
+
+  <Button type="submit">Login</Button>
+</Form>
+```
+
+<div class="not-content" style="padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--r-1); margin: 2rem 0;">
+  <Form client:load onsubmit={(e) => { e.preventDefault(); alert('Submitted!'); }}>
+    <FormField label="Email" htmlFor="demo-email-1">
+      <TextInput type="email" id="demo-email-1" required />
+    </FormField>
+
+    <FormField label="Password" htmlFor="demo-password-1">
+      <TextInput type="password" id="demo-password-1" required />
+    </FormField>
+
+    <Button type="submit">Login</Button>
+  </Form>
+</div>
+
+## Fieldset Grouping
+
+By providing a `legend` prop, the form renders its content inside a semantic `<fieldset>` with a stylized `<legend>`, perfect for logically grouping related fields such as addresses or personal information.
+
+```svelte
+<Form legend="Personal Information" method="post">
+  <FormField label="First Name" htmlFor="fname">
+    <TextInput id="fname" />
+  </FormField>
+  <FormField label="Last Name" htmlFor="lname">
+    <TextInput id="lname" />
+  </FormField>
+</Form>
+```
+
+<div class="not-content" style="padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--r-1); margin: 2rem 0;">
+  <Form client:load legend="Personal Information" method="post">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <FormField label="First Name" htmlFor="demo-fname-2">
+        <TextInput id="demo-fname-2" />
+        </FormField>
+        <FormField label="Last Name" htmlFor="demo-lname-2">
+        <TextInput id="demo-lname-2" />
+        </FormField>
+    </div>
+  </Form>
+</div>
+
+## Form-Level Errors
+
+For situations where validation spans multiple fields or fails on the server, you can pass an `error` prop. This will display a highly visible, assertive alert summary at the top of the form using the `vermelho` color scheme.
+
+```svelte
+<Form error="The username and password combination is incorrect.">
+  <FormField label="Username" htmlFor="user">
+    <TextInput id="user" invalid />
+  </FormField>
+  <FormField label="Password" htmlFor="pass">
+    <TextInput type="password" id="pass" invalid />
+  </FormField>
+  <Button type="submit">Try Again</Button>
+</Form>
+```
+
+<div class="not-content" style="padding: 1.5rem; border: 1px solid var(--border); border-radius: var(--r-1); margin: 2rem 0;">
+  <Form client:load error="The username and password combination is incorrect.">
+    <FormField label="Username" htmlFor="demo-user-3">
+      <TextInput id="demo-user-3" invalid />
+    </FormField>
+    <FormField label="Password" htmlFor="demo-pass-3">
+      <TextInput type="password" id="demo-pass-3" invalid />
+    </FormField>
+    <Button type="submit">Try Again</Button>
+  </Form>
+</div>
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `action` | `string` | `undefined` | The standard HTML form action endpoint. |
+| `method` | `'get' \| 'post' \| 'dialog'` | `'get'` | The HTTP method to use for submission. |
+| `legend` | `string` | `undefined` | Triggers a semantic `<fieldset>` wrap around the fields and displays this text. |
+| `error` | `string` | `undefined` | Displays a prominent form-level error message at the top. |
+| `onsubmit` | `(e: SubmitEvent) => void` | `undefined` | Standard submit event listener. |
+| `class` | `string` | `""` | Additional custom CSS classes. |
