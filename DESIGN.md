@@ -94,3 +94,6 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 
 ## 6. Dark Mode
 [Not yet defined. Should map `--concreto` inverted when implemented, maintaining contrast and preserving specific saturated primary semantics.]
+
+## Form Organisms
+- **MultiSelect**: Adapts the Combobox pattern for multiple selections. Displays selected items as `Badge` atoms inside the input. Maintains accessibility via `role="combobox"` and `role="listbox"`, utilizing the `Checkbox` atom internally for selection state. Strictly adheres to `--vermelho-soft` and `--vermelho` for invalid states.
