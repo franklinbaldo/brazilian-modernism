@@ -11,46 +11,48 @@
   ],
   "type": "module",
   "version": "0.1.0",
-  "main": "./src/index.ts",
   "files": [
-    "src",
-    "public"
+    "dist",
+    "src/styles"
   ],
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
     "./styles": "./src/styles/global.css",
-    "./components/*": "./src/components/*.svelte"
+    "./components/*": {
+      "svelte": "./dist/components/*.svelte",
+      "default": "./dist/components/*.svelte"
+    }
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "test": "vitest run",
-    "test:ui": "playwright test"
+    "build:lib": "svelte-package -i src -o dist",
+    "prepare": "svelte-package -i src -o dist",
+    "preview": "astro preview"
   },
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
-    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/check": "^0.9.8",
     "@astrojs/svelte": "^7.0.0",
-    "@pagefind/default-ui": "^1.0.0",
-    "@playwright/test": "^1.59.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/svelte": "^5.3.1",
+    "@sveltejs/package": "^2.3.10",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
     "astro": "^5.0.0",
-    "astro-pagefind": "^1.0.0",
-    "jsdom": "^29.1.1",
     "svelte": "^5.0.0",
-    "svelte-jester": "^5.0.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.5"
+    "vite": "^6.0.0"
   },
   "peerDependencies": {
-    "astro": "^5 || ^6",
     "svelte": "^5"
   },
-  "dependencies": {
-    "astro-expressive-code": "^0.41.7"
+  "peerDependenciesMeta": {
+    "astro": {
+      "optional": true
+    }
   }
 }

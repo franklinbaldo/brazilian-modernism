@@ -1,0 +1,227 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.svelte';
+import Card from '../components/Card.svelte';
+import Badge from '../components/Badge.svelte';
+---
+
+<BaseLayout title="Faithful Evolution | COBOGÓ">
+  <div class="app-wrapper">
+    <aside class="tile-sidebar">
+      <!-- Living Cobogó Pattern -->
+      <div class="sidebar-tiles pattern-cobogo-hexagonal active-pattern"></div>
+      
+      <!-- Marginalia Navigation -->
+      <nav class="marginalia-nav">
+        <div class="nav-item" title="Processo">
+          <span class="dot active"></span>
+        </div>
+        <div class="nav-item" title="Documentos">
+          <span class="dot"></span>
+        </div>
+        <div class="nav-item" title="Assinaturas">
+          <span class="dot"></span>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="official-header">
+        <div class="container header-inner">
+          <div class="seal-container">
+            <!-- Modernist interpretation of a seal/logo -->
+            <div class="modernist-seal"></div>
+          </div>
+          <div class="header-text">
+            <span class="tracked-caps">Republica Federativa do Brasil</span>
+            <h1 class="display-serif small">Tribunal de Justiça</h1>
+          </div>
+          <div class="header-status">
+            <Badge variant="verde">Protocolo Ativo</Badge>
+          </div>
+        </div>
+      </header>
+
+      <section class="container evolution-grid">
+        <div class="evolution-item">
+          <h2 class="section-title">Physical Buttons</h2>
+          <p class="subtitle">Using hard shadows instead of floating effects to respect the "Geometric" and "Objective" principles.</p>
+          
+          <div class="demo-box">
+            <button class="btn-modernist primary">Confirmar Protocolo</button>
+            <button class="btn-modernist outline">Voltar ao Acervo</button>
+          </div>
+        </div>
+
+        <div class="evolution-item">
+          <h2 class="section-title">Editorial Marginalia</h2>
+          <p class="subtitle">Important context belongs in the gutters, following the "Organized" principle.</p>
+          
+          <div class="demo-box-marginalia">
+            <div class="main-text">
+              <p>Este documento eletrônico é uma representação digital de um processo público de interesse cívico. A integridade é garantida por criptografia assimétrica conforme os padrões estabelecidos pelo manifesto Cobogó.</p>
+            </div>
+            <aside class="marginal-note">
+              <span class="tracked-caps">Meta</span>
+              <p>ID: 402/2024<br/>HASH: 8F2A...91</p>
+            </aside>
+          </div>
+        </div>
+
+        <div class="evolution-item">
+          <h2 class="section-title">Living Cobogós</h2>
+          <p class="subtitle">Interplay of light and shadow through interactivity.</p>
+          
+          <div class="pattern-playground pattern-cobogo-circular">
+             <div class="light-source"></div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="container site-footer">
+        <p class="tracked-caps">Evolução do Design System — Audit Visual 2026</p>
+      </footer>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  /* --- Official Header --- */
+  .official-header {
+    background: var(--papel-00);
+    border-bottom: 2px solid var(--concreto-90);
+    padding: 2rem 0;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .modernist-seal {
+    width: 64px;
+    height: 64px;
+    background: var(--vermelho);
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    border: 3px solid var(--concreto-90);
+  }
+  .display-serif.small {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+
+  /* --- Physical Buttons --- */
+  .btn-modernist {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 1rem 2rem;
+    border: 2px solid var(--concreto-90);
+    cursor: pointer;
+    transition: all 0.1s;
+    position: relative;
+  }
+  .btn-modernist.primary {
+    background: var(--azul);
+    color: white;
+    box-shadow: 4px 4px 0 var(--concreto-90);
+  }
+  .btn-modernist.outline {
+    background: transparent;
+    color: var(--fg);
+    box-shadow: 4px 4px 0 var(--concreto-90);
+  }
+  .btn-modernist:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 6px 6px 0 var(--concreto-90);
+  }
+  .btn-modernist:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0 var(--concreto-90);
+  }
+
+  /* --- Marginalia --- */
+  .demo-box-marginalia {
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    gap: 4rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--papel-20);
+    border-left: 4px solid var(--ocre);
+  }
+  .marginal-note {
+    font-size: 0.75rem;
+    color: var(--fg-muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  /* --- Living Patterns --- */
+  .pattern-playground {
+    height: 300px;
+    border: 2px solid var(--concreto-90);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--papel-00);
+    background-size: 80px 80px;
+  }
+  .light-source {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: overlay;
+  }
+
+  /* --- Sidebar Navigation --- */
+  .marginalia-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 10rem;
+  }
+  .nav-item .dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid white;
+    display: block;
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+  .nav-item .dot.active {
+    background: white;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+  }
+
+  .evolution-grid {
+    padding: 6rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+  }
+  .demo-box {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+</style>
+
+<script>
+  // Mouse interaction for the "Living Pattern"
+  const playground = document.querySelector('.pattern-playground');
+  const light = document.querySelector('.light-source');
+
+  if (playground && light) {
+    playground.addEventListener('mousemove', (e) => {
+      const rect = playground.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      light.style.left = `${x}px`;
+      light.style.top = `${y}px`;
+    });
+  }
+</script>
