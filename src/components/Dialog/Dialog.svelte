@@ -6,6 +6,8 @@
 	type Props = {
 		/** Indicates whether the dialog is currently open. Bound variable controls the modal. */
 		open: boolean;
+		/** Role of the dialog, either 'dialog' or 'alertdialog' */
+		role?: 'dialog' | 'alertdialog';
 		/** Accessible name for the dialog. Required. */
 		'aria-label'?: string;
 		/** Accessible description for the dialog. */
@@ -18,6 +20,7 @@
 
 	let {
 		open = $bindable(false),
+		role = 'dialog',
 		'aria-label': ariaLabel,
 		'aria-describedby': ariaDescribedby,
 		onClose,
@@ -31,9 +34,8 @@
 		if (dialogElement) {
 			if (open && !dialogElement.open) {
 				dialogElement.showModal();
-			} else if (!open && dialogElement.open) {
-				dialogElement.close();
 			}
+			// We handle closing in onoutroend to allow Svelte transitions to finish
 		}
 	});
 
@@ -47,6 +49,11 @@
 			event.preventDefault(); // Prevent native close to manage state manually
 			handleClose();
 		}
+	}
+
+	function handleCancel(event: Event) {
+		event.preventDefault(); // Prevent native close to manage state manually
+		handleClose();
 	}
 
 	function handleBackdropClick(event: MouseEvent) {
@@ -63,10 +70,12 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
 	bind:this={dialogElement}
+	{role}
 	aria-label={ariaLabel}
 	aria-describedby={ariaDescribedby}
 	aria-modal="true"
 	onkeydown={handleKeydown}
+	oncancel={handleCancel}
 	onclick={handleBackdropClick}
 	class="cobogo-dialog"
 >
@@ -75,6 +84,11 @@
 			class="cobogo-dialog-inner"
 			in:fly={{ y: 20, duration: 220, opacity: 0 }}
 			out:fade={{ duration: 150 }}
+			onoutroend={() => {
+				if (dialogElement && dialogElement.open) {
+					dialogElement.close();
+				}
+			}}
 		>
 			{@render children()}
 		</div>
