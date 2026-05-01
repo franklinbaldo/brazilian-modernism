@@ -99,4 +99,10 @@
 		width: 1em;
 		height: 1em;
 	}
+
+	@media (max-width: 768px) {
+		.value {
+			font-size: clamp(2rem, 6vw, var(--t-h2));
+		}
+	}
 </style>

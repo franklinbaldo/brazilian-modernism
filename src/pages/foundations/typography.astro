@@ -43,3 +43,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  @media (max-width: 768px) {
+    section {
+      grid-template-columns: 1fr !important;
+    }
+    p[style*="font-size: var(--t-h2)"] {
+      font-size: clamp(1.5rem, 5vw, var(--t-h2)) !important;
+    }
+    .hero__title {
+      font-size: clamp(2.5rem, 8vw, var(--t-h1));
+    }
+    .hero__lead {
+      font-size: clamp(1rem, 4vw, var(--t-lede));
+    }
+  }
+</style>

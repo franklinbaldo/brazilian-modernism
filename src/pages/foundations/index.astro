@@ -102,4 +102,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     font-weight: 700;
     font-size: var(--t-small);
   }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: clamp(2.5rem, 8vw, var(--t-h1));
+    }
+    .lede {
+      font-size: clamp(1rem, 4vw, var(--t-lede));
+    }
+  }
 </style>

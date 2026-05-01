@@ -104,4 +104,12 @@
     flex-wrap: wrap;
     align-items: center;
   }
+
+  @media (max-width: 768px) {
+    .page-header.align-center,
+    .page-header.align-center .content {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
 </style>
