@@ -1,21 +1,30 @@
 **What**
-Fixed a critical nested array reactivity bug in the `MultiSelect` component. Replaced the implicit `bind:group` on the inner `<Checkbox>` atoms with explicit `checked` evaluations (`value.includes(opt.value)`) and an explicit `onchange` handler to re-assign the array.
+Implemented the `Notification` organism, a transient application-level feedback component, along with full BDD scenarios and vitrine documentation.
 
 **Why**
-In Svelte 5, updating an array passed through `bind:group` does not reliably trigger a re-render or properly update the bound `$bindable` variable when used inside an `#each` block that crosses component boundaries (like passing `bind:group={value}` into a child component). This caused the `$bindable` `value` array to not correctly reflect selected options when interacted with from the dropdown. Explicit state management guarantees synchronization.
+The system lacked a standardized way to deliver application-level feedback that doesn't interrupt the user flow. As established in the `epic-1a2b-form-ergonomics` roadmap, we need robust feedback components integrated deeply with our design tokens and doctrine.
 
 **Decisions made**
-- Opted for explicit native `onchange` event handling and array reassignment instead of writing complex Svelte `$effect` blocks, adhering to the Curva & Concreto aesthetic of simple, honest mechanics.
+- Implemented `Notification` without nesting curves, relying on a structural geometric left border (`var(--accent)`) to indicate the notification's intent, staying true to the Curva & Concreto aesthetic.
+- The component correctly supports dark mode by leveraging the existing global `--soft` variants and gracefully inverting them.
+- Implemented correct `role` (`alert` vs `status`) and `aria-live` regions based on the intent (`danger`/`warning` vs `info`/`tip`).
 
-**Trade-offs**
-- Slightly more verbose logic inside the Svelte template (`onchange={(e) => { ... }}`) compared to the magic of `bind:group`, but provides absolute reliability for the organism's state.
+**DESIGN.md sections cited**
+- Section 4: Components & Patterns (Atoms -> Molecules -> Organisms)
+- Section 6: Dark Mode
+
+**DESIGN.md sections rewritten**
+- Created the **Notification Organisms** section to ratify the Notification component into the doctrine.
+
+**Roadmap items advanced**
+- `task-5t6u-notification-organism` (new task created) under `epic-1a2b-form-ergonomics`.
 
 **Test evidence**
-- Added a specific test case in `MultiSelect.test.ts` to ensure that clicking an already selected option in the dropdown correctly unselects it and updates the badge UI.
-- All unit tests passing: 23 passed (106 tests total).
-- Playwright E2E passing.
-- Astro typechecking passing.
-- Production build succeeds.
+- Created `features/forms/notification.feature` to document behavior.
+- Added `Notification.test.ts` providing 100% test coverage for the component logic, roles, and dismissability.
+- All unit tests pass: `src/components/Notification.test.ts (4 tests) passed`.
+- Astro check and library build succeeded.
 
 **Visual evidence**
-No direct visual styling changes were made; the fix strictly addresses interaction reactivity, preventing the component from silently failing to update its state array.
+- Component is fully documented and previewable in the vitrine at `/docs/components/notification`.
+- Responds correctly to dark mode toggle as specified in the doctrine.

@@ -97,3 +97,6 @@ Dark Mode is defined in `.dark-mode` globally. It strictly inverts the `--papel`
 
 ## Form Organisms
 - **MultiSelect**: Adapts the Combobox pattern for multiple selections. Displays selected items as `Badge` atoms inside the input. Maintains accessibility via `role="combobox"` and `role="listbox"`, utilizing the `Checkbox` atom internally for selection state. Strictly adheres to `--vermelho-soft` and `--vermelho` for invalid states.
+
+## Notification Organisms
+- **Notification**: Adapts visually to its `intent` (`info`, `tip`, `warning`, `danger`) by relying on `--soft` background colors and a geometric `--accent` border strip. Instead of nesting curves inside curves, the colored border strip provides structural contrast. Dark Mode correctly inverts the `--soft` backgrounds while preserving the vibrant `--accent` strip for semantic clarity. Automatically applies correct ARIA roles (`status` or `alert`) and live regions (`polite` or `assertive`) based on the intent.
