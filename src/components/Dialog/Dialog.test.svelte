@@ -5,6 +5,7 @@
 	import DialogFooter from './DialogFooter.svelte';
 
 	let open = $state(false);
+	let { role = 'dialog' } = $props();
 
 	export function getOpen() {
 		return open;
@@ -17,7 +18,7 @@
 
 <button onclick={() => (open = true)}>Open Dialog</button>
 
-<Dialog bind:open aria-label="Test Dialog" aria-describedby="dialog-desc">
+<Dialog bind:open {role} aria-label="Test Dialog" aria-describedby="dialog-desc">
 	<DialogHeader title="My Dialog Title" />
 	<DialogBody>
 		<p id="dialog-desc">This is the dialog body.</p>
