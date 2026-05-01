@@ -47,6 +47,26 @@ describe('MultiSelect.svelte', () => {
     expect(screen.getAllByText('Opção A')[0]).toBeInTheDocument();
   });
 
+  it('unselects an option by clicking it again in the dropdown menu', async () => {
+    render(MultiSelect, { options, value: ['a'] });
+    const trigger = screen.getByRole('combobox');
+
+    // Make sure it's initially selected and the badge is visible
+    expect(screen.getAllByText('Opção A')[0]).toBeInTheDocument();
+
+    // Open dropdown
+    await fireEvent.click(trigger);
+    await tick();
+
+    // Click the checkbox to unselect
+    const optionA = screen.getByLabelText('Opção A');
+    await fireEvent.click(optionA);
+    await tick();
+
+    // The badge should no longer be in the document
+    expect(screen.queryByText('Remove Opção A')).not.toBeInTheDocument();
+  });
+
   it('removes an option', async () => {
     render(MultiSelect, { options, value: ['a'] });
 
