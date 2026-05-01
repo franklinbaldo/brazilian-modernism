@@ -1,0 +1,90 @@
+---
+title: "Disclosure"
+description: "A structural molecule for hiding and revealing dense information, respecting the Curva & Concreto doctrine."
+---
+
+import Disclosure from '../../../components/Disclosure.svelte';
+
+O componente `Disclosure` (frequentemente chamado de Accordion quando em grupo) permite que os usuários ocultem e revelem seções de conteúdo. Ele é construído sobre as tags semânticas nativas `<details>` e `<summary>`, garantindo acessibilidade e navegação por teclado *out-of-the-box*.
+
+Na doutrina **Curva & Concreto**, o `Disclosure` é um caso de estudo perfeito: a interação principal (o `summary`) possui bordas arredondadas (`--r-1`) indicando que é um elemento clicável (Curva). Quando expandido, a área de conteúdo (dados estáticos) é apresentada com cantos vivos e bordas secas (Concreto).
+
+## Exemplo Básico
+
+<div class="not-content" style="margin: 2rem 0;">
+  <Disclosure title="O que é o Cobogó?" client:load>
+    <p>O cobogó é um elemento vazado, inicialmente feito de cimento, que completa paredes e muros para possibilitar maior ventilação e luminosidade no interior de um imóvel. Foi inventado em Recife, no ano de 1929.</p>
+  </Disclosure>
+</div>
+
+```svelte
+<script>
+  import { Disclosure } from 'cobogo/components/Disclosure';
+</script>
+
+<Disclosure title="O que é o Cobogó?">
+  <p>O cobogó é um elemento vazado...</p>
+</Disclosure>
+```
+
+## Estado Aberto por Padrão
+
+Você pode inicializar o componente aberto passando a prop `open={true}`. Também é possível fazer o *bind* dessa propriedade (`bind:open`) para controlar o estado externamente.
+
+<div class="not-content" style="margin: 2rem 0;">
+  <Disclosure title="Linha do Tempo Modernista" open={true} client:load>
+    <ul>
+      <li><strong>1929:</strong> Invenção do cobogó em Recife.</li>
+      <li><strong>1956:</strong> Início da construção de Brasília.</li>
+      <li><strong>1968:</strong> Conclusão do MASP por Lina Bo Bardi.</li>
+    </ul>
+  </Disclosure>
+</div>
+
+```svelte
+<Disclosure title="Linha do Tempo Modernista" open={true}>
+  <ul>
+    <li><strong>1929:</strong> Invenção do cobogó em Recife.</li>
+    <li><strong>1956:</strong> Início da construção de Brasília.</li>
+  </ul>
+</Disclosure>
+```
+
+## Estado Desabilitado
+
+Quando desabilitado, o Disclosure não pode ser focado ou alternado pelo usuário, e recebe opacidade reduzida para indicar sua indisponibilidade.
+
+<div class="not-content" style="margin: 2rem 0; display: flex; flex-direction: column; gap: 1rem;">
+  <Disclosure title="Conteúdo confidencial (Fechado)" disabled client:load>
+    <p>Este conteúdo não pode ser acessado.</p>
+  </Disclosure>
+
+  <Disclosure title="Aviso importante (Aberto)" open={true} disabled client:load>
+    <p>Este aviso deve permanecer visível e não pode ser fechado pelo usuário.</p>
+  </Disclosure>
+</div>
+
+```svelte
+<Disclosure title="Conteúdo confidencial (Fechado)" disabled>
+  <p>Este conteúdo não pode ser acessado.</p>
+</Disclosure>
+
+<Disclosure title="Aviso importante (Aberto)" open={true} disabled>
+  <p>Este aviso deve permanecer visível e não pode ser fechado.</p>
+</Disclosure>
+```
+
+## Props
+
+| Prop | Tipo | Padrão | Descrição |
+| :--- | :--- | :--- | :--- |
+| `title` | `string` | **obrigatório** | O texto exibido no cabeçalho clicável (`summary`). |
+| `open` | `boolean` | `false` | Se verdadeiro, o conteúdo está visível. Pode ser usado com `bind:open`. |
+| `disabled` | `boolean` | `false` | Se verdadeiro, desabilita a interação (teclado e mouse). |
+
+## Acessibilidade
+
+- Utiliza os elementos nativos `<details>` e `<summary>`.
+- O foco é restrito ao `summary`, respeitando o anel de foco `--azul` ao usar navegação por teclado (`Tab`).
+- Leitores de tela anunciam corretamente o estado de expansão/colapso graças ao comportamento nativo.
+- A animação do indicador (a seta) utiliza a duração padrão do sistema (`--dur-2`) e não engatilha em casos de `prefers-reduced-motion` quando aplicável.
