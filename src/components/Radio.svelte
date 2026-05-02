@@ -90,8 +90,8 @@
   .radio-visual {
     width: 1.25rem;
     height: 1.25rem;
-    background-color: var(--papel-00);
-    border: 2px solid var(--concreto-80);
+    background-color: var(--bg-raised);
+    border: 2px solid var(--border-input);
     border-radius: var(--r-pill);
     display: flex;
     align-items: center;

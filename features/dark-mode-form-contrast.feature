@@ -4,7 +4,7 @@ Feature: Form Elements Dark Mode Contrast
   So that I can perceive the boundaries of the inputs and know when they are focused
 
   Scenario: Form inputs maintain WCAG non-text contrast in dark mode
-    Given a form containing a TextInput, Select, and MultiSelect
+    Given a form containing a TextInput, Select, MultiSelect, Checkbox, Radio, and Switch
     When dark mode is enabled
     Then the inputs should have a border with a contrast ratio of at least 3.0 against the background
     And when focused, the focus ring should have a contrast ratio of at least 3.0 against the background
