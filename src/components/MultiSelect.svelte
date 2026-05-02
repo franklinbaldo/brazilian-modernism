@@ -16,6 +16,7 @@
     placeholder?: string;
     disabled?: boolean;
     invalid?: boolean;
+    valid?: boolean;
     searchable?: boolean;
     id?: string;
     [key: string]: any;
@@ -27,17 +28,19 @@
     placeholder = 'Selecione...',
     disabled = false,
     invalid = false,
+    valid = false,
     searchable = false,
     id,
     ...rest
   }: Props = $props();
 
-  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
   let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
   let finalId = $derived(id || ctx?.id || 'multiselect-' + Math.random().toString(36).slice(2, 9));
   let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
   let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
   let finalRequired = $derived(rest.required || ctx?.required || false);
 
   let isOpen = $state(false);
@@ -110,6 +113,7 @@
   bind:this={wrapperRef}
   class:disabled
   class:invalid={finalInvalid}
+  class:valid={finalValid}
 >
   <div
     class="multiselect-trigger"
@@ -236,6 +240,15 @@
 
   .invalid .multiselect-trigger:focus-visible {
     outline-color: var(--vermelho);
+  }
+
+  .valid .multiselect-trigger {
+    border-color: var(--verde);
+    background-color: var(--verde-soft);
+  }
+
+  .valid .multiselect-trigger:focus-visible {
+    outline-color: var(--verde);
   }
 
   .disabled .multiselect-trigger {

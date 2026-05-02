@@ -10,6 +10,7 @@
 	 * @prop {boolean} [multiple=false] - Whether multiple files can be selected.
 	 * @prop {boolean} [disabled=false] - Whether the input is disabled.
 	 * @prop {boolean} [invalid=false] - Whether the input is in an invalid state.
+	 * @prop {boolean} [valid=false] - Whether the input is in a valid state.
 	 * @prop {'sm'|'md'|'lg'} [size='md'] - The size variant of the input.
 	 */
 	let {
@@ -17,6 +18,7 @@
 		multiple = false,
 		disabled = false,
 		invalid = false,
+		valid = false,
 		size = 'md',
 		...rest
 	}: {
@@ -24,12 +26,13 @@
 		multiple?: boolean;
 		disabled?: boolean;
 		invalid?: boolean;
+		valid?: boolean;
 		size?: 'sm' | 'md' | 'lg';
 		[key: string]: any;
 	} = $props();
 
 	// Consume FormField context if it exists
-	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
 
 	// Evaluate context inside a derived block so it reacts to dynamic updates
 	let ctx = $derived(formFieldContext ? formFieldContext() : null);
@@ -37,6 +40,7 @@
 	let finalId = $derived(rest.id || ctx?.id);
 	let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
 	let finalInvalid = $derived(invalid || ctx?.invalid || false);
+	let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
 	let finalRequired = $derived(rest.required || ctx?.required || false);
 
 </script>
@@ -52,6 +56,7 @@
 	required={finalRequired}
 	class="file-input file-input-{size}"
 	class:invalid={finalInvalid}
+	class:valid={finalValid}
 	{...rest}
 />
 
@@ -99,6 +104,19 @@
 
 	.file-input.invalid::file-selector-button {
 		border-right-color: var(--vermelho);
+	}
+
+	.file-input.valid {
+		border-color: var(--verde);
+		background-color: var(--verde-soft);
+	}
+
+	.file-input.valid:focus-visible {
+		outline-color: var(--verde);
+	}
+
+	.file-input.valid::file-selector-button {
+		border-right-color: var(--verde);
 	}
 
 	.file-input:disabled {
