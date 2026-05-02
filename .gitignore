@@ -8,3 +8,4 @@ dev_server.log
 .svelte-kit
 playwright-report/
 test-results/
+playwright-report/

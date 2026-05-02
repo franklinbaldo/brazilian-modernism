@@ -92,11 +92,25 @@
 
   }
 
+  /* Hover gap bridging logic for WCAG 1.4.13 */
+  .cobogo-tooltip-popup::after {
+    content: '';
+    position: absolute;
+    /* Invisible hit area to prevent mouseleave when cursor crosses the gap */
+    background: transparent;
+  }
+
   /* Positioning logic */
   .cobogo-tooltip-popup--top {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(-8px);
+  }
+  .cobogo-tooltip-popup--top::after {
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
   }
 
   .cobogo-tooltip-popup--bottom {
@@ -104,17 +118,35 @@
     left: 50%;
     transform: translateX(-50%) translateY(8px);
   }
+  .cobogo-tooltip-popup--bottom::after {
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+  }
 
   .cobogo-tooltip-popup--left {
     right: 100%;
     top: 50%;
     transform: translateY(-50%) translateX(-8px);
   }
+  .cobogo-tooltip-popup--left::after {
+    right: -8px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+  }
 
   .cobogo-tooltip-popup--right {
     left: 100%;
     top: 50%;
     transform: translateY(-50%) translateX(8px);
+  }
+  .cobogo-tooltip-popup--right::after {
+    left: -8px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
   }
 
   /* Arrow logic */
