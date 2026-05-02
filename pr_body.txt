@@ -1,23 +1,24 @@
-**What**
-Implemented validation states for data entry components (`TextInput` and `Select`) adhering to the Curva & Concreto aesthetic. This ensures unmistakable visual feedback when inputs are invalid.
+**What I did:**
+- Removed `@planned` tags from `features/text_input_select_validation.feature`.
+- Fixed the URLs in the Playwright E2E tests `e2e/Select.spec.ts` and `e2e/TextInput.spec.ts` to point to the correct documentation paths (`/cobogo/docs/components/`), thereby resolving timeout failures.
+- Created the new session log `2026-05-05T10-00-00Z_textinput-select-validation.md` logging the session context and BRASILIANA observations.
 
-**Why**
-To provide clear, accessible form validation to users while respecting the overarching design tokens set forth by the system.
+**Why:**
+- The validation states for `TextInput` and `Select` correctly implement the Curva & Concreto aesthetic (`--vermelho-soft` and `--vermelho`) and the context integration with `FormField` works perfectly.
+- To reflect the system's maturity, the `@planned` tags in the feature files needed to be removed (completing step 1 of the Underweight PR escalation ladder: "Implement existing planned steps").
+- Correcting the URL paths ensures the E2E suite passes fully and provides robust visual governance.
 
-**Decisions**
-- Chose to manage the visual invalid states directly via CSS classes (`.invalid` and `.valid`) reacting to the `invalid`/`valid` component props (or via the Svelte `cobogo-form-field` context).
-- Updated `TextInput` to explicitly transition `color` and `background-color` and apply `--vermelho` or `--verde` accordingly.
-- Updated `Select` to apply the same text/background token variables, and importantly, dynamically swapped out the base64 encoded dropdown SVG arrow to match the appropriate semantic color (`#C8472E` for invalid, `#2E6B4A` for valid).
+**Decisions made:**
+- Chose to fix the URLs in the test suite rather than deleting the tests, as visual governance must be maintained.
+- Confirmed there are no regressions across build, Vitest logic, and Playwright DOM checks.
 
-**Trade-offs**
-- Modifying the base64 SVG directly within `Select.svelte` CSS creates slight duplication, but avoids importing heavier external icon handling inside base form components.
+**Relevant prior logs:**
+- [2026-05-04T23-45-00Z_notification-wcag-221.md](.jules/agent/brad_frost/2026-05-04T23-45-00Z_notification-wcag-221.md)
 
-**Test Evidence**
-- Added BDD feature spec: `features/forms/validation.feature`.
-- Expanded Vitest coverage in `TextInput.test.ts` and `Select.test.ts` to assert that invalid and valid styling classes are correctly applied and that invalid prop takes precedence over the valid prop.
-- Resolved an unrelated flaky E2E `dark-mode` test by adding a brief wait to ensure CSS transitions finish evaluating.
-- Ran all tests: 123 unit tests pass, 17 E2E tests pass.
+**Trade-offs:**
+- None.
 
-**DESIGN.md sections rewritten**
-- `Form Organisms` -> renamed to `Form Atoms & Organisms`.
-- Added a `Validation States` entry clearly establishing the token usage (`--vermelho-soft`, `--vermelho`, `--verde-soft`, `--verde`) for component feedback.
+**Test evidence:**
+- 100% pass on Vitest (128 passing).
+- 100% pass on Playwright (22 passing) after fixing path timeouts.
+- Astro static build succeeds with no related errors.
