@@ -48,6 +48,9 @@
   --border-strong: var(--concreto-80);
   --accent:       var(--azul);
   
+  --border-input: var(--border);
+  --focus-ring:   var(--accent);
+
   --shadow-color: var(--concreto-90);
 
   /* ——— Type ——— */
@@ -132,6 +135,9 @@
   --fg-heading:   var(--concreto-90);
   --border:       var(--papel-30);
   --border-strong: var(--concreto-80);
+
+  --border-input: var(--concreto-60);
+  --focus-ring:   var(--concreto-80);
 
   /* Brazilian primaries stay vibrant — they ARE the identity */
   /* --azul, --vermelho, --ocre, --verde are unchanged */
