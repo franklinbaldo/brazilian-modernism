@@ -1,18 +1,20 @@
-What:
-Refactored fluid typography tokens to use CSS `clamp()` globally.
-Added BDD features and E2E specs for layout responsiveness (Grid and Column components).
+**What**
+Fixed WCAG AA contrast failures in the `Notification` component during Dark Mode and updated E2E testing to rigorously assert contrast ratios via relative luminance calculations.
 
-Why:
-To ensure typography scales fluidsly across all viewport widths natively without relying on hardcoded media queries, fulfilling the doctrine's requirement for cross-cutting fluid tokens. The added test coverage enforces the `spec-first` pipeline for layout behaviors.
+**Why**
+The design system's doctrine mandates that core identity colors (`--azul`, `--vermelho`, `--ocre`, `--verde`) remain vibrant and unchanged across color modes. However, the `Notification` component historically used these primary colors for both its text/icon and its background (`--soft` variables) under `.dark-mode`. Since the `--soft` variables invert to dark equivalents while the text variables remained very dark, this led to an invisible contrast ratio of 1.0.
 
-Decisions:
-1. Replaced static `px` values for `--t-h1` through `--t-h4` and `--t-display` with `clamp()` declarations directly in the `:root` scope of `global.css`.
-2. Removed the `max-width: 768px` media query overrides for these tokens, as `clamp()` handles scaling intrinsically.
-3. Added a new `features/layout/grid-fluid-typography.feature` Gherkin file.
-4. Added `e2e/grid-fluid.spec.ts` which runs Playwright to verify that H1 elements actually scale down gracefully and that the `Column` component's responsive grid stacking (`grid-column-end` attributes) works as intended across desktop and mobile breakpoints.
+**Decisions**
+We decoupled readability from aesthetic branding in dark mode. While the structural accent border is preserved (using the primary identity variable), the text and icon colors are explicitly overridden inside `.dark-mode` to use `var(--fg-heading)`. This ensures WCAG AA text contrast (>= 4.5).
 
-Trade-offs:
-N/A - This simplifies the CSS architecture.
+**Trade-offs**
+The border strip in the notification has lower contrast against the background in dark mode, but the text and icon (the essential readable UI) now explicitly pass WCAG AA. We preserve the canon's constraint on color definitions while fulfilling accessibility obligations.
 
-Test evidence:
-Ran `npx vitest run` (27 passed) and `npx playwright test` (27 passed), validating that the refactored tokens do not break layout assumptions and specifically asserting the fluid scaling of the `h1` element in the vitrine.
+**Test Evidence**
+- Added a robust contrast calculation to `e2e/dark-mode.spec.ts` testing for `>= 4.5` relative luminance contrast on `Notification`, `Dialog`, and `Drawer`.
+- Run `npm run build`, `npx vitest run`, and `npx playwright test`. All pass successfully.
+
+Link to Session Log: [.jules/agent/brad_frost/2026-05-06T13-14-48Z_dark-mode-notification-contrast.md](.jules/agent/brad_frost/2026-05-06T13-14-48Z_dark-mode-notification-contrast.md)
+
+**Next Session Hint**
+With Dark Mode contrast locked down for layered organisms, the next logical step is to review the Form elements (TextInput, Select, MultiSelect) in Dark Mode, specifically focusing on the focus-visible states and ensuring the `--papel-30` borders don't vanish against the `--papel-10` background.
