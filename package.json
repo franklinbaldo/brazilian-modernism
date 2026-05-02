@@ -38,7 +38,7 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/svelte": "^7.0.0",
     "@playwright/test": "^1.59.1",
