@@ -47,4 +47,31 @@ test.describe('Notification Component', () => {
     // Assert it is dismissed
     await expect(notification).toBeHidden();
   });
+
+  test('auto-dismisses and pauses on focus', async ({ page }) => {
+    // Reload page to reset notifications
+    await page.goto('/cobogo/docs/components/notification/');
+
+    // Locate the auto-dismissing notification
+    const notification = page.locator('.br-notification', { hasText: 'Auto-dismissing' }).first();
+    await expect(notification).toBeVisible();
+
+    // Focus the notification to pause the timer
+    await notification.focus();
+
+    // Wait for 5 seconds (the original timeout)
+    await page.waitForTimeout(5000);
+
+    // Assert it is still visible because it was paused
+    await expect(notification).toBeVisible();
+
+    // Remove focus to resume timer
+    await notification.blur();
+
+    // Wait for remaining time + buffer
+    await page.waitForTimeout(5500);
+
+    // Assert it is dismissed
+    await expect(notification).toBeHidden();
+  });
 });
