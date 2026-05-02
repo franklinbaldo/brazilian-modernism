@@ -54,3 +54,31 @@ describe('Radio Group Interaction', () => {
     expect(apple.checked).toBe(false);
   });
 });
+
+describe('Radio Validation States', () => {
+  afterEach(cleanup);
+
+  it('renders invalid state class', () => {
+    render(Radio, { props: { value: '1', group: '2', invalid: true } });
+    const input = screen.getByRole('radio');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
+    expect(container).not.toHaveClass('valid');
+  });
+
+  it('renders valid state class', () => {
+    render(Radio, { props: { value: '1', group: '2', valid: true } });
+    const input = screen.getByRole('radio');
+    const container = input.parentElement;
+    expect(container).toHaveClass('valid');
+    expect(container).not.toHaveClass('invalid');
+  });
+
+  it('prioritizes invalid state over valid state', () => {
+    render(Radio, { props: { value: '1', group: '2', invalid: true, valid: true } });
+    const input = screen.getByRole('radio');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
+    expect(container).not.toHaveClass('valid');
+  });
+});

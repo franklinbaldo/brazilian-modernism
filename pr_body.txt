@@ -1,24 +1,21 @@
-**What I did:**
-- Removed `@planned` tags from `features/text_input_select_validation.feature`.
-- Fixed the URLs in the Playwright E2E tests `e2e/Select.spec.ts` and `e2e/TextInput.spec.ts` to point to the correct documentation paths (`/cobogo/docs/components/`), thereby resolving timeout failures.
-- Created the new session log `2026-05-05T10-00-00Z_textinput-select-validation.md` logging the session context and BRASILIANA observations.
+**What**
+Implemented full validation states (`valid` and `invalid`) for selection form components (`Checkbox`, `Radio`, `Switch`) and updated the `OptionGroup` structural wrapper to propagate these states downward via Svelte context.
 
-**Why:**
-- The validation states for `TextInput` and `Select` correctly implement the Curva & Concreto aesthetic (`--vermelho-soft` and `--vermelho`) and the context integration with `FormField` works perfectly.
-- To reflect the system's maturity, the `@planned` tags in the feature files needed to be removed (completing step 1 of the Underweight PR escalation ladder: "Implement existing planned steps").
-- Correcting the URL paths ensures the E2E suite passes fully and provides robust visual governance.
+**Why**
+To finalize the Form Validation States initiative and ensure undeniable feedback (in Curva & Concreto colors) across the entire atomic input collection, strictly enforcing BDD spec coverage and visual E2E verification.
 
-**Decisions made:**
-- Chose to fix the URLs in the test suite rather than deleting the tests, as visual governance must be maintained.
-- Confirmed there are no regressions across build, Vitest logic, and Playwright DOM checks.
+**Decisions**
+- Kept the `--vermelho-soft`/`--vermelho` and `--verde-soft`/`--verde` token mapping.
+- Edited `OptionGroup.svelte` to mimic `FormField`, wrapping both `error` and the newly added `valid` message in `<span>` tags accompanied by the correct semantic SVGs.
+- Added visual visual assertions for the E2E Vitrine pages to avoid regressions.
 
-**Relevant prior logs:**
-- [2026-05-04T23-45-00Z_notification-wcag-221.md](.jules/agent/brad_frost/2026-05-04T23-45-00Z_notification-wcag-221.md)
+**Trade-offs**
+- The `valid` state takes a string or boolean, mirroring `FormField`.
+- `OptionGroup` will default to `undefined-error` if no `name` attribute is provided, which is acceptable since it acts as a DOM id link.
 
-**Trade-offs:**
-- None.
-
-**Test evidence:**
-- 100% pass on Vitest (128 passing).
-- 100% pass on Playwright (22 passing) after fixing path timeouts.
-- Astro static build succeeds with no related errors.
+**Test Evidence**
+- Modified `features/form/validation-states.feature` to include all scenarios.
+- Updated `Checkbox.test.ts`, `Radio.test.ts`, `Switch.test.ts` to assert correct class binding (`valid` / `invalid`).
+- Updated `OptionGroup.test.ts` for accessibility (`closest('p')`).
+- Ran Playwright visual suite in `e2e/ValidationStates.spec.ts` against the Vitrine demo: PASSED.
+- Full typecheck, build, and unit tests: PASSED.

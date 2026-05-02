@@ -57,7 +57,7 @@ describe('OptionGroup Molecule', () => {
 
     const errorMsg = screen.getByText('This field is required');
     expect(errorMsg).toBeInTheDocument();
-    expect(errorMsg).toHaveAttribute('id', 'my-group-error');
+    expect(errorMsg.closest('p')).toHaveAttribute('id', 'my-group-error');
   });
 
   it('passes the disabled state to the fieldset', () => {

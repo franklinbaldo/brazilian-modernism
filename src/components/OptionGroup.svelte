@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import { setContext, type Snippet } from 'svelte';
 
   /**
    * OptionGroup Component
@@ -13,6 +13,7 @@
    * @prop {string} [name] - Optional name attribute for grouping native inputs.
    * @prop {boolean} [disabled=false] - If true, disables the entire fieldset.
    * @prop {string} [error] - Optional error message for the group.
+   * @prop {string | boolean} [valid] - Optional valid state/message for the group.
    * @prop {Snippet} children - Svelte snippet containing the options (Radio/Checkbox + labels).
    */
   type Props = {
@@ -21,6 +22,7 @@
     name?: string;
     disabled?: boolean;
     error?: string;
+    valid?: string | boolean;
     children: Snippet;
   };
 
@@ -30,11 +32,27 @@
     name,
     disabled = false,
     error,
+    valid,
     children
   }: Props = $props();
 
-  let describedBy = $derived(error ? `${name}-error` : undefined);
+
+  let describedBy = $derived.by(() => {
+    if (error) return `${name}-error`;
+    if (valid && typeof valid === 'string') return `${name}-valid`;
+    return undefined;
+  });
+
+  // Provide context for child inputs (Checkbox/Radio) to consume state automatically
+  setContext('cobogo-form-field', () => ({
+    id: name || '',
+    'aria-describedby': describedBy,
+    invalid: !!error,
+    valid: !!valid && !error,
+    required: false
+  }));
 </script>
+
 
 <fieldset class="option-group" {disabled} {name} aria-describedby={describedBy}>
   <legend class="legend" class:has-error={!!error}>{legend}</legend>
@@ -44,7 +62,15 @@
   </div>
 
   {#if error}
-    <p class="error" id="{name}-error" aria-live="polite">{error}</p>
+    <p class="error" id="{name}-error" aria-live="polite">
+      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feedback-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      <span>{error}</span>
+    </p>
+  {:else if valid && typeof valid === 'string'}
+    <p class="valid-text" id="{name}-valid" aria-live="polite">
+      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feedback-icon"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <span>{valid}</span>
+    </p>
   {/if}
 </fieldset>
 
@@ -81,11 +107,27 @@
     gap: 1rem; /* Generous horizontal spacing */
   }
 
-  .error {
+  .error, .valid-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.375rem;
     margin: 0.5rem 0 0 0;
     font-size: var(--t-micro);
+  }
+
+  .error {
     color: var(--vermelho);
     font-weight: 700;
+  }
+
+  .valid-text {
+    color: var(--verde);
+    font-weight: 700;
+  }
+
+  .feedback-icon {
+    flex-shrink: 0;
+    margin-top: 0.125rem;
   }
 
   /* When fieldset is disabled, visually dim the contents */
