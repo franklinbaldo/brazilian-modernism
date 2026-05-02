@@ -69,7 +69,7 @@
   .search-field:focus-within {
     transform: translateY(-2px);
     box-shadow: var(--shadow-1);
-    border-color: var(--azul);
+    border-color: var(--focus-ring);
   }
 
   .search-icon {

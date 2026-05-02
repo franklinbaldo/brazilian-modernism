@@ -114,8 +114,8 @@
   .checkbox-visual {
     width: 1.25rem;
     height: 1.25rem;
-    background-color: var(--papel-00);
-    border: 2px solid var(--concreto-80);
+    background-color: var(--bg-raised);
+    border: 2px solid var(--border-input);
     border-radius: var(--r-1);
     display: flex;
     align-items: center;
@@ -131,7 +131,7 @@
   }
 
   input:focus-visible + .checkbox-visual {
-    outline: 2px solid var(--azul);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 
