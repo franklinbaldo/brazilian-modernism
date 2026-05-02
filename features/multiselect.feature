@@ -27,7 +27,12 @@ Feature: MultiSelect component
     Then the option "Brasil" is visible in the dropdown
     And the option "Argentina" is hidden
 
-  Scenario: FormField context integration
+  Scenario: FormField context integration (invalid)
     Given a MultiSelect component inside a FormField
     When the FormField has an error
     Then the MultiSelect trigger receives the invalid styling and aria-invalid true
+
+  Scenario: FormField context integration (valid)
+    Given a MultiSelect component inside a FormField
+    When the FormField is valid
+    Then the MultiSelect trigger receives the valid styling
