@@ -15,6 +15,7 @@
 	 * @prop {string} [placeholder] - Placeholder text for the input.
 	 * @prop {boolean} [disabled=false] - Disables the entire combobox.
 	 * @prop {boolean} [invalid=false] - Visual error state (also inherits from FormField).
+	 * @prop {boolean} [valid=false] - Visual success state (also inherits from FormField).
 	 * @prop {'sm'|'md'|'lg'} [size='md'] - Component size.
 	 */
 	type Props = {
@@ -23,6 +24,7 @@
 		placeholder?: string;
 		disabled?: boolean;
 		invalid?: boolean;
+		valid?: boolean;
 		size?: 'sm' | 'md' | 'lg';
 		id?: string;
 		name?: string;
@@ -37,6 +39,7 @@
 		placeholder = '',
 		disabled = false,
 		invalid = false,
+		valid = false,
 		size = 'md',
 		id,
 		name,
@@ -46,12 +49,13 @@
 	}: Props = $props();
 
 	// FormField context integration
-	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
 	let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
 	let finalId = $derived(id || ctx?.id || `combobox-${Math.random().toString(36).slice(2, 9)}`);
 	let finalAriaDescribedby = $derived(ariaDescribedby || ctx?.['aria-describedby']);
 	let finalInvalid = $derived(invalid || ctx?.invalid || false);
+	let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
 	let finalRequired = $derived(required || ctx?.required || false);
 
 	// Internal state
@@ -203,6 +207,7 @@
 			{placeholder}
 			{disabled}
 			invalid={finalInvalid}
+			valid={finalValid}
 			aria-describedby={finalAriaDescribedby}
 			aria-autocomplete="list"
 			aria-activedescendant={open && focusedIndex >= 0 ? `${finalId}-option-${focusedIndex}` : undefined}

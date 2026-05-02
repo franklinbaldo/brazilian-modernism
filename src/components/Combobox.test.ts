@@ -101,4 +101,21 @@ describe('Combobox Component', () => {
 		expect(input).toHaveAttribute('aria-invalid', 'true');
 		expect(input).toBeRequired();
 	});
+
+	it('renders valid state class when passed', () => {
+		const options = [{ value: '1', label: 'Option 1' }];
+		render(Combobox, { props: { options, valid: true } });
+		const input = document.querySelector('input') as HTMLInputElement;
+		expect(input).toHaveClass('valid');
+	});
+
+	it('prioritizes invalid state over valid state', () => {
+		const options = [{ value: '1', label: 'Option 1' }];
+		render(Combobox, { props: { options, invalid: true, valid: true } });
+		const input = document.querySelector('input') as HTMLInputElement;
+
+		expect(input).toHaveClass('invalid');
+		expect(input).not.toHaveClass('valid');
+		expect(input).toHaveAttribute('aria-invalid', 'true');
+	});
 });

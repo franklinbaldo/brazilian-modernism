@@ -109,4 +109,20 @@ describe('MultiSelect.svelte', () => {
     // wrapper receives invalid class
     expect(trigger.parentElement).toHaveClass('invalid');
   });
+
+  it('renders valid state correctly when explicitly passed', () => {
+    render(MultiSelect, { options, valid: true });
+    const trigger = screen.getByRole('combobox');
+    expect(trigger.parentElement).toHaveClass('valid');
+  });
+
+  it('invalid prop takes precedence over valid prop', () => {
+    render(MultiSelect, { options, invalid: true, valid: true });
+    const trigger = screen.getByRole('combobox');
+    const hiddenInput = trigger.querySelector('.sr-only-input');
+
+    expect(trigger.parentElement).toHaveClass('invalid');
+    expect(trigger.parentElement).not.toHaveClass('valid');
+    expect(hiddenInput).toHaveAttribute('aria-invalid', 'true');
+  });
 });

@@ -38,6 +38,20 @@ describe('FileInput Component', () => {
 		expect(input.classList.contains('file-input-lg')).toBe(true);
 	});
 
+	it('renders valid state class', () => {
+		render(FileInput, { props: { valid: true } });
+		const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+		expect(input.classList.contains('valid')).toBe(true);
+	});
+
+	it('prioritizes invalid state over valid state', () => {
+		render(FileInput, { props: { invalid: true, valid: true } });
+		const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+		expect(input.classList.contains('invalid')).toBe(true);
+		expect(input.classList.contains('valid')).toBe(false);
+		expect(input.getAttribute('aria-invalid')).toBe('true');
+	});
+
 	it('inherits properties from cobogo-form-field context', () => {
 		render(FileInputContextTest);
 		const input = document.querySelector('input[type="file"]') as HTMLInputElement;
