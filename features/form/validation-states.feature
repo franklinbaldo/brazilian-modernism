@@ -26,3 +26,28 @@ Feature: Form validation states
     When the FormField context has invalid set to true
     Then the Select should have the invalid CSS class
     And the Select should have aria-invalid set to true
+
+  Scenario: Checkbox displays invalid and valid styling
+    Given a Checkbox component
+    When the invalid prop is set to true
+    Then it should have the invalid CSS class
+    When the valid prop is set to true
+    Then it should have the valid CSS class
+
+  Scenario: Radio displays invalid and valid styling
+    Given a Radio component
+    When the invalid prop is set to true
+    Then it should have the invalid CSS class
+    When the valid prop is set to true
+    Then it should have the valid CSS class
+
+  Scenario: Switch displays invalid and valid styling
+    Given a Switch component
+    When the invalid prop is set to true
+    Then it should have the invalid CSS class
+    When the valid prop is set to true
+    Then it should have the valid CSS class
+
+  Scenario: OptionGroup propagates validation states to children
+    Given an OptionGroup with error
+    Then the nested Radio and Checkbox inputs should receive the invalid context and display invalid styling

@@ -45,3 +45,31 @@ describe('Switch Component (BDD)', () => {
     expect(container).toHaveClass('invalid');
   });
 });
+
+describe('Switch Validation States', () => {
+  afterEach(cleanup);
+
+  it('renders invalid state class', () => {
+    render(Switch, { props: { invalid: true } });
+    const input = screen.getByRole('switch');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
+    expect(container).not.toHaveClass('valid');
+  });
+
+  it('renders valid state class', () => {
+    render(Switch, { props: { valid: true } });
+    const input = screen.getByRole('switch');
+    const container = input.parentElement;
+    expect(container).toHaveClass('valid');
+    expect(container).not.toHaveClass('invalid');
+  });
+
+  it('prioritizes invalid state over valid state', () => {
+    render(Switch, { props: { invalid: true, valid: true } });
+    const input = screen.getByRole('switch');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
+    expect(container).not.toHaveClass('valid');
+  });
+});
