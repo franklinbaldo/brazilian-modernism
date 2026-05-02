@@ -8,6 +8,8 @@ import DocsSearch from '../components/docs/DocsSearch.svelte';
 import DocsEditLink from '../components/docs/DocsEditLink.astro';
 import DocsThemeToggle from '../components/docs/DocsThemeToggle.svelte';
 import Ornaments from '../components/Ornaments.astro';
+import Stamp from '../components/decorative/Stamp.svelte';
+import Bandeirinhas from '../components/decorative/Bandeirinhas.svelte';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 const { frontmatter, headings = [], entryId } = Astro.props;
@@ -46,11 +48,14 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
 
 <BaseLayout title={`${frontmatter.title} | COBOGÓ Docs`}>
   <div class="docs-app">
-    <!-- Modernist Header -->
+    <!-- Modernist Header with Brasiliana Flair -->
     <header class="docs-header">
       <div class="header-accent"></div>
       <div class="docs-header-inner">
-        <a href="/cobogo/" class="brand font-logo">COBOGÓ</a>
+        <a href="/cobogo/" class="brand">
+          <span class="font-logo">COBOGÓ</span>
+          <span class="docs-tag">DOCS</span>
+        </a>
         <div class="docs-header-actions">
           <button class="hamburger" id="mobile-nav-trigger" aria-label="Open navigation">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -62,10 +67,15 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     </header>
 
     <div class="docs-layout-container">
-      <!-- Decorative Sidebar Background -->
+      <!-- Sidebar with Cobogó pattern -->
       <aside class="docs-sidebar-wrapper">
         <div class="sidebar-pattern pattern-cobogo-circular"></div>
-        <DocsSidebar client:load entries={entries} currentSlug={Astro.url.pathname} />
+        <div class="sidebar-content">
+          <DocsSidebar client:load entries={entries} currentSlug={Astro.url.pathname} />
+          <div class="sidebar-footer">
+             <Bandeirinhas client:load count={6} />
+          </div>
+        </div>
       </aside>
 
       <main class="docs-main">
@@ -74,21 +84,34 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
         <div class="docs-content-grid">
           <article class="prose-cobogo docs-article">
             <div class="article-header">
+              <div class="header-ornament">
+                 <Ornaments type="pillar" name="acervo" size={32} color="var(--vermelho)" />
+              </div>
               <span class="kicker">{frontmatter.section}</span>
               <h1 class="display-serif">{frontmatter.title}</h1>
               {frontmatter.description && <p class="lede">{frontmatter.description}</p>}
-              <Ornaments type="waveline" height={16} color="var(--vermelho)" />
+              <Ornaments type="waveline" height={16} color="var(--ocre)" />
             </div>
 
             <div class="article-body">
               <slot />
             </div>
 
-            <Ornaments type="wave" height={32} color="var(--azul-soft)" className="article-separator" />
-            
+            <!-- Footer with bureaucratic modernist stamp -->
             <footer class="article-footer">
+              <div class="footer-top">
+                <Ornaments type="wave" height={32} color="var(--verde-soft)" className="article-separator" />
+                <div class="stamp-position">
+                   <Stamp client:load text="COBOGÓ DOCS" date={new Date().toLocaleDateString('pt-BR')} color="var(--azul)" rotation={12} />
+                </div>
+              </div>
+              
               <PrevNextNav prev={prev} next={next} />
-              <DocsEditLink entryId={entryId} fallbackSlug={frontmatter.slug || frontmatter.title.toLowerCase().replace(/\s+/g, '-')} />
+              
+              <div class="footer-meta">
+                <DocsEditLink entryId={entryId} fallbackSlug={frontmatter.slug || frontmatter.title.toLowerCase().replace(/\s+/g, '-')} />
+                <p class="doctrine-cite">"Modularidade que respira; geometria que admite a luz." — Manifesto Cobogó</p>
+              </div>
             </footer>
           </article>
 
@@ -96,6 +119,9 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
             <div class="toc-sticky">
               <h4 class="toc-title">Nesta página</h4>
               <DocsTOC headings={headings} client:load />
+              <div class="toc-ornament">
+                 <Ornaments type="pillar" name="cidade" size={48} color="var(--papel-30)" />
+              </div>
             </div>
           </aside>
         </div>
@@ -112,9 +138,15 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     background: var(--bg);
   }
 
+  /* Browser selection colors */
+  :global(::selection) {
+    background: var(--ocre-soft);
+    color: var(--concreto-90);
+  }
+
   .header-accent {
-    height: 4px;
-    background: linear-gradient(to right, var(--azul), var(--vermelho), var(--ocre), var(--verde));
+    height: 6px;
+    background: linear-gradient(to right, var(--azul) 25%, var(--vermelho) 25% 50%, var(--ocre) 50% 75%, var(--verde) 75%);
   }
 
   .docs-header {
@@ -122,22 +154,39 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     top: 0;
     z-index: 100;
     background: var(--bg);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--concreto-90);
   }
 
   .docs-header-inner {
-    max-width: 1440px;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 0.75rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   .brand {
-    font-size: 1.5rem;
-    color: var(--fg);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     text-decoration: none;
+    color: var(--fg);
+  }
+
+  .font-logo {
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .docs-tag {
+    background: var(--concreto-90);
+    color: var(--papel-00);
+    padding: 0.125rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 900;
+    border-radius: var(--r-1);
+    letter-spacing: 0.05em;
   }
 
   .docs-header-actions {
@@ -157,86 +206,155 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
   .docs-layout-container {
     display: flex;
     flex: 1;
-    max-width: 1440px;
+    max-width: 1600px;
     margin: 0 auto;
     width: 100%;
   }
 
   .docs-sidebar-wrapper {
     width: 280px;
-    border-right: 1px solid var(--border);
+    border-right: 2px solid var(--concreto-90);
     position: sticky;
     top: 4.5rem;
     height: calc(100vh - 4.5rem);
-    background: var(--bg-sunken);
+    background: var(--papel-10);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
   }
 
   .sidebar-pattern {
     position: absolute;
     inset: 0;
-    opacity: 0.05;
+    opacity: 0.08;
     pointer-events: none;
     z-index: 0;
+  }
+
+  .sidebar-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem 0;
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 0 1rem;
+    opacity: 0.6;
   }
 
   .docs-main {
     flex: 1;
     min-width: 0;
+    background: var(--papel-00);
   }
 
   .docs-content-grid {
     display: grid;
-    grid-template-columns: 1fr 240px;
-    gap: 4rem;
-    padding: 4rem;
+    grid-template-columns: 1fr 260px;
+    gap: 5rem;
+    padding: 5rem;
   }
 
   .docs-article {
-    max-width: 800px;
+    max-width: 840px;
   }
 
   .article-header {
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
+    position: relative;
+  }
+
+  .header-ornament {
+    margin-bottom: 1.5rem;
   }
 
   .article-header h1 {
-    font-size: 4.5rem;
-    margin: 1rem 0;
-    line-height: 0.95;
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    margin: 0.5rem 0 1.5rem;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    font-weight: 900;
   }
 
   .kicker {
     text-transform: uppercase;
     font-weight: 800;
     font-size: var(--t-small);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     color: var(--vermelho);
+    display: block;
   }
 
   .lede {
-    font-size: 1.5rem;
-    color: var(--fg-muted);
-    margin-bottom: 2rem;
+    font-size: 1.625rem;
+    color: var(--concreto-60);
+    margin-bottom: 2.5rem;
+    line-height: 1.3;
+    font-family: var(--font-sans);
+    font-weight: 300;
   }
 
   .article-body {
-    margin-bottom: 6rem;
+    margin-bottom: 8rem;
+    min-height: 40vh;
+  }
+
+  .article-footer {
+    border-top: 2px solid var(--concreto-90);
+    padding-top: 4rem;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 4rem;
+  }
+
+  .stamp-position {
+    margin-top: -60px;
+    margin-right: -20px;
   }
 
   .article-separator {
-    margin: 4rem 0;
-    opacity: 0.5;
+    flex: 1;
+    max-width: 300px;
+    opacity: 0.8;
+  }
+
+  .footer-meta {
+    margin-top: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    border-top: 1px dashed var(--concreto-30);
+    padding-top: 2rem;
+  }
+
+  .doctrine-cite {
+    font-family: var(--font-cordel);
+    font-size: 0.9rem;
+    color: var(--concreto-40);
+    font-style: italic;
+    text-align: right;
   }
 
   .toc-title {
     font-size: var(--t-micro);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 800;
-    color: var(--concreto-60);
-    margin-bottom: 1rem;
+    letter-spacing: 0.15em;
+    font-weight: 900;
+    color: var(--concreto-90);
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--ocre);
+    padding-left: 0.75rem;
   }
 
   .toc-sticky {
@@ -244,10 +362,17 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     top: 8rem;
   }
 
-  @media (max-width: 1200px) {
+  .toc-ornament {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 1300px) {
     .docs-content-grid {
-      grid-template-columns: 1fr;
-      padding: 3rem 2rem;
+      gap: 3rem;
+      padding: 4rem 3rem;
     }
     .docs-toc-wrapper {
       display: none;
@@ -260,6 +385,12 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     }
     .hamburger {
       display: block;
+    }
+    .docs-content-grid {
+      padding: 3rem 1.5rem;
+    }
+    .article-header h1 {
+      font-size: 3.5rem;
     }
   }
 </style>
