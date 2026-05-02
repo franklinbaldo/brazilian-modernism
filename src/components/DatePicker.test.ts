@@ -23,6 +23,20 @@ describe('DatePicker', () => {
 		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
 		expect(input.classList.contains('date-picker-lg')).toBe(true);
 	});
+
+	it('renders valid state class', () => {
+		render(DatePicker, { valid: true });
+		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
+		expect(input.classList.contains('valid')).toBe(true);
+	});
+
+	it('prioritizes invalid state over valid state', () => {
+		render(DatePicker, { invalid: true, valid: true });
+		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
+		expect(input.classList.contains('invalid')).toBe(true);
+		expect(input.classList.contains('valid')).toBe(false);
+		expect(input.getAttribute('aria-invalid')).toBe('true');
+	});
 });
 
 import DatePickerContext from './DatePickerContext.test.svelte';

@@ -64,6 +64,8 @@ Generous negative space is mandatory to avoid cognitive overload.
 All components **MUST** adhere to WCAG AA accessibility standards.
 - Use semantic HTML.
 - Support keyboard navigation with explicit `focus-visible` states.
+- Modal organisms (Dialogs, Drawers) must implement strict focus trapping (WCAG 2.1.2 No Keyboard Trap) ensuring Tab/Shift+Tab cycles internally without escaping. This includes explicitly intercepting "escaped" focus (e.g., when the active element is programmatically blurred or an outside element is clicked without closing) and pulling it back into the modal bounds.
+- Tooltips and other hover/focus revealed content must be dismissible via the `Escape` key without moving focus, complying with WCAG 1.4.13 (Content on Hover or Focus).
 - Include `aria-` attributes (e.g., `aria-label`, `aria-live`, `aria-expanded`, `aria-hidden`) where appropriate.
 - Respect `prefers-reduced-motion` to disable/minimize transitions.
 - High contrast values.
@@ -94,4 +96,12 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 - Admonition mapping strictly by color: info (azul), tip (verde), warning (ocre), danger (vermelho), note (concreto-60).
 
 ## 6. Dark Mode
-[Not yet defined. Should map `--concreto` inverted when implemented, maintaining contrast and preserving specific saturated primary semantics.]
+Dark Mode is defined in `.dark-mode` globally. It strictly inverts the `--papel` and `--concreto` variables to maintain geometric contrast while deeply adjusting the `--soft` variables of primary colors to their dark equivalents. The saturated primary colors (`--azul`, `--vermelho`, `--ocre`, `--verde`) remain intentionally vibrant as they are the core identity markers.
+
+## Form Atoms & Organisms
+- **Form Borders & Contrast**: Form components (`Checkbox`, `Radio`, `Switch`, `TextInput`, `Select`) must strictly maintain WCAG AA non-text contrast ratios (>= 3.0) for both their boundaries (borders) and focus rings. To achieve this, their default and empty states are mapped to semantic tokens (`--bg-raised` or `--bg-sunken` for backgrounds, `--border-input` for borders) rather than absolute color variables (e.g., avoid hardcoding `--papel-00` or `--concreto-80` for structure). This decoupled approach allows the borders to remain visible against the inverted `--bg` in Dark Mode.
+- **Validation States**: Form input components (like `TextInput`, `Select`) must provide unmistakable feedback adhering to the Curva & Concreto aesthetic. Invalid states use `--vermelho-soft` for the background and `--vermelho` for borders, text, and icons. Valid states use `--verde-soft` and `--verde` correspondingly. Color transitions ensure smooth visual changes.
+- **MultiSelect**: Adapts the Combobox pattern for multiple selections. Displays selected items as `Badge` atoms inside the input. Maintains accessibility via `role="combobox"` and `role="listbox"`, utilizing the `Checkbox` atom internally for selection state. Strictly adheres to `--vermelho-soft` and `--vermelho` for invalid states.
+
+## Notification Organisms
+- **Notification**: Adapts visually to its `intent` (`info`, `tip`, `warning`, `danger`) by relying on `--soft` background colors and a geometric `--accent` border strip. Instead of nesting curves inside curves, the colored border strip provides structural contrast. Dark Mode correctly inverts the `--soft` backgrounds while preserving the vibrant `--accent` strip for semantic clarity. Automatically applies correct ARIA roles (`status` or `alert`) and live regions (`polite` or `assertive`) based on the intent (WCAG 4.1.3 Status Messages). Also supports auto-dismissal via the `timeout` prop; to comply with WCAG 2.2.1 (Timing Adjustable), the timeout is paused when the user hovers over or focuses the notification, and resumes when the interaction ends.

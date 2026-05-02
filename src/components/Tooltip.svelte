@@ -29,15 +29,26 @@
   function hide() {
     visible = false;
   }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape' && visible) {
+      event.preventDefault();
+      // It's important to stop propagation so we don't accidentally close dialogs or drawers this is inside
+      event.stopPropagation();
+      hide();
+    }
+  }
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <div
   class="cobogo-tooltip-wrapper"
   onmouseenter={show}
   onmouseleave={hide}
   onfocusin={show}
   onfocusout={hide}
+  onkeydown={handleKeydown}
 >
   {@render children({ 'aria-describedby': visible ? tooltipId : undefined })}
 
@@ -78,7 +89,15 @@
     line-height: 1.4;
     white-space: nowrap;
     box-shadow: var(--shadow-1);
-    pointer-events: none;
+
+  }
+
+  /* Hover gap bridging logic for WCAG 1.4.13 */
+  .cobogo-tooltip-popup::after {
+    content: '';
+    position: absolute;
+    /* Invisible hit area to prevent mouseleave when cursor crosses the gap */
+    background: transparent;
   }
 
   /* Positioning logic */
@@ -87,11 +106,23 @@
     left: 50%;
     transform: translateX(-50%) translateY(-8px);
   }
+  .cobogo-tooltip-popup--top::after {
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+  }
 
   .cobogo-tooltip-popup--bottom {
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(8px);
+  }
+  .cobogo-tooltip-popup--bottom::after {
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
   }
 
   .cobogo-tooltip-popup--left {
@@ -99,11 +130,23 @@
     top: 50%;
     transform: translateY(-50%) translateX(-8px);
   }
+  .cobogo-tooltip-popup--left::after {
+    right: -8px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+  }
 
   .cobogo-tooltip-popup--right {
     left: 100%;
     top: 50%;
     transform: translateY(-50%) translateX(8px);
+  }
+  .cobogo-tooltip-popup--right::after {
+    left: -8px;
+    top: 0;
+    bottom: 0;
+    width: 8px;
   }
 
   /* Arrow logic */

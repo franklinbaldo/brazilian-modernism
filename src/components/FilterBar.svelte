@@ -52,7 +52,7 @@
 		flex-wrap: wrap;
 		gap: 0.5rem;
 		padding: 0.75rem 0;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 1px solid var(--border-input);
 		align-items: center;
 		font-family: var(--font-sans);
 	}
@@ -73,11 +73,11 @@
 
 	.chip:hover {
 		background-color: var(--bg-sunken);
-		border-color: var(--border);
+		border-color: var(--border-input);
 	}
 
 	.chip:focus-visible {
-		outline: 2px solid var(--accent);
+		outline: 2px solid var(--focus-ring);
 		outline-offset: 2px;
 	}
 
@@ -116,7 +116,7 @@
 	}
 
 	.clear-all:focus-visible {
-		outline: 2px solid var(--accent);
+		outline: 2px solid var(--focus-ring);
 		outline-offset: 2px;
 	}
 

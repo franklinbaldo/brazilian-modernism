@@ -22,6 +22,20 @@ describe('TimePicker', () => {
 		const input = document.querySelector('input[type="time"]') as HTMLInputElement;
 		expect(input.classList.contains('time-picker-sm')).toBe(true);
 	});
+
+	it('renders valid state class', () => {
+		render(TimePicker, { valid: true });
+		const input = document.querySelector('input[type="time"]') as HTMLInputElement;
+		expect(input.classList.contains('valid')).toBe(true);
+	});
+
+	it('prioritizes invalid state over valid state', () => {
+		render(TimePicker, { invalid: true, valid: true });
+		const input = document.querySelector('input[type="time"]') as HTMLInputElement;
+		expect(input.classList.contains('invalid')).toBe(true);
+		expect(input.classList.contains('valid')).toBe(false);
+		expect(input.getAttribute('aria-invalid')).toBe('true');
+	});
 });
 
 import TimePickerContext from './TimePickerContext.test.svelte';

@@ -16,13 +16,14 @@
     border-radius: var(--r-1);
     padding: 2.5rem;
     position: relative;
-    border: 1px solid var(--border);
-    transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+    border: 2px solid var(--concreto-90);
+    box-shadow: var(--shadow-1);
+    transition: all 0.2s var(--ease-out);
   }
 
   .concrete-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-2);
   }
 
   .card-inner {

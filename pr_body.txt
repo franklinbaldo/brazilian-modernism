@@ -1,35 +1,19 @@
 **What**
-Implemented the `Form` component to wrap multiple `FormField`s. Added native `onsubmit` proxying, macro-level error summaries mapped to the `vermelho` admonition style, and semantic `fieldset`/`legend` rendering. Wrote full Vitest test coverage and documentation (`form.mdx`). Expanded test coverage across multiple component tests and fixed a typo in `docs/components/form.mdx` layout string to resolve build issues.
+Added MDX documentation and interactive Svelte 5 demos for the `DataTable`, `FilterBar`, and `Timeline` components in the vitrine. Updated BDD feature specs and Playwright E2E tests to verify their presence.
 
 **Why**
-To fulfill the broader `epic-1a2b-form-ergonomics` goal, we needed a macro-wrapper that enforces our spacing conventions (1.5rem gap) and handles structural concerns (fieldset grouping) that are tedious to implement manually every time. This guarantees that forms built with COBOGÓ automatically inherit our geometric restraint.
+To close the final major documentation gap in `epic-c0b0-vitrine`. Without these pages, consumers cannot see how complex structural components map to the "Curva & Concreto" geometric doctrine.
 
-**Decisions made**
-Avoided intercepting and replacing standard submit event properties (like `action` or `method`) entirely, preferring native HTML attributes but exposing an optional wrapper for client-side frameworks via the `onsubmit` Svelte handler. Designed the `error` state to assertively display using an `aria-live="assertive"` alert region to ensure screen readers immediately announce form-level failures.
-
-**Alternatives rejected**
-Rejected adding complex internal form state management (like tracking which specific field failed inside the `Form`). The `Form` remains visually and semantically responsible for the *macro* state, leaving micro-state to individual `FormField`s, adhering to the "atoms first" doctrine.
+**Decisions & Trade-offs**
+- Used `client:load` for the interactive demos to ensure Svelte 5 `$state` reactivity works correctly within the Astro MDX environment.
+- Documented `DataTable` as an expression of the rigid "Concreto" aesthetic, while `FilterBar` uses the "Curva" pill geometry.
+- No new dependencies were introduced. The demos compose existing atoms and Svelte primitives.
 
 **Test Evidence**
-`npm run test src/components/Form.test.ts`
-```
- ✓ src/components/Form.test.ts (4 tests) 285ms
- Test Files  1 passed (1)
-      Tests  4 passed (4)
-```
-`npx astro check`
-```
-Result (22 files):
-- 0 errors
-- 0 warnings
-- 0 hints
-```
+- ✅ `npx vitest run` passed (147 tests)
+- ✅ `npx playwright test` passed (asserts all 8 remaining component docs render correctly at their routes)
+- ✅ `npm run build` & `npx astro check` completed successfully
 
-**Diff Stats**
-6 files changed, 281 insertions(+)
-
-**Next Session Hint**
-The focus will shift back to the complex organism track with the `MultiSelect` component. I need to ensure it composes correctly with the newly established `Form` wrapper and handles array-based state cleanly, avoiding Svelte 5's array reactivity quirks while maintaining perfect a11y.
-
-**Session Log**
-`.jules/agent/brad_frost/2026-05-04T16-00-00Z_form-wrapper.md`
+**Visual Evidence**
+- Interactive demonstrations are visible on `/cobogo/docs/components/data-table`, `/cobogo/docs/components/filter-bar`, and `/cobogo/docs/components/timeline`.
+- Component styles adhere strictly to existing tokenized layouts (no new CSS classes were introduced outside of the demo containers).

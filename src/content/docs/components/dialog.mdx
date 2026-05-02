@@ -56,4 +56,5 @@ Like `Tabs` and `Accordion`, the `Dialog` manages the state of its subcomponents
 
 - **`aria-label` or `aria-describedby`**: You must provide accessible names to the `<Dialog>` directly.
 - **Native `<dialog>`**: Inherits the `aria-modal="true"` implicitly in modern browsers but we enforce it just in case.
-- **Focus Trapping**: By using `showModal()`, focus is naturally trapped within the Dialog and `Esc` automatically manages closure (though we manually intercept it to maintain Svelte `$state` parity).
+- **Focus Trapping**: By using `showModal()` and our internal `FocusTrap` utility, focus is naturally trapped within the Dialog. If focus escapes the modal bounds (e.g. programmatically), the trap aggressively intercepts the `Tab` key and pulls focus back inside to guarantee compliance with WCAG 2.1.2 (No Keyboard Trap).
+- **Escape Dismissal**: The `Esc` key automatically manages closure (manually intercepted to maintain Svelte `$state` parity and out-transitions).

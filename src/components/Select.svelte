@@ -11,6 +11,7 @@
 	 * @prop {string} [placeholder] - The default placeholder option text.
 	 * @prop {boolean} [disabled=false] - Whether the select is disabled.
 	 * @prop {boolean} [invalid=false] - Whether the select is invalid.
+	 * @prop {boolean} [valid=false] - Whether the select is valid.
 	 * @prop {'sm'|'md'|'lg'} [size='md'] - The size variant of the select.
 	 */
 	let {
@@ -19,6 +20,7 @@
 		placeholder,
 		disabled = false,
 		invalid = false,
+		valid = false,
 		size = 'md',
 		...rest
 	}: {
@@ -27,17 +29,19 @@
 		placeholder?: string;
 		disabled?: boolean;
 		invalid?: boolean;
+		valid?: boolean;
 		size?: 'sm' | 'md' | 'lg';
 		[key: string]: any;
 	} = $props();
 
 	// Consume FormField context if it exists
-	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+	const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
 	let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
 	let finalId = $derived(rest.id || ctx?.id);
 	let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
 	let finalInvalid = $derived(invalid || ctx?.invalid || false);
+	let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
 	let finalRequired = $derived(rest.required || ctx?.required || false);
 </script>
 
@@ -51,6 +55,7 @@
 	class="select-input select-input-{size}"
 	class:has-placeholder={!value && placeholder}
 	class:invalid={finalInvalid}
+	class:valid={finalValid}
 	{...rest}
 >
 	{#if placeholder}
@@ -64,7 +69,7 @@
 <style>
 	.select-input {
 		width: 100%;
-		border: 1px solid var(--border);
+		border: 1px solid var(--border-input);
 		border-radius: var(--r-1);
 		background-color: var(--bg-raised);
 		font-family: var(--font-sans);
@@ -76,22 +81,35 @@
 		background-repeat: no-repeat;
 		background-position: right 0.875rem center;
 		background-size: 1rem;
-		transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+		transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
 		box-sizing: border-box;
 	}
 
 	.select-input:focus-visible {
-		outline: 2px solid var(--accent);
+		outline: 2px solid var(--focus-ring);
 		outline-offset: 2px;
 	}
 
 	.select-input.invalid {
 		border-color: var(--vermelho);
 		background-color: var(--vermelho-soft);
+		color: var(--vermelho);
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23C8472E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
 	}
 
 	.select-input.invalid:focus-visible {
 		outline-color: var(--vermelho);
+	}
+
+	.select-input.valid {
+		border-color: var(--verde);
+		background-color: var(--verde-soft);
+		color: var(--verde);
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%232E6B4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
+	}
+
+	.select-input.valid:focus-visible {
+		outline-color: var(--verde);
 	}
 
 	.select-input:disabled {
@@ -115,7 +133,7 @@
 		font-size: var(--t-p);
 	}
 
-	.select-input.has-placeholder {
+	.select-input.has-placeholder:not(.invalid) {
 		color: var(--fg-muted);
 	}
 

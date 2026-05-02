@@ -2,6 +2,8 @@
 	import type { Snippet } from 'svelte';
 	import { setContext } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import FocusTrap from '../../utils/FocusTrap.svelte';
+
 
 	type Props = {
 		/** Indicates whether the drawer is currently open. Bound variable controls the modal. */
@@ -78,18 +80,20 @@
 	class:position-right={position === 'right'}
 >
 	{#if open}
-		<div
-			class="cobogo-drawer-inner"
-			in:fly={{ x: flyX, duration: 220, opacity: 1 }}
-			out:fly={{ x: flyX, duration: 150, opacity: 1 }}
-			onoutroend={() => {
-				if (dialogElement && dialogElement.open) {
-					dialogElement.close();
-				}
-			}}
-		>
-			{@render children()}
-		</div>
+		<FocusTrap active={true}>
+			<div
+				class="cobogo-drawer-inner"
+				in:fly={{ x: flyX, duration: 220, opacity: 1 }}
+				out:fly={{ x: flyX, duration: 150, opacity: 1 }}
+				onoutroend={() => {
+					if (dialogElement && dialogElement.open) {
+						dialogElement.close();
+					}
+				}}
+			>
+				{@render children()}
+			</div>
+		</FocusTrap>
 	{/if}
 </dialog>
 

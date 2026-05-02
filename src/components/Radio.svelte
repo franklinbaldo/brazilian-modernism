@@ -13,6 +13,7 @@
    * @prop {any} group - The bindable group value for radio binding.
    * @prop {boolean} [disabled=false] - Whether the radio is disabled.
    * @prop {boolean} [invalid=false] - Whether the radio is invalid.
+   * @prop {boolean} [valid=false] - Whether the radio is valid.
    */
   type Props = {
     value: string;
@@ -20,6 +21,7 @@
     group: any;
     disabled?: boolean;
     invalid?: boolean;
+    valid?: boolean;
     [key: string]: any;
   };
 
@@ -29,21 +31,23 @@
     group = $bindable(),
     disabled = false,
     invalid = false,
+    valid = false,
     ...rest
   }: Props = $props();
 
   // Consume FormField context if it exists
-  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
   let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
   let finalId = $derived(id || ctx?.id);
   let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
   let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
   let finalRequired = $derived(rest.required || ctx?.required || false);
 
 </script>
 
-<div class="radio-container" class:disabled class:invalid={finalInvalid}>
+<div class="radio-container" class:disabled class:invalid={finalInvalid} class:valid={finalValid}>
   <input
     type="radio"
     id={finalId}
@@ -86,8 +90,8 @@
   .radio-visual {
     width: 1.25rem;
     height: 1.25rem;
-    background-color: var(--papel-00);
-    border: 2px solid var(--concreto-80);
+    background-color: var(--bg-raised);
+    border: 2px solid var(--border-input);
     border-radius: var(--r-pill);
     display: flex;
     align-items: center;
@@ -101,7 +105,7 @@
   }
 
   input:focus-visible + .radio-visual {
-    outline: 2px solid var(--azul);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 
@@ -113,8 +117,36 @@
     background-color: var(--vermelho-soft);
   }
 
+  .invalid input:checked + .radio-visual {
+    border-color: var(--vermelho);
+  }
+
+  .invalid input:checked + .radio-visual .radio-dot {
+    background-color: var(--vermelho);
+  }
+
   .invalid input:focus-visible + .radio-visual {
     outline-color: var(--vermelho);
+  }
+
+  .valid .radio-visual {
+    border-color: var(--verde);
+  }
+
+  .valid input:not(:checked) + .radio-visual {
+    background-color: var(--verde-soft);
+  }
+
+  .valid input:checked + .radio-visual {
+    border-color: var(--verde);
+  }
+
+  .valid input:checked + .radio-visual .radio-dot {
+    background-color: var(--verde);
+  }
+
+  .valid input:focus-visible + .radio-visual {
+    outline-color: var(--verde);
   }
 
   .radio-dot {
