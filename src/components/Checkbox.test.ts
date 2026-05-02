@@ -67,3 +67,31 @@ describe('Checkbox Group Interaction', () => {
     expect(apple.checked).toBe(false);
   });
 });
+
+describe('Checkbox Validation States', () => {
+  afterEach(cleanup);
+
+  it('renders invalid state class', () => {
+    render(Checkbox, { props: { invalid: true } });
+    const input = screen.getByRole('checkbox');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
+    expect(container).not.toHaveClass('valid');
+  });
+
+  it('renders valid state class', () => {
+    render(Checkbox, { props: { valid: true } });
+    const input = screen.getByRole('checkbox');
+    const container = input.parentElement;
+    expect(container).toHaveClass('valid');
+    expect(container).not.toHaveClass('invalid');
+  });
+
+  it('prioritizes invalid state over valid state', () => {
+    render(Checkbox, { props: { invalid: true, valid: true } });
+    const input = screen.getByRole('checkbox');
+    const container = input.parentElement;
+    expect(container).toHaveClass('invalid');
+    expect(container).not.toHaveClass('valid');
+  });
+});

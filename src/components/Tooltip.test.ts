@@ -72,4 +72,31 @@ describe('Tooltip Molecule', () => {
       expect(tooltip.id).toBe(describedBy);
     });
   });
+
+  it('can be dismissed with Escape key without losing focus (WCAG 1.4.13)', async () => {
+    render(TooltipTest);
+
+    const button = screen.getByText('Hover me');
+    const wrapper = button.closest('.cobogo-tooltip-wrapper');
+
+    // Focus to open
+    button.focus();
+    await fireEvent.focusIn(wrapper!);
+
+    await waitFor(() => {
+      expect(screen.getByRole('tooltip')).toBeInTheDocument();
+    });
+
+    // Press Escape
+    // Note: The event will bubble from the focused element (button) up to the wrapper
+    await fireEvent.keyDown(button, { key: 'Escape', code: 'Escape' });
+
+    // We check aria-describedby instead of checking if the tooltip element is removed
+    // because out:fade keeps the element in the DOM until the transition finishes.
+    await waitFor(() => {
+      expect(button).not.toHaveAttribute('aria-describedby');
+      // Focus should still be on the button
+      expect(document.activeElement).toBe(button);
+    });
+  });
 });

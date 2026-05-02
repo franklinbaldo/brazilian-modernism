@@ -35,4 +35,15 @@
     background-color: var(--verde);
     color: white;
   }
+
+  .variant-neutral {
+    background-color: var(--papel-20);
+    color: var(--concreto-90);
+    border: 1px solid var(--concreto-40);
+  }
+
+  .variant-default {
+    background-color: var(--concreto-40);
+    color: var(--papel-00);
+  }
 </style>

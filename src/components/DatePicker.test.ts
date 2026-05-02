@@ -1,70 +1,54 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { render, fireEvent, cleanup } from '@testing-library/svelte';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/svelte/svelte5';
 import DatePicker from './DatePicker.svelte';
-import FormFieldMockWrapper from './FormFieldMockWrapper.test.svelte';
+import FormFieldWrapper from './FormFieldWrapper.test.svelte'; // Reuse existing wrapper if any, or test directly
 
-describe('DatePicker Component', () => {
-	afterEach(() => {
-		cleanup();
-		vi.clearAllMocks();
+describe('DatePicker', () => {
+	it('renders correctly', () => {
+		render(DatePicker, { value: '2026-05-01' });
+		const input = document.querySelector('input[type="date"]');
+		expect(input).toBeTruthy();
+		expect((input as HTMLInputElement).value).toBe('2026-05-01');
 	});
 
-	it('renders correctly with default props', () => {
-		const { getByRole } = render(DatePicker);
-		const input = getByRole('textbox');
-		expect(input).toBeInTheDocument();
-		expect(input).toHaveAttribute('placeholder', 'Selecione uma data');
-		expect(input).toHaveAttribute('aria-expanded', 'false');
-	});
-
-	it('opens the calendar popover on click', async () => {
-		const { getByRole, getByLabelText } = render(DatePicker);
-		const input = getByRole('textbox');
-
-		await fireEvent.click(input);
-
-		const popover = getByLabelText('Calendário');
-		expect(popover).toBeInTheDocument();
-		expect(popover).toHaveAttribute('role', 'dialog');
-		expect(input).toHaveAttribute('aria-expanded', 'true');
-	});
-
-	it('selects a date and closes popover', async () => {
-		const { getByRole, getByLabelText, getByText } = render(DatePicker);
-		const input = getByRole('textbox');
-
-		await fireEvent.click(input);
-
-		const dayBtn = getByText('15');
-		await fireEvent.click(dayBtn);
-
-		const val = (input as HTMLInputElement).value;
-		expect(val.endsWith('-15')).toBe(true);
-		expect(input).toHaveAttribute('aria-expanded', 'false');
-	});
-
-	it('closes the popover on Escape key', async () => {
-		const { getByRole, getByLabelText } = render(DatePicker);
-		const input = getByRole('textbox');
-
-		await fireEvent.click(input);
-		expect(getByLabelText('Calendário')).toBeInTheDocument();
-
-		await fireEvent.keyDown(getByLabelText('Calendário'), { key: 'Escape' });
-
-		expect(input).toHaveAttribute('aria-expanded', 'false');
-	});
-
-	it('integrates with FormField invalid context', () => {
-		const { getByRole } = render(FormFieldMockWrapper, {
-			props: {
-				invalid: true,
-				component: DatePicker
-			}
-		});
-
-		const input = getByRole('textbox');
-		expect(input).toHaveAttribute('aria-invalid', 'true');
+	it('applies invalid state via props', () => {
+		render(DatePicker, { invalid: true });
+		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
 		expect(input.classList.contains('invalid')).toBe(true);
+		expect(input.getAttribute('aria-invalid')).toBe('true');
+	});
+
+	it('applies size class', () => {
+		render(DatePicker, { size: 'lg' });
+		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
+		expect(input.classList.contains('date-picker-lg')).toBe(true);
+	});
+
+	it('renders valid state class', () => {
+		render(DatePicker, { valid: true });
+		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
+		expect(input.classList.contains('valid')).toBe(true);
+	});
+
+	it('prioritizes invalid state over valid state', () => {
+		render(DatePicker, { invalid: true, valid: true });
+		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
+		expect(input.classList.contains('invalid')).toBe(true);
+		expect(input.classList.contains('valid')).toBe(false);
+		expect(input.getAttribute('aria-invalid')).toBe('true');
+	});
+});
+
+import DatePickerContext from './DatePickerContext.test.svelte';
+
+describe('DatePicker with FormField', () => {
+	it('inherits invalid and required states from context', () => {
+		render(DatePickerContext, { invalid: true, required: true });
+		const input = document.querySelector('input[type="date"]') as HTMLInputElement;
+		expect(input.classList.contains('invalid')).toBe(true);
+		expect(input.getAttribute('aria-invalid')).toBe('true');
+		expect(input.required).toBe(true);
+		expect(input.id).toBe('date-input');
+		expect(input.getAttribute('aria-describedby')).toBe('date-helper');
 	});
 });

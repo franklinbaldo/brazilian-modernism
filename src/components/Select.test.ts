@@ -50,5 +50,23 @@ describe('Select Component', () => {
     const select = screen.getByRole('combobox');
     expect(select).toHaveAttribute('aria-invalid', 'true');
     expect(select).toHaveClass('invalid');
+    expect(select).not.toHaveClass('valid');
+  });
+
+  it('renders valid state correctly when explicitly passed', () => {
+    const options = [{ value: '1', label: 'One' }];
+    render(Select, { props: { options, valid: true } });
+    const select = screen.getByRole('combobox');
+    expect(select).toHaveClass('valid');
+    expect(select).toHaveAttribute('aria-invalid', 'false');
+  });
+
+  it('invalid prop takes precedence over valid prop', () => {
+    const options = [{ value: '1', label: 'One' }];
+    render(Select, { props: { options, invalid: true, valid: true } });
+    const select = screen.getByRole('combobox');
+    expect(select).toHaveAttribute('aria-invalid', 'true');
+    expect(select).toHaveClass('invalid');
+    expect(select).not.toHaveClass('valid');
   });
 });

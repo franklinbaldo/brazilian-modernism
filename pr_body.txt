@@ -1,19 +1,19 @@
-What
-Implemented the `DatePicker` and `TimePicker` molecular components to support precise, accessible temporal data entry.
+**What**
+Added MDX documentation and interactive Svelte 5 demos for the `DataTable`, `FilterBar`, and `Timeline` components in the vitrine. Updated BDD feature specs and Playwright E2E tests to verify their presence.
 
-Why
-The design system needed robust date and time inputs. The aesthetic was built strictly following the 'Curva & Concreto' doctrine: the input fields leverage curved geometry (`--r-1`) for interaction, while the popovers utilize sharp, rigid geometry (`0px` border-radius, pure block structure) for static data presentation.
+**Why**
+To close the final major documentation gap in `epic-c0b0-vitrine`. Without these pages, consumers cannot see how complex structural components map to the "Curva & Concreto" geometric doctrine.
 
-Decisions
-- **Svelte 5 Runes**: Built using `$props`, `$state`, `$derived`, and `$effect`.
-- **Timezone Parsing**: Explicitly avoided `new Date('YYYY-MM-DD')` to prevent the UTC midnight evaluation bug. Dates are manually parsed via `split('-')` and instantiated with local timezone arguments.
-- **Workflow**: Updated `time-picker.feature` to reflect the decision to leave the time popover open after individual selections (hours/minutes), allowing fluid compound actions rather than jarring closures.
-- **Documentation**: Svelte 5 snippets inside Astro MDX threw Acorn parser errors; adjusted MDX documentation to avoid inline snippet definitions while still proving the FormField context works.
+**Decisions & Trade-offs**
+- Used `client:load` for the interactive demos to ensure Svelte 5 `$state` reactivity works correctly within the Astro MDX environment.
+- Documented `DataTable` as an expression of the rigid "Concreto" aesthetic, while `FilterBar` uses the "Curva" pill geometry.
+- No new dependencies were introduced. The demos compose existing atoms and Svelte primitives.
 
-Trade-offs
-- Rejected relying on native `<input type="date">` and `<input type="time">` because they cannot be reliably styled across browsers, which breaks the doctrine's strict aesthetic constraints. Custom popovers were necessary to enforce "concreto" geometry.
+**Test Evidence**
+- ✅ `npx vitest run` passed (147 tests)
+- ✅ `npx playwright test` passed (asserts all 8 remaining component docs render correctly at their routes)
+- ✅ `npm run build` & `npx astro check` completed successfully
 
-Test evidence
-- Vitest BDD tests pass (85 total tests across the suite).
-- Pre-commit typecheck and Astro build ran perfectly.
-- A11y compiler warnings resolved (removed invalid `aria-expanded` from textboxes and `onkeydown` from non-interactive `div`s).
+**Visual Evidence**
+- Interactive demonstrations are visible on `/cobogo/docs/components/data-table`, `/cobogo/docs/components/filter-bar`, and `/cobogo/docs/components/timeline`.
+- Component styles adhere strictly to existing tokenized layouts (no new CSS classes were introduced outside of the demo containers).

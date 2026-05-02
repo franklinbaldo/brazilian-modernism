@@ -30,8 +30,10 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     cursor: pointer;
-    transition: all var(--dur-2) var(--ease-out);
-    border: none;
+    transition: all 0.1s var(--ease-out);
+    border: 2px solid var(--concreto-90);
+    position: relative;
+    box-shadow: var(--shadow-1);
   }
 
   .button.primary {
@@ -41,12 +43,12 @@
 
   .button.outline {
     background-color: transparent;
-    border: 1px solid var(--border-strong);
     color: var(--fg);
   }
 
   .button:hover {
-    transform: translateY(-2px);
+    transform: translate(-1px, -1px);
+    box-shadow: var(--shadow-2);
   }
 
   .button.primary:hover {
@@ -58,7 +60,8 @@
   }
 
   .button:active {
-    transform: translateY(0);
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0 var(--concreto-90);
   }
 
   .button:focus-visible {
