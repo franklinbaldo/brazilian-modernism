@@ -1,3 +1,5 @@
+import { vi } from "vitest";
+
 import '@testing-library/jest-dom';
 
 // Mock element.animate for jsdom environments (used by svelte/transition)
@@ -26,3 +28,18 @@ if (typeof HTMLDialogElement !== 'undefined') {
     this.dispatchEvent(new Event('close'));
   };
 }
+
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+});

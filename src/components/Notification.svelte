@@ -100,17 +100,31 @@
 
   const roleAttr = $derived(intent === 'danger' || intent === 'warning' ? 'alert' : 'status');
   const ariaLiveAttr = $derived(intent === 'danger' || intent === 'warning' ? 'assertive' : 'polite');
+
+  let prefersReducedMotion = $state(false);
+
+  $effect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    prefersReducedMotion = mediaQuery.matches;
+
+    const handler = (e: MediaQueryListEvent) => {
+      prefersReducedMotion = e.matches;
+    };
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  });
 </script>
 
 {#if visible}
+  <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
   <div
     {id}
     class="br-notification br-notification--{intent} {className}"
-    tabindex="-1"
+    tabindex={timeout > 0 ? 0 : -1}
     {style}
     role={roleAttr}
     aria-live={ariaLiveAttr}
-    transition:slide={{ duration: 220, easing: cubicOut }}
+    transition:slide={{ duration: prefersReducedMotion ? 0 : 220, easing: cubicOut }}
     onmouseenter={handleMouseEnter}
     onmouseleave={handleMouseLeave}
     onfocusin={handleFocusIn}
@@ -156,6 +170,11 @@
     color: var(--fg);
     max-width: 400px;
     width: 100%;
+  }
+
+  .br-notification:focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
   }
 
   .br-notification::before {
@@ -258,6 +277,12 @@
     line-height: 1;
     border-radius: var(--r-1);
     transition: color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .br-notification__close {
+      transition: none;
+    }
   }
 
   .br-notification__close:hover {

@@ -132,6 +132,30 @@ describe('Notification', () => {
     vi.useRealTimers();
   });
 
+  it('has tabindex 0 when auto-dismissible and -1 otherwise', () => {
+    const { unmount } = render(Notification, {
+      props: {
+        title: 'Auto dismiss',
+        timeout: 2000
+      }
+    });
+
+    let notification = screen.getByRole('status');
+    expect(notification).toHaveAttribute('tabindex', '0');
+
+    unmount();
+
+    render(Notification, {
+      props: {
+        title: 'Static dismiss',
+        timeout: 0
+      }
+    });
+
+    notification = screen.getByRole('status');
+    expect(notification).toHaveAttribute('tabindex', '-1');
+  });
+
   it('pauses timeout on focus and resumes on blur', async () => {
     vi.useFakeTimers();
     const ondismiss = vi.fn();
