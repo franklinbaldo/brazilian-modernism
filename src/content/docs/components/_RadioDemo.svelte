@@ -1,40 +1,60 @@
 <script lang="ts">
+  import FormField from '../../../components/FormField.svelte';
   import Radio from '../../../components/Radio.svelte';
 
-  let standardGroup = $state('option1');
-  let validGroup = $state('valid1');
-  let invalidGroup = $state('invalid1');
+  let groupNormal = $state('option1');
+  let groupInvalid = $state('');
+  let groupValid = $state('option2');
 </script>
 
 <div class="demo-container">
   <div class="row">
-    <h3>Standard Usage</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Radio value="option1" bind:group={standardGroup} /> Option 1
-    </label>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Radio value="option2" bind:group={standardGroup} /> Option 2
-    </label>
+    <FormField label="Standard Radio" htmlFor="demo-radio-1" helper="Regular radio atom">
+      {#snippet children(props)}
+        <div class="flex gap-4">
+          <label class="flex items-center gap-2">
+            <Radio value="option1" bind:group={groupNormal} {...props} />
+            <span>Option 1</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <Radio value="option2" bind:group={groupNormal} {...props} id="demo-radio-1-b" />
+            <span>Option 2</span>
+          </label>
+        </div>
+      {/snippet}
+    </FormField>
   </div>
-
   <div class="row">
-    <h3>Invalid State</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Radio invalid={true} value="invalid1" bind:group={invalidGroup} /> Option 1
-    </label>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Radio invalid={true} value="invalid2" bind:group={invalidGroup} /> Option 2
-    </label>
+    <FormField label="Invalid State" htmlFor="demo-radio-2" error="Please select an option.">
+      {#snippet children(props)}
+        <div class="flex gap-4">
+          <label class="flex items-center gap-2">
+            <Radio value="option1" bind:group={groupInvalid} {...props} />
+            <span>Option A</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <Radio value="option2" bind:group={groupInvalid} {...props} id="demo-radio-2-b" />
+            <span>Option B</span>
+          </label>
+        </div>
+      {/snippet}
+    </FormField>
   </div>
-
   <div class="row">
-    <h3>Valid State</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Radio valid={true} value="valid1" bind:group={validGroup} /> Option 1
-    </label>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Radio valid={true} value="valid2" bind:group={validGroup} /> Option 2
-    </label>
+    <FormField label="Valid State" htmlFor="demo-radio-3" valid="Looks good!">
+      {#snippet children(props)}
+        <div class="flex gap-4">
+          <label class="flex items-center gap-2">
+            <Radio value="option1" bind:group={groupValid} {...props} />
+            <span>Choice X</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <Radio value="option2" bind:group={groupValid} {...props} id="demo-radio-3-b" />
+            <span>Choice Y</span>
+          </label>
+        </div>
+      {/snippet}
+    </FormField>
   </div>
 </div>
 
@@ -51,13 +71,17 @@
   .row {
     width: 100%;
     max-width: 400px;
+  }
+  .flex {
     display: flex;
-    flex-direction: column;
+  }
+  .gap-4 {
+    gap: 1rem;
+  }
+  .gap-2 {
     gap: 0.5rem;
   }
-  h3 {
-    font-size: 0.875rem;
-    margin: 0;
-    color: var(--concreto-60);
+  .items-center {
+    align-items: center;
   }
 </style>

@@ -1,30 +1,33 @@
 <script lang="ts">
+  import FormField from '../../../components/FormField.svelte';
   import Checkbox from '../../../components/Checkbox.svelte';
 
-  let validChecked = $state(true);
-  let invalidChecked = $state(false);
+  let checkedNormal = $state(false);
+  let checkedInvalid = $state(false);
+  let checkedValid = $state(true);
 </script>
 
 <div class="demo-container">
   <div class="row">
-    <h3>Standard Usage</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Checkbox value="standard" /> Checkbox label
-    </label>
+    <FormField label="Standard Checkbox" htmlFor="demo-cb-1" helper="Regular checkbox atom">
+      {#snippet children(props)}
+        <Checkbox bind:checked={checkedNormal} {...props} />
+      {/snippet}
+    </FormField>
   </div>
-
   <div class="row">
-    <h3>Invalid State</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Checkbox invalid={true} bind:checked={invalidChecked} /> Must agree to terms
-    </label>
+    <FormField label="Invalid State" htmlFor="demo-cb-2" error="You must accept the terms.">
+      {#snippet children(props)}
+        <Checkbox bind:checked={checkedInvalid} {...props} />
+      {/snippet}
+    </FormField>
   </div>
-
   <div class="row">
-    <h3>Valid State</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Checkbox valid={true} bind:checked={validChecked} /> Verified option
-    </label>
+    <FormField label="Valid State" htmlFor="demo-cb-3" valid="Looks good!">
+      {#snippet children(props)}
+        <Checkbox bind:checked={checkedValid} {...props} />
+      {/snippet}
+    </FormField>
   </div>
 </div>
 
@@ -41,13 +44,5 @@
   .row {
     width: 100%;
     max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  h3 {
-    font-size: 0.875rem;
-    margin: 0;
-    color: var(--concreto-60);
   }
 </style>

@@ -1,30 +1,33 @@
 <script lang="ts">
+  import FormField from '../../../components/FormField.svelte';
   import Switch from '../../../components/Switch.svelte';
 
-  let validChecked = $state(true);
-  let invalidChecked = $state(false);
+  let checkedNormal = $state(false);
+  let checkedInvalid = $state(false);
+  let checkedValid = $state(true);
 </script>
 
 <div class="demo-container">
   <div class="row">
-    <h3>Standard Usage</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Switch /> Enable Feature
-    </label>
+    <FormField label="Standard Switch" htmlFor="demo-switch-1" helper="Regular switch atom">
+      {#snippet children(props)}
+        <Switch bind:checked={checkedNormal} {...props} />
+      {/snippet}
+    </FormField>
   </div>
-
   <div class="row">
-    <h3>Invalid State</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Switch invalid={true} bind:checked={invalidChecked} /> Required configuration
-    </label>
+    <FormField label="Invalid State" htmlFor="demo-switch-2" error="You must enable this feature.">
+      {#snippet children(props)}
+        <Switch bind:checked={checkedInvalid} {...props} />
+      {/snippet}
+    </FormField>
   </div>
-
   <div class="row">
-    <h3>Valid State</h3>
-    <label style="display: flex; gap: 0.5rem; align-items: center;">
-      <Switch valid={true} bind:checked={validChecked} /> Configuration optimized
-    </label>
+    <FormField label="Valid State" htmlFor="demo-switch-3" valid="Looks good!">
+      {#snippet children(props)}
+        <Switch bind:checked={checkedValid} {...props} />
+      {/snippet}
+    </FormField>
   </div>
 </div>
 
@@ -41,13 +44,5 @@
   .row {
     width: 100%;
     max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  h3 {
-    font-size: 0.875rem;
-    margin: 0;
-    color: var(--concreto-60);
   }
 </style>

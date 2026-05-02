@@ -45,8 +45,8 @@
 
   let isOpen = $state(false);
   let searchQuery = $state('');
-  let inputRef: HTMLInputElement | null = $state(null);
-  let wrapperRef: HTMLDivElement | null = $state(null);
+  let inputRef = $state<HTMLInputElement | null>(null);
+  let wrapperRef = $state<HTMLDivElement | null>(null);
 
   let filteredOptions = $derived(
     searchable && searchQuery

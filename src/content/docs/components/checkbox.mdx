@@ -7,7 +7,7 @@ import CheckboxDemo from './_CheckboxDemo.svelte';
 
 # Checkbox
 
-The `Checkbox` component is the foundational atom for multiple-choice data entry in the COBOGÓ design system. It embodies the **Curva & Concreto** doctrine with its honest pool-shadows, sharp geometry, and unmistakably distinct validation states.
+The `Checkbox` component provides a custom-styled, accessible checkbox control. It adheres strictly to the **Curva & Concreto** aesthetic by providing a structural box (`--r-1` radius) that reveals a sharp checkmark when activated. It utilizes native `input type="checkbox"` mechanics under the hood to ensure perfect accessibility and form serialization.
 
 <div class="not-prose my-8">
   <CheckboxDemo client:load />
@@ -15,45 +15,36 @@ The `Checkbox` component is the foundational atom for multiple-choice data entry
 
 ## Usage
 
-`Checkbox` is typically wrapped by a `FormField` component for standalone validation, or within an `OptionGroup` for grouped selections.
+Like other form inputs, `Checkbox` is designed to be wrapped by a `FormField` component.
 
 ```svelte
 <script>
-  import { Checkbox } from 'cobogo';
-  let acceptTerms = $state(false);
+  import { FormField, Checkbox } from 'cobogo';
+
+  let subscribe = $state(true);
 </script>
 
-<label class="flex items-center gap-2">
-  <Checkbox bind:checked={acceptTerms} value="terms" />
-  I accept the terms and conditions
-</label>
+<FormField label="Newsletter" htmlFor="demo-subscribe">
+  {#snippet children(props)}
+    <Checkbox bind:checked={subscribe} {...props} />
+  {/snippet}
+</FormField>
 ```
 
 ## Validation States
 
-Validation states use the standard design system validation color mapping: `--vermelho-soft`/`--vermelho` for errors, and `--verde-soft`/`--verde` for success. These states dynamically adjust based on whether the input is currently checked, providing persistent geometric feedback.
+Following the **Curva & Concreto** doctrine, validation states provide unmistakable feedback.
+When invalid, the checkbox boundary turns `var(--vermelho)`, and its background (if unchecked) becomes `var(--vermelho-soft)`. When checked and invalid, the box is filled with `var(--vermelho)`. Valid states mirror this logic using the `var(--verde)` spectrum.
 
-```svelte
-<!-- Invalid unselected state -->
-<Checkbox invalid={true} />
-
-<!-- Invalid checked state -->
-<Checkbox invalid={true} checked={true} />
-
-<!-- Valid unselected state -->
-<Checkbox valid={true} />
-
-<!-- Valid checked state -->
-<Checkbox valid={true} checked={true} />
-```
+Validation states are typically inherited from the `FormField` context automatically.
 
 ## Props
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `checked` | `boolean` | `false` | The bindable checked state of the input. |
-| `value` | `string` | `undefined` | The value attribute for the input, particularly useful with `group`. |
-| `group` | `any[]` | `[]` | The bindable array for managing multiple checkbox selections natively. |
-| `disabled` | `boolean` | `false` | Whether the input is disabled. |
-| `invalid` | `boolean` | `false` | Whether the input is in an invalid state. |
-| `valid` | `boolean` | `false` | Whether the input is in a valid state. |
+| `checked` | `boolean` | `false` | The bindable checked state. |
+| `value` | `string` | `undefined` | The value for the checkbox when used in a group. |
+| `group` | `any[]` | `[]` | The bindable group array for multiple checkboxes. |
+| `disabled` | `boolean` | `false` | Whether the checkbox is disabled. |
+| `invalid` | `boolean` | `false` | Whether the checkbox is in an invalid state. |
+| `valid` | `boolean` | `false` | Whether the checkbox is in a valid state. |
