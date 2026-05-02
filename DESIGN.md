@@ -65,6 +65,7 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 - Use semantic HTML.
 - Support keyboard navigation with explicit `focus-visible` states.
 - Modal organisms (Dialogs, Drawers) must implement strict focus trapping (WCAG 2.1.2 No Keyboard Trap) ensuring Tab/Shift+Tab cycles internally without escaping.
+- Tooltips and other hover/focus revealed content must be dismissible via the `Escape` key without moving focus, complying with WCAG 1.4.13 (Content on Hover or Focus).
 - Include `aria-` attributes (e.g., `aria-label`, `aria-live`, `aria-expanded`, `aria-hidden`) where appropriate.
 - Respect `prefers-reduced-motion` to disable/minimize transitions.
 - High contrast values.

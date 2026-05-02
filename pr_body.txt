@@ -1,10 +1,40 @@
-What: Implement strict keyboard focus trapping for overlay components (Dialog and Drawer).
-Why: Native `<dialog>` elements handle focus well on their own, but since we manually intercept closure events (like the `Escape` key) to orchestrate Svelte 5 out-transitions, we risk focus leakage. Implementing a dedicated `FocusTrap` ensures absolute compliance with WCAG 2.1.2 (No Keyboard Trap).
-DESIGN.md sections cited: "2. Accessibility Floor".
-DESIGN.md sections rewritten: Added strict focus trapping mandate to the "Accessibility Floor" section, as the previous text was too vague regarding modal mechanics.
-Roadmap items advanced: epic-v151-visual-governance, epic-bdd5-spec-first, tactical-9j0k-complex-organisms (task-7w8x-focus-trap-overlays).
-Decisions: Built a generic `FocusTrap.svelte` wrapper utility using a fast `onMount` listener instead of a Svelte action.
-Trade-offs: Svelte wrapper components slightly increase DOM nesting (`style="display: contents;"`), but provide a much cleaner API for Svelte 5 snippets than `use:action` directives for entire DOM subtrees.
-Test evidence: Added Gherkin feature and full Playwright E2E coverage in `e2e/dialog-drawer-focus.test.ts` (passing). All existing unit tests pass.
-Session Log: `.jules/agent/brad_frost/2026-05-04T19-30-00Z_focus-trap.md`
-Next Session: Audit the `Tooltip` component against WCAG 1.4.13 (Content on Hover or Focus).
+**What I did:**
+Implemented an `onkeydown` handler within `Tooltip.svelte` to listen for the `Escape` key and dismiss the tooltip without altering the user's focus. Added a `.feature` spec and comprehensive Vitest unit tests to prove the behavior.
+
+**Why:**
+`epic-1a2b-form-ergonomics` and `epic-v151-visual-governance` require strict WCAG adherence. Our previous session identified that `Tooltip` lacked explicit compliance with WCAG 1.4.13 (Content on Hover or Focus). Hover/focus-revealed content must be dismissible without moving the user's focus, allowing them to clear their view without losing their place.
+
+**DESIGN.md sections cited:**
+- "2. Accessibility Floor"
+
+**DESIGN.md sections rewritten:**
+- Added a strict requirement under "2. WCAG AA Floor" explicitly mandating WCAG 1.4.13 compliance for all tooltips and hover/focus revealed content.
+  **Canonical reason:** To formalize the dismissal behavior from an implicit goal into a rigid, system-wide contract.
+
+**Decisions:**
+- Attached the keyboard listener directly to the Tooltip's `wrapper` element instead of using a global `window` listener. This aligns with Svelte's atomic event handling and ensures we only intercept `Escape` when the user is explicitly focused on the tooltip's trigger.
+- Added `event.stopPropagation()` to prevent the `Escape` keypress from bubbling up and unintentionally closing parent overlays (like `Dialog` or `Drawer`).
+
+**Trade-offs:**
+- None. Added minimal bytes for the event listener while significantly improving accessibility and overlay safety.
+
+**Roadmap items advanced:**
+- `epic-v151-visual-governance`
+- `epic-bdd5-spec-first`
+
+**Session Log:**
+`.jules/agent/brad_frost/2026-05-02T00-07-08Z_tooltip-wcag-1413.md`
+
+**Test Evidence:**
+```
+ ✓ src/components/Tooltip.test.ts (5 tests) 270ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+```
+
+**Visual Evidence:**
+- No visual UI regression screenshots are required as this is an invisible keyboard behavior change, but E2E DOM focus verification has passed.
+
+**Next Session:**
+Verify the `DatePicker` organism's internal calendar grid navigation (arrow keys, page up/down) per the WAI-ARIA grid pattern, ensuring focus does not get trapped.
