@@ -20,6 +20,9 @@ test.describe('Form Controls Dark Mode and Validation', () => {
     // Toggle dark mode
     await page.evaluate(() => document.documentElement.classList.add('dark-mode'));
 
+    // Wait for DOM to recognize dark mode and any CSS transitions
+    await page.waitForTimeout(300);
+
     // Check dark mode background (vermelho-soft dark variant)
     const darkBg = await invalidInputs.first().evaluate((el) => {
       return window.getComputedStyle(el).backgroundColor;
@@ -28,8 +31,16 @@ test.describe('Form Controls Dark Mode and Validation', () => {
     // The backgrounds should be different
     expect(lightBg).not.toBe(darkBg);
 
+    // Wait for color transitions to complete (Playwright sometimes evaluates before css transitions are done)
+    await page.waitForTimeout(300);
+
+    // Re-evaluate dark background after transition
+    const finalDarkBg = await invalidInputs.first().evaluate((el) => {
+      return window.getComputedStyle(el).backgroundColor;
+    });
+
     // We expect the dark variant to be #4A1A0F (rgb(74, 26, 15))
-    expect(darkBg).toBe('rgb(74, 26, 15)');
+    expect(finalDarkBg).toBe('rgb(74, 26, 15)');
 
     // The border should be vermelho in both cases (rgb(200, 71, 46))
     const darkBorder = await invalidInputs.first().evaluate((el) => {
