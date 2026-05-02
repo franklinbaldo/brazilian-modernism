@@ -85,8 +85,8 @@
   .switch-visual {
     width: 2.75rem;
     height: 1.5rem;
-    background-color: var(--papel-20);
-    border: 2px solid var(--concreto-80);
+    background-color: var(--bg-sunken);
+    border: 2px solid var(--border-input);
     border-radius: var(--r-pill);
     position: relative;
     transition: all var(--dur-2) var(--ease-out);
@@ -141,7 +141,7 @@
   .switch-thumb {
     width: 1rem;
     height: 1rem;
-    background-color: var(--concreto-80);
+    background-color: var(--border-input);
     border-radius: var(--r-pill);
     position: absolute;
     top: 50%;
