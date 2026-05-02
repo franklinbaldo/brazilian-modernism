@@ -294,7 +294,7 @@
 		max-height: 250px;
 		overflow-y: auto;
 		background: var(--bg-raised);
-		border: 1px solid var(--border);
+		border: 1px solid var(--border-input);
 		border-radius: var(--r-1);
 		box-shadow: var(--shadow-2);
 		z-index: 50;

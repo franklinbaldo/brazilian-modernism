@@ -66,7 +66,7 @@
 <style>
 	.time-picker {
 		width: 100%;
-		border: 1px solid var(--border);
+		border: 1px solid var(--border-input);
 		border-radius: var(--r-1);
 		background-color: var(--bg-raised);
 		font-family: var(--font-sans);
@@ -76,7 +76,7 @@
 	}
 
 	.time-picker:focus-visible {
-		outline: 2px solid var(--accent);
+		outline: 2px solid var(--focus-ring);
 		outline-offset: 2px;
 	}
 

@@ -28,13 +28,15 @@
 			const firstElement = focusableElements[0];
 			const lastElement = focusableElements[focusableElements.length - 1];
 
+			const isOutside = !container.contains(document.activeElement);
+
 			if (e.shiftKey) {
-				if (document.activeElement === firstElement) {
+				if (isOutside || document.activeElement === firstElement) {
 					lastElement.focus();
 					e.preventDefault();
 				}
 			} else {
-				if (document.activeElement === lastElement) {
+				if (isOutside || document.activeElement === lastElement) {
 					firstElement.focus();
 					e.preventDefault();
 				}
