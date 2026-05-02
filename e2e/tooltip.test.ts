@@ -31,4 +31,25 @@ test.describe('Tooltip component (WCAG 1.4.13)', () => {
     // Crucially, focus must remain on the trigger (WCAG 1.4.13 requirement)
     await expect(trigger).toBeFocused();
   });
+
+  test('Tooltip is hoverable (WCAG 1.4.13)', async ({ page }) => {
+    // Focus the first tooltip trigger (Hover me button)
+    const trigger = page.getByRole('button', { name: 'Hover me' }).first();
+
+    // Hover the trigger
+    await trigger.hover();
+
+    const describedById = await trigger.getAttribute('aria-describedby');
+    expect(describedById).toBeTruthy();
+
+    const tooltip = page.locator(`#${describedById}`);
+    await expect(tooltip).toBeVisible();
+
+    // Move mouse over the tooltip
+    // We expect it to remain visible and for hover action to be successful
+    await tooltip.hover();
+
+    // We ensure the tooltip is still visible after hovering
+    await expect(tooltip).toBeVisible();
+  });
 });
