@@ -89,7 +89,7 @@
     line-height: 1.4;
     white-space: nowrap;
     box-shadow: var(--shadow-1);
-    pointer-events: none;
+
   }
 
   /* Positioning logic */

@@ -6,3 +6,5 @@ dev_server.log
 .env
 .env.local
 .svelte-kit
+playwright-report/
+test-results/
