@@ -143,6 +143,11 @@
     background-color: var(--vermelho-soft);
   }
 
+  .invalid input:checked + .checkbox-visual {
+    background-color: var(--vermelho);
+    border-color: var(--vermelho);
+  }
+
   .invalid input:focus-visible + .checkbox-visual {
     outline-color: var(--vermelho);
   }
@@ -153,6 +158,11 @@
 
   .valid input:not(:checked) + .checkbox-visual {
     background-color: var(--verde-soft);
+  }
+
+  .valid input:checked + .checkbox-visual {
+    background-color: var(--verde);
+    border-color: var(--verde);
   }
 
   .valid input:focus-visible + .checkbox-visual {
