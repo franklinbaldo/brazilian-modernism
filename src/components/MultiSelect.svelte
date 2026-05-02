@@ -222,14 +222,14 @@
     min-height: 2.5rem;
     padding: 0.375rem 0.75rem;
     background-color: var(--bg-raised);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-input);
     border-radius: var(--r-1);
     cursor: pointer;
     transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
   }
 
   .multiselect-trigger:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 

@@ -1,20 +1,20 @@
-**What**
-Fixed WCAG AA contrast failures in the `Notification` component during Dark Mode and updated E2E testing to rigorously assert contrast ratios via relative luminance calculations.
+**What I did:**
+- Introduced dedicated semantic CSS variables (`--border-input` and `--focus-ring`) in `global.css`.
+- Configured these variables to map to high-contrast neutral tokens (`--concreto-60`, `--concreto-80`) in the `.dark-mode` scope.
+- Refactored `TextInput`, `Select`, `MultiSelect`, `Checkbox`, `Radio`, `Switch`, `FileInput`, `DatePicker`, `TimePicker`, `Combobox`, `FilterBar`, and `SearchBar` components to use the new tokens instead of generic `--border` and `--accent`.
+- Authored a Gherkin feature file `features/dark-mode-form-contrast.feature` to document the expected accessible behavior.
+- Expanded the Playwright suite `e2e/dark-mode-form-contrast.spec.ts` to programmatically measure and verify relative luminance contrast (ratio >= 3.0) for both standard form boundaries and focused states.
 
-**Why**
-The design system's doctrine mandates that core identity colors (`--azul`, `--vermelho`, `--ocre`, `--verde`) remain vibrant and unchanged across color modes. However, the `Notification` component historically used these primary colors for both its text/icon and its background (`--soft` variables) under `.dark-mode`. Since the `--soft` variables invert to dark equivalents while the text variables remained very dark, this led to an invisible contrast ratio of 1.0.
+**Why:**
+- To ensure WCAG AA non-text contrast compliance for form elements in dark mode. Previously, relying on the vibrant saturated primary colors or the low-contrast structural borders for form outlines led to contrast failures when the background was inverted. Decoupling the form tokens solves this while preserving the vibrant identity markers for other components.
 
-**Decisions**
-We decoupled readability from aesthetic branding in dark mode. While the structural accent border is preserved (using the primary identity variable), the text and icon colors are explicitly overridden inside `.dark-mode` to use `var(--fg-heading)`. This ensures WCAG AA text contrast (>= 4.5).
+**Decisions made:**
+- Opted to use explicit overrides via semantic CSS tokens (`--border-input` and `--focus-ring`) rather than invasive JavaScript state tracking.
 
-**Trade-offs**
-The border strip in the notification has lower contrast against the background in dark mode, but the text and icon (the essential readable UI) now explicitly pass WCAG AA. We preserve the canon's constraint on color definitions while fulfilling accessibility obligations.
+**Trade-offs:**
+- None. This maintains backward compatibility and strengthens the accessibility foundation of the design system.
 
-**Test Evidence**
-- Added a robust contrast calculation to `e2e/dark-mode.spec.ts` testing for `>= 4.5` relative luminance contrast on `Notification`, `Dialog`, and `Drawer`.
-- Run `npm run build`, `npx vitest run`, and `npx playwright test`. All pass successfully.
-
-Link to Session Log: [.jules/agent/brad_frost/2026-05-06T13-14-48Z_dark-mode-notification-contrast.md](.jules/agent/brad_frost/2026-05-06T13-14-48Z_dark-mode-notification-contrast.md)
-
-**Next Session Hint**
-With Dark Mode contrast locked down for layered organisms, the next logical step is to review the Form elements (TextInput, Select, MultiSelect) in Dark Mode, specifically focusing on the focus-visible states and ensuring the `--papel-30` borders don't vanish against the `--papel-10` background.
+**Test evidence:**
+- Playwright tests in `e2e/dark-mode-form-contrast.spec.ts` pass, asserting relative luminance ratios >= 3.0.
+- `npx vitest run` passes across all existing component suites.
+- `npm run build` succeeds without regressions.
