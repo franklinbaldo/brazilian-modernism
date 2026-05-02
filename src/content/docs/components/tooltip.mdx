@@ -22,6 +22,7 @@ The Tooltip molecule displays brief, non-essential supplementary information whe
 ## Anatomy
 
 Tooltips wrap their target element using a Snippet and absolutely position a pop-over relative to the wrapper. They automatically manage hover (`mouseenter`/`mouseleave`) and focus (`focusin`/`focusout`) states, passing an `aria-describedby` prop to apply directly onto your focusable element.
+They also meet WCAG 1.4.13 requirements: they can be dismissed with the Escape key, and the tooltip itself is hoverable without disappearing.
 
 ```svelte
 <script>

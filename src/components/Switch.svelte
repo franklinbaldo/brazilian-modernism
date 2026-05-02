@@ -12,12 +12,14 @@
    * @prop {string} [id] - The ID for the input, used for label/ARIA association.
    * @prop {boolean} [disabled=false] - Whether the switch is disabled.
    * @prop {boolean} [invalid=false] - Whether the switch is invalid.
+   * @prop {boolean} [valid=false] - Whether the switch is valid.
    */
   type Props = {
     checked?: boolean;
     id?: string;
     disabled?: boolean;
     invalid?: boolean;
+    valid?: boolean;
     [key: string]: any;
   };
 
@@ -26,21 +28,23 @@
     id,
     disabled = false,
     invalid = false,
+    valid = false,
     ...rest
   }: Props = $props();
 
   // Consume FormField context if it exists
-  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
   let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
   let finalId = $derived(id || ctx?.id);
   let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
   let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
   let finalRequired = $derived(rest.required || ctx?.required || false);
 
 </script>
 
-<label class="switch-container" class:disabled class:invalid={finalInvalid}>
+<label class="switch-container" class:disabled class:invalid={finalInvalid} class:valid={finalValid}>
   <input
     type="checkbox"
     role="switch"
@@ -81,8 +85,8 @@
   .switch-visual {
     width: 2.75rem;
     height: 1.5rem;
-    background-color: var(--papel-20);
-    border: 2px solid var(--concreto-80);
+    background-color: var(--bg-sunken);
+    border: 2px solid var(--border-input);
     border-radius: var(--r-pill);
     position: relative;
     transition: all var(--dur-2) var(--ease-out);
@@ -96,7 +100,7 @@
   }
 
   input:focus-visible + .switch-visual {
-    outline: 2px solid var(--azul);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 
@@ -108,14 +112,36 @@
     background-color: var(--vermelho-soft);
   }
 
+  .invalid input:checked + .switch-visual {
+    background-color: var(--vermelho);
+    border-color: var(--vermelho);
+  }
+
   .invalid input:focus-visible + .switch-visual {
     outline-color: var(--vermelho);
+  }
+
+  .valid .switch-visual {
+    border-color: var(--verde);
+  }
+
+  .valid input:not(:checked) + .switch-visual {
+    background-color: var(--verde-soft);
+  }
+
+  .valid input:checked + .switch-visual {
+    background-color: var(--verde);
+    border-color: var(--verde);
+  }
+
+  .valid input:focus-visible + .switch-visual {
+    outline-color: var(--verde);
   }
 
   .switch-thumb {
     width: 1rem;
     height: 1rem;
-    background-color: var(--concreto-80);
+    background-color: var(--border-input);
     border-radius: var(--r-pill);
     position: absolute;
     top: 50%;

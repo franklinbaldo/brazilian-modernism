@@ -5,3 +5,9 @@ dist/
 dev_server.log
 .env
 .env.local
+.svelte-kit
+playwright-report/
+test-results/
+playwright-report/
+playwright-report/
+test-results/

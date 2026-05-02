@@ -16,6 +16,7 @@
     placeholder?: string;
     disabled?: boolean;
     invalid?: boolean;
+    valid?: boolean;
     searchable?: boolean;
     id?: string;
     [key: string]: any;
@@ -27,21 +28,25 @@
     placeholder = 'Selecione...',
     disabled = false,
     invalid = false,
+    valid = false,
     searchable = false,
     id,
     ...rest
   }: Props = $props();
 
-  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; required: boolean }>('cobogo-form-field');
+  const formFieldContext = getContext<() => { id: string; 'aria-describedby'?: string; invalid: boolean; valid: boolean; required: boolean }>('cobogo-form-field');
   let ctx = $derived(formFieldContext ? formFieldContext() : null);
 
   let finalId = $derived(id || ctx?.id || 'multiselect-' + Math.random().toString(36).slice(2, 9));
   let finalAriaDescribedby = $derived(rest['aria-describedby'] || ctx?.['aria-describedby']);
   let finalInvalid = $derived(invalid || ctx?.invalid || false);
+  let finalValid = $derived((valid || ctx?.valid || false) && !finalInvalid);
   let finalRequired = $derived(rest.required || ctx?.required || false);
 
   let isOpen = $state(false);
   let searchQuery = $state('');
+  let inputRef = $state<HTMLInputElement | null>(null);
+  let wrapperRef = $state<HTMLDivElement | null>(null);
   let inputRef: HTMLInputElement | null = $state(null);
   let wrapperRef: HTMLDivElement | null = $state(null);
 
@@ -110,6 +115,7 @@
   bind:this={wrapperRef}
   class:disabled
   class:invalid={finalInvalid}
+  class:valid={finalValid}
 >
   <div
     class="multiselect-trigger"
@@ -218,14 +224,14 @@
     min-height: 2.5rem;
     padding: 0.375rem 0.75rem;
     background-color: var(--bg-raised);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-input);
     border-radius: var(--r-1);
     cursor: pointer;
     transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
   }
 
   .multiselect-trigger:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
 
@@ -236,6 +242,15 @@
 
   .invalid .multiselect-trigger:focus-visible {
     outline-color: var(--vermelho);
+  }
+
+  .valid .multiselect-trigger {
+    border-color: var(--verde);
+    background-color: var(--verde-soft);
+  }
+
+  .valid .multiselect-trigger:focus-visible {
+    outline-color: var(--verde);
   }
 
   .disabled .multiselect-trigger {

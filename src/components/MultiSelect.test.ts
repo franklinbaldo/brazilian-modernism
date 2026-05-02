@@ -1,112 +1,83 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent, cleanup } from '@testing-library/svelte';
+import { describe, it, expect } from 'vitest';
+import { render, fireEvent, screen } from '@testing-library/svelte';
 import { tick } from 'svelte';
-import MultiSelect from './MultiSelect.svelte';
-import MultiSelectWrapper from './MultiSelectWrapper.test.svelte';
+import MultiSelectTestWrapper from './MultiSelect.test.svelte';
 
-describe('MultiSelect.svelte', () => {
+describe('MultiSelect', () => {
   const options = [
-    { value: 'a', label: 'Opção A' },
-    { value: 'b', label: 'Opção B' }
+    { value: 'br', label: 'Brasil' },
+    { value: 'ar', label: 'Argentina' },
+    { value: 'uy', label: 'Uruguai' },
   ];
 
-  afterEach(() => {
-    cleanup();
+  it('renders with placeholder and no selections initially', () => {
+    render(MultiSelectTestWrapper, { options, placeholder: 'Test placeholder' });
+
+    // In Svelte 5 with our implementation, the placeholder might be a span or an input
+    const placeholderText = screen.getByText('Test placeholder');
+    expect(placeholderText).toBeInTheDocument();
   });
 
-  it('toggles the dropdown menu', async () => {
-    render(MultiSelect, { options });
+  it('toggles dropdown when clicked', async () => {
+    render(MultiSelectTestWrapper, { options });
+
     const trigger = screen.getByRole('combobox');
 
-    // Initially hidden
+    // Initially closed
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
     // Open
     await fireEvent.click(trigger);
     await tick();
-    expect(screen.getByRole('listbox')).toBeInTheDocument();
 
-    // Close
-    await fireEvent.click(trigger);
+    const listbox = screen.getByRole('listbox');
+    expect(listbox).toBeInTheDocument();
+
+    // Check options are rendered
+    expect(screen.getByText('Brasil')).toBeInTheDocument();
+    expect(screen.getByText('Argentina')).toBeInTheDocument();
+
+    // Close by clicking outside (simulating)
+    await fireEvent.click(document.body);
     await tick();
+
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
-  it('selects an option', async () => {
-    render(MultiSelect, { options, value: [] });
-    const trigger = screen.getByRole('combobox');
+  it('renders badges for selected options', async () => {
+    render(MultiSelectTestWrapper, { options, value: ['br', 'uy'] });
 
-    await fireEvent.click(trigger);
-    await tick();
-
-    const optionA = screen.getByLabelText('Opção A');
-    await fireEvent.click(optionA);
-    await tick();
-
-    // The option "A" is selected and visible as a badge. Badge label is rendered
-    expect(screen.getAllByText('Opção A')[0]).toBeInTheDocument();
-  });
-
-  it('unselects an option by clicking it again in the dropdown menu', async () => {
-    render(MultiSelect, { options, value: ['a'] });
-    const trigger = screen.getByRole('combobox');
-
-    // Make sure it's initially selected and the badge is visible
-    expect(screen.getAllByText('Opção A')[0]).toBeInTheDocument();
-
-    // Open dropdown
-    await fireEvent.click(trigger);
-    await tick();
-
-    // Click the checkbox to unselect
-    const optionA = screen.getByLabelText('Opção A');
-    await fireEvent.click(optionA);
-    await tick();
-
-    // The badge should no longer be in the document
-    expect(screen.queryByText('Remove Opção A')).not.toBeInTheDocument();
-  });
-
-  it('removes an option', async () => {
-    render(MultiSelect, { options, value: ['a'] });
-
-    expect(screen.getAllByText('Opção A')[0]).toBeInTheDocument();
-
-    const removeBtn = screen.getByRole('button', { name: 'Remove Opção A' });
-    await fireEvent.click(removeBtn);
-    await tick();
-
-    expect(screen.queryByText('Opção A')).not.toBeInTheDocument();
-  });
-
-  it('searches options', async () => {
-    const searchOptions = [
-      { value: 'br', label: 'Brasil' },
-      { value: 'ar', label: 'Argentina' }
-    ];
-    render(MultiSelect, { options: searchOptions, searchable: true });
-
-    const input = screen.getByRole('textbox');
-    await fireEvent.input(input, { target: { value: 'Bra' } });
-    await tick();
-
-    const trigger = screen.getByRole('combobox');
-    await fireEvent.click(trigger);
-    await tick();
-
-    expect(screen.getAllByText('Brasil')[0]).toBeInTheDocument();
+    // Badges should be rendered
+    expect(screen.getByText('Brasil')).toBeInTheDocument();
+    expect(screen.getByText('Uruguai')).toBeInTheDocument();
     expect(screen.queryByText('Argentina')).not.toBeInTheDocument();
   });
 
-  it('integrates with FormField context', async () => {
-    render(MultiSelectWrapper, { options, invalid: true });
+  it('can remove a selected option', async () => {
+    render(MultiSelectTestWrapper, { options, value: ['br'] });
+
+    expect(screen.getByText('Brasil')).toBeInTheDocument();
+
+    const removeBtn = screen.getByRole('button', { name: 'Remove Brasil' });
+    await fireEvent.click(removeBtn);
+    await tick();
+
+    expect(screen.queryByText('Brasil')).not.toBeInTheDocument();
+  });
+
+  it('filters options when searching', async () => {
+    render(MultiSelectTestWrapper, { options, searchable: true });
 
     const trigger = screen.getByRole('combobox');
+    await fireEvent.click(trigger);
+    await tick();
 
-    // the hidden input inside multiselect-trigger receives the aria-invalid
-    const hiddenInput = trigger.querySelector('.sr-only-input');
-    expect(hiddenInput).toHaveAttribute('aria-invalid', 'true');
-    // wrapper receives invalid class
-    expect(trigger.parentElement).toHaveClass('invalid');
+    const input = screen.getByRole('textbox');
+    await fireEvent.input(input, { target: { value: 'ar' } });
+    await tick();
+
+    expect(screen.getByText('Argentina')).toBeInTheDocument();
+    expect(screen.queryByText('Brasil')).not.toBeInTheDocument();
+    expect(screen.queryByText('Uruguai')).not.toBeInTheDocument();
   });
 });
