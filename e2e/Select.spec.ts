@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Select with placeholder visually indicates invalid state', async ({ page }) => {
-  await page.goto('/cobogo/components/select');
+  await page.goto('/cobogo/docs/components/select');
 
   // Wait for page load
   await page.waitForSelector('.select-input', { state: 'visible' });

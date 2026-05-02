@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('TextInput visually indicates invalid state', async ({ page }) => {
-  await page.goto('/cobogo/components/textinput');
+  await page.goto('/cobogo/docs/components/text-input');
 
   // Wait for page load
   await page.waitForSelector('.text-input', { state: 'visible' });
@@ -21,7 +21,7 @@ test('TextInput visually indicates invalid state', async ({ page }) => {
 });
 
 test('Select visually indicates invalid state', async ({ page }) => {
-  await page.goto('/cobogo/components/select');
+  await page.goto('/cobogo/docs/components/select');
 
   // Wait for page load
   await page.waitForSelector('.select-input', { state: 'visible' });
