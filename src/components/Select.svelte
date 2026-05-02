@@ -133,7 +133,7 @@
 		font-size: var(--t-p);
 	}
 
-	.select-input.has-placeholder {
+	.select-input.has-placeholder:not(.invalid) {
 		color: var(--fg-muted);
 	}
 
