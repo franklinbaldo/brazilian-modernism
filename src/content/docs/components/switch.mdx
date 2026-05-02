@@ -1,0 +1,43 @@
+---
+title: "Switch"
+description: "A toggle switch atom styled with Curva & Concreto principles."
+---
+
+import SwitchDemo from './_SwitchDemo.svelte';
+
+# Switch
+
+The `Switch` component offers a binary toggle mechanism. Adhering to the **Curva & Concreto** doctrine, it visually presents as a pill with a sliding thumb, but relies natively on a `<input type="checkbox" role="switch">` for robust accessibility and broad compatibility.
+
+<div class="not-prose my-8">
+  <SwitchDemo client:load />
+</div>
+
+## Usage
+
+A `Switch` can be used standalone or wrapped in a `FormField` for detailed validation messaging and accessible associations.
+
+```svelte
+<script>
+  import { Switch } from 'cobogo';
+  let notificationsEnabled = $state(true);
+</script>
+
+<label class="flex items-center gap-2">
+  <Switch bind:checked={notificationsEnabled} />
+  Enable Notifications
+</label>
+```
+
+## Validation States
+
+Like all form atoms in the system, `Switch` adheres strictly to the `--vermelho-soft`/`--vermelho` (invalid) and `--verde-soft`/`--verde` (valid) color mappings, providing unmistakable visual feedback regardless of its toggled state.
+
+## Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `checked` | `boolean` | `false` | The bindable toggle state of the switch. |
+| `disabled` | `boolean` | `false` | Whether the switch is disabled. |
+| `invalid` | `boolean` | `false` | Whether the switch is in an invalid state. |
+| `valid` | `boolean` | `false` | Whether the switch is in a valid state. |

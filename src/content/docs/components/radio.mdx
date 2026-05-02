@@ -1,0 +1,50 @@
+---
+title: "Radio"
+description: "A foundational radio button atom styled with Curva & Concreto principles."
+---
+
+import RadioDemo from './_RadioDemo.svelte';
+
+# Radio
+
+The `Radio` component provides single-choice data entry for the COBOGÓ design system. It adheres to the **Curva & Concreto** doctrine by rendering completely circular (`radius pill`), but displaying sharp geometric inner dots and rigorous validation colors when active.
+
+<div class="not-prose my-8">
+  <RadioDemo client:load />
+</div>
+
+## Usage
+
+`Radio` inputs are almost exclusively used inside an `OptionGroup` which handles form grouping, legends, and overarching validation states natively.
+
+```svelte
+<script>
+  import { OptionGroup, Radio } from 'cobogo';
+  let plan = $state('basic');
+</script>
+
+<OptionGroup legend="Select a Plan">
+  <label class="flex items-center gap-2">
+    <Radio bind:group={plan} value="basic" />
+    Basic
+  </label>
+  <label class="flex items-center gap-2">
+    <Radio bind:group={plan} value="pro" />
+    Professional
+  </label>
+</OptionGroup>
+```
+
+## Validation States
+
+Validation states map precisely to the system rules: `--vermelho-soft`/`--vermelho` for errors, and `--verde-soft`/`--verde` for success. Both the outer ring border and the inner geometric dot are tinted dynamically based on state.
+
+## Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `value` | `string` | **required** | The required value representing this specific radio option. |
+| `group` | `any` | **required** | The bindable group state representing the currently selected value. |
+| `disabled` | `boolean` | `false` | Whether the input is disabled. |
+| `invalid` | `boolean` | `false` | Whether the input is in an invalid state. |
+| `valid` | `boolean` | `false` | Whether the input is in a valid state. |
