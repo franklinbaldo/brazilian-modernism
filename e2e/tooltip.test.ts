@@ -1,0 +1,34 @@
+import { test, expect } from '@playwright/test';
+
+test.describe('Tooltip component (WCAG 1.4.13)', () => {
+  test.beforeEach(async ({ page }) => {
+    // Navigate to the Tooltip documentation page where there are demos
+    await page.goto('/cobogo/docs/components/tooltip');
+  });
+
+  test('Tooltip can be dismissed with Escape key without losing focus', async ({ page }) => {
+    // Focus the first tooltip trigger (Hover me button)
+    const trigger = page.getByRole('button', { name: 'Hover me' }).first();
+
+    // Using keyboard to focus the trigger
+    await trigger.focus();
+
+    // The tooltip should become visible and the trigger should get aria-describedby
+    await expect(trigger).toHaveAttribute('aria-describedby');
+
+    const describedById = await trigger.getAttribute('aria-describedby');
+    expect(describedById).toBeTruthy();
+
+    const tooltip = page.locator(`#${describedById}`);
+    await expect(tooltip).toBeVisible();
+
+    // Press Escape to dismiss the tooltip
+    await page.keyboard.press('Escape');
+
+    // Tooltip should be hidden, aria-describedby should be removed
+    await expect(trigger).not.toHaveAttribute('aria-describedby');
+
+    // Crucially, focus must remain on the trigger (WCAG 1.4.13 requirement)
+    await expect(trigger).toBeFocused();
+  });
+});
