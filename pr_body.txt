@@ -1,20 +1,19 @@
-**What I did:**
-- Introduced dedicated semantic CSS variables (`--border-input` and `--focus-ring`) in `global.css`.
-- Configured these variables to map to high-contrast neutral tokens (`--concreto-60`, `--concreto-80`) in the `.dark-mode` scope.
-- Refactored `TextInput`, `Select`, `MultiSelect`, `Checkbox`, `Radio`, `Switch`, `FileInput`, `DatePicker`, `TimePicker`, `Combobox`, `FilterBar`, and `SearchBar` components to use the new tokens instead of generic `--border` and `--accent`.
-- Authored a Gherkin feature file `features/dark-mode-form-contrast.feature` to document the expected accessible behavior.
-- Expanded the Playwright suite `e2e/dark-mode-form-contrast.spec.ts` to programmatically measure and verify relative luminance contrast (ratio >= 3.0) for both standard form boundaries and focused states.
+**What**
+Added MDX documentation and interactive Svelte 5 demos for the `DataTable`, `FilterBar`, and `Timeline` components in the vitrine. Updated BDD feature specs and Playwright E2E tests to verify their presence.
 
-**Why:**
-- To ensure WCAG AA non-text contrast compliance for form elements in dark mode. Previously, relying on the vibrant saturated primary colors or the low-contrast structural borders for form outlines led to contrast failures when the background was inverted. Decoupling the form tokens solves this while preserving the vibrant identity markers for other components.
+**Why**
+To close the final major documentation gap in `epic-c0b0-vitrine`. Without these pages, consumers cannot see how complex structural components map to the "Curva & Concreto" geometric doctrine.
 
-**Decisions made:**
-- Opted to use explicit overrides via semantic CSS tokens (`--border-input` and `--focus-ring`) rather than invasive JavaScript state tracking.
+**Decisions & Trade-offs**
+- Used `client:load` for the interactive demos to ensure Svelte 5 `$state` reactivity works correctly within the Astro MDX environment.
+- Documented `DataTable` as an expression of the rigid "Concreto" aesthetic, while `FilterBar` uses the "Curva" pill geometry.
+- No new dependencies were introduced. The demos compose existing atoms and Svelte primitives.
 
-**Trade-offs:**
-- None. This maintains backward compatibility and strengthens the accessibility foundation of the design system.
+**Test Evidence**
+- ✅ `npx vitest run` passed (147 tests)
+- ✅ `npx playwright test` passed (asserts all 8 remaining component docs render correctly at their routes)
+- ✅ `npm run build` & `npx astro check` completed successfully
 
-**Test evidence:**
-- Playwright tests in `e2e/dark-mode-form-contrast.spec.ts` pass, asserting relative luminance ratios >= 3.0.
-- `npx vitest run` passes across all existing component suites.
-- `npm run build` succeeds without regressions.
+**Visual Evidence**
+- Interactive demonstrations are visible on `/cobogo/docs/components/data-table`, `/cobogo/docs/components/filter-bar`, and `/cobogo/docs/components/timeline`.
+- Component styles adhere strictly to existing tokenized layouts (no new CSS classes were introduced outside of the demo containers).

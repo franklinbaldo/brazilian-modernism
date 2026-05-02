@@ -21,5 +21,17 @@ test.describe('Vitrine Remaining Components Documentation', () => {
     // Card
     await page.goto('/cobogo/docs/components/card');
     await expect(page.locator('h1', { hasText: 'Card' }).first()).toBeVisible();
+
+    // DataTable
+    await page.goto('/cobogo/docs/components/data-table');
+    await expect(page.locator('h1', { hasText: 'DataTable' }).first()).toBeVisible();
+
+    // FilterBar
+    await page.goto('/cobogo/docs/components/filter-bar');
+    await expect(page.locator('h1', { hasText: 'FilterBar' }).first()).toBeVisible();
+
+    // Timeline
+    await page.goto('/cobogo/docs/components/timeline');
+    await expect(page.locator('h1', { hasText: 'Timeline' }).first()).toBeVisible();
   });
 });
