@@ -117,6 +117,14 @@
     background-color: var(--vermelho-soft);
   }
 
+  .invalid input:checked + .radio-visual {
+    border-color: var(--vermelho);
+  }
+
+  .invalid input:checked + .radio-visual .radio-dot {
+    background-color: var(--vermelho);
+  }
+
   .invalid input:focus-visible + .radio-visual {
     outline-color: var(--vermelho);
   }
@@ -127,6 +135,14 @@
 
   .valid input:not(:checked) + .radio-visual {
     background-color: var(--verde-soft);
+  }
+
+  .valid input:checked + .radio-visual {
+    border-color: var(--verde);
+  }
+
+  .valid input:checked + .radio-visual .radio-dot {
+    background-color: var(--verde);
   }
 
   .valid input:focus-visible + .radio-visual {

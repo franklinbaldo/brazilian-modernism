@@ -112,6 +112,11 @@
     background-color: var(--vermelho-soft);
   }
 
+  .invalid input:checked + .switch-visual {
+    background-color: var(--vermelho);
+    border-color: var(--vermelho);
+  }
+
   .invalid input:focus-visible + .switch-visual {
     outline-color: var(--vermelho);
   }
@@ -122,6 +127,11 @@
 
   .valid input:not(:checked) + .switch-visual {
     background-color: var(--verde-soft);
+  }
+
+  .valid input:checked + .switch-visual {
+    background-color: var(--verde);
+    border-color: var(--verde);
   }
 
   .valid input:focus-visible + .switch-visual {
