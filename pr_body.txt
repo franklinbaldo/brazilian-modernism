@@ -1,20 +1,18 @@
-**What**
-Implemented `valid` states and `--verde` aesthetic tokens across all advanced form components: `MultiSelect`, `Combobox`, `DatePicker`, `FileInput`, and `TimePicker`.
+What:
+Refactored fluid typography tokens to use CSS `clamp()` globally.
+Added BDD features and E2E specs for layout responsiveness (Grid and Column components).
 
-**Why**
-To fulfill the Form Validation States behavioral requirements (BDD) and ensure visual accountability across the entire form control ecosystem, establishing a single source of truth for validation context parsing and styling priority.
+Why:
+To ensure typography scales fluidsly across all viewport widths natively without relying on hardcoded media queries, fulfilling the doctrine's requirement for cross-cutting fluid tokens. The added test coverage enforces the `spec-first` pipeline for layout behaviors.
 
-**Decisions**
-- Extended `MultiSelect`, `Combobox`, `DatePicker`, `FileInput`, and `TimePicker` to accept `valid` props and read `valid` boolean signals from the `cobogo-form-field` context.
-- Prioritized `invalid` visual states over `valid` states uniformly.
-- Styled `::file-selector-button` for `FileInput` specifically to reflect the `--verde` success state on the button border.
+Decisions:
+1. Replaced static `px` values for `--t-h1` through `--t-h4` and `--t-display` with `clamp()` declarations directly in the `:root` scope of `global.css`.
+2. Removed the `max-width: 768px` media query overrides for these tokens, as `clamp()` handles scaling intrinsically.
+3. Added a new `features/layout/grid-fluid-typography.feature` Gherkin file.
+4. Added `e2e/grid-fluid.spec.ts` which runs Playwright to verify that H1 elements actually scale down gracefully and that the `Column` component's responsive grid stacking (`grid-column-end` attributes) works as intended across desktop and mobile breakpoints.
 
-**Trade-offs**
-- To maintain API symmetry with the `FormField`, individual components parse the validation logic directly and apply specific `.valid` classes rather than having the `FormField` inject CSS dynamically. This retains Svelte style scoping.
+Trade-offs:
+N/A - This simplifies the CSS architecture.
 
-**Test Evidence**
-- Added Unit tests checking context inheritance, prop reactivity, and invalid precedence in Vitest for all modified components.
-- Added E2E spec `e2e/advanced-validation-states.spec.ts` capturing visual states in Playwright. All tests passing locally (`npx vitest run`, `npx playwright test`).
-
-**Session Log:** `.jules/agent/brad_frost/2026-05-05T13-30-00Z_advanced-validation-states.md`
-**Next Session:** Finalizing form submission handling or revisiting layout organisms (`Grid` / `Column`).
+Test evidence:
+Ran `npx vitest run` (27 passed) and `npx playwright test` (27 passed), validating that the refactored tokens do not break layout assumptions and specifically asserting the fluid scaling of the `h1` element in the vitrine.
