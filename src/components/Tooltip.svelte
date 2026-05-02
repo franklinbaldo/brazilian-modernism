@@ -29,15 +29,26 @@
   function hide() {
     visible = false;
   }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape' && visible) {
+      event.preventDefault();
+      // It's important to stop propagation so we don't accidentally close dialogs or drawers this is inside
+      event.stopPropagation();
+      hide();
+    }
+  }
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <div
   class="cobogo-tooltip-wrapper"
   onmouseenter={show}
   onmouseleave={hide}
   onfocusin={show}
   onfocusout={hide}
+  onkeydown={handleKeydown}
 >
   {@render children({ 'aria-describedby': visible ? tooltipId : undefined })}
 
