@@ -298,4 +298,16 @@
   :global(.dark-mode) .br-notification__close:hover {
     background: rgba(255, 255, 255, 0.1);
   }
+
+  :global(.dark-mode) .br-notification--info .br-notification__icon,
+  :global(.dark-mode) .br-notification--info .br-notification__title,
+  :global(.dark-mode) .br-notification--tip .br-notification__icon,
+  :global(.dark-mode) .br-notification--tip .br-notification__title,
+  :global(.dark-mode) .br-notification--warning .br-notification__icon,
+  :global(.dark-mode) .br-notification--warning .br-notification__title,
+  :global(.dark-mode) .br-notification--danger .br-notification__icon,
+  :global(.dark-mode) .br-notification--danger .br-notification__title {
+    color: var(--fg-heading);
+  }
+
 </style>
