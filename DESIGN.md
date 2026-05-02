@@ -97,7 +97,8 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 ## 6. Dark Mode
 Dark Mode is defined in `.dark-mode` globally. It strictly inverts the `--papel` and `--concreto` variables to maintain geometric contrast while deeply adjusting the `--soft` variables of primary colors to their dark equivalents. The saturated primary colors (`--azul`, `--vermelho`, `--ocre`, `--verde`) remain intentionally vibrant as they are the core identity markers.
 
-## Form Organisms
+## Form Atoms & Organisms
+- **Validation States**: Form input components (like `TextInput`, `Select`) must provide unmistakable feedback adhering to the Curva & Concreto aesthetic. Invalid states use `--vermelho-soft` for the background and `--vermelho` for borders, text, and icons. Valid states use `--verde-soft` and `--verde` correspondingly. Color transitions ensure smooth visual changes.
 - **MultiSelect**: Adapts the Combobox pattern for multiple selections. Displays selected items as `Badge` atoms inside the input. Maintains accessibility via `role="combobox"` and `role="listbox"`, utilizing the `Checkbox` atom internally for selection state. Strictly adheres to `--vermelho-soft` and `--vermelho` for invalid states.
 
 ## Notification Organisms

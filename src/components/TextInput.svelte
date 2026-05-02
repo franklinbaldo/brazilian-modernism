@@ -70,7 +70,7 @@
 		background-color: var(--bg-raised);
 		font-family: var(--font-sans);
 		color: var(--fg);
-		transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+		transition: border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
 		box-sizing: border-box;
 	}
 
@@ -82,6 +82,7 @@
 	.text-input.invalid {
 		border-color: var(--vermelho);
 		background-color: var(--vermelho-soft);
+		color: var(--vermelho);
 	}
 
 	.text-input.invalid:focus-visible {
@@ -91,6 +92,7 @@
 	.text-input.valid {
 		border-color: var(--verde);
 		background-color: var(--verde-soft);
+		color: var(--verde);
 	}
 
 	.text-input.valid:focus-visible {

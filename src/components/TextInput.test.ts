@@ -34,5 +34,22 @@ describe('TextInput Component', () => {
     const input = screen.getByRole('textbox');
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(input).toHaveClass('invalid');
+    // Ensure the invalid state prevents 'valid' class even if explicitly passed
+    expect(input).not.toHaveClass('valid');
+  });
+
+  it('renders valid state correctly when explicitly passed', () => {
+    const { component } = render(TextInput, { props: { valid: true } });
+    const input = screen.getByRole('textbox');
+    expect(input).toHaveClass('valid');
+    expect(input).toHaveAttribute('aria-invalid', 'false');
+  });
+
+  it('invalid prop takes precedence over valid prop', () => {
+    render(TextInput, { props: { invalid: true, valid: true } });
+    const input = screen.getByRole('textbox');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(input).toHaveClass('invalid');
+    expect(input).not.toHaveClass('valid');
   });
 });
