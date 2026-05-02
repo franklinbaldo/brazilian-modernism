@@ -12,6 +12,7 @@
     message?: string;
     dismissible?: boolean;
     ondismiss?: () => void;
+    timeout?: number;
     class?: string;
     style?: string;
   };
@@ -23,12 +24,65 @@
     message,
     dismissible = true,
     ondismiss,
+    timeout = 0,
     class: className = '',
     style = '',
     ...rest
   }: Props = $props();
 
   let visible = $state(true);
+
+  let remainingTime = $state();
+  let startTime = $state<number | null>(null);
+  let timerId = $state<number | null>(null);
+  let isHovered = $state(false);
+  let isFocused = $state(false);
+  let paused = $derived(isHovered || isFocused);
+
+  $effect(() => {
+    if (timeout > 0 && remainingTime === undefined) {
+      remainingTime = timeout;
+    }
+  });
+
+  $effect(() => {
+    if (remainingTime !== undefined && remainingTime > 0 && !paused && visible) {
+      startTime = Date.now();
+      timerId = window.setTimeout(() => {
+        handleDismiss();
+      }, remainingTime);
+
+      return () => {
+        if (timerId !== null) {
+          clearTimeout(timerId);
+          if (startTime !== null) {
+            remainingTime! -= (Date.now() - startTime);
+          }
+        }
+      };
+    }
+  });
+
+  function handleMouseEnter() {
+    isHovered = true;
+  }
+
+  function handleMouseLeave() {
+    isHovered = false;
+  }
+
+  function handleFocusIn() {
+    isFocused = true;
+  }
+
+  function handleFocusOut(e: FocusEvent) {
+    const currentTarget = e.currentTarget as HTMLElement;
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    if (!currentTarget.contains(relatedTarget)) {
+      isFocused = false;
+    }
+  }
+
 
   function handleDismiss() {
     visible = false;
@@ -52,10 +106,15 @@
   <div
     {id}
     class="br-notification br-notification--{intent} {className}"
+    tabindex="-1"
     {style}
     role={roleAttr}
     aria-live={ariaLiveAttr}
     transition:slide={{ duration: 220, easing: cubicOut }}
+    onmouseenter={handleMouseEnter}
+    onmouseleave={handleMouseLeave}
+    onfocusin={handleFocusIn}
+    onfocusout={handleFocusOut}
     {...rest}
   >
     <div class="br-notification__icon" aria-hidden="true">

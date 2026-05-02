@@ -68,4 +68,95 @@ describe('Notification', () => {
     const closeBtn = screen.queryByRole('button', { name: /dismiss/i });
     expect(closeBtn).toBeNull();
   });
+
+  it('does not auto-dismiss when timeout is 0 or undefined', () => {
+    vi.useFakeTimers();
+    const ondismiss = vi.fn();
+    render(Notification, {
+      props: {
+        title: 'No timeout',
+        timeout: 0,
+        ondismiss
+      }
+    });
+
+    vi.advanceTimersByTime(5000);
+    expect(ondismiss).not.toHaveBeenCalled();
+    vi.useRealTimers();
+  });
+
+  it('auto-dismisses after the specified timeout', () => {
+    vi.useFakeTimers();
+    const ondismiss = vi.fn();
+    render(Notification, {
+      props: {
+        title: 'Auto dismiss',
+        timeout: 2000,
+        ondismiss
+      }
+    });
+
+    vi.advanceTimersByTime(1000);
+    expect(ondismiss).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(1000);
+    expect(ondismiss).toHaveBeenCalledTimes(1);
+    vi.useRealTimers();
+  });
+
+  it('pauses timeout on hover and resumes on leave', async () => {
+    vi.useFakeTimers();
+    const ondismiss = vi.fn();
+    render(Notification, {
+      props: {
+        title: 'Hover pause',
+        timeout: 2000,
+        ondismiss
+      }
+    });
+
+    const notification = screen.getByRole('status');
+
+    vi.advanceTimersByTime(1000); // 1000ms elapsed, 1000ms left
+
+    // Hover to pause
+    await fireEvent.mouseEnter(notification);
+    vi.advanceTimersByTime(2000); // Wait past original timeout
+    expect(ondismiss).not.toHaveBeenCalled(); // Should be paused
+
+    // Unhover to resume
+    await fireEvent.mouseLeave(notification);
+    vi.advanceTimersByTime(1000); // Wait the remaining 1000ms
+    expect(ondismiss).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
+
+  it('pauses timeout on focus and resumes on blur', async () => {
+    vi.useFakeTimers();
+    const ondismiss = vi.fn();
+    render(Notification, {
+      props: {
+        title: 'Focus pause',
+        timeout: 2000,
+        ondismiss
+      }
+    });
+
+    const notification = screen.getByRole('status');
+
+    vi.advanceTimersByTime(1000); // 1000ms elapsed, 1000ms left
+
+    // Focus to pause
+    await fireEvent.focusIn(notification);
+    vi.advanceTimersByTime(2000); // Wait past original timeout
+    expect(ondismiss).not.toHaveBeenCalled(); // Should be paused
+
+    // Blur to resume
+    await fireEvent.focusOut(notification);
+    vi.advanceTimersByTime(1000); // Wait the remaining 1000ms
+    expect(ondismiss).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
 });

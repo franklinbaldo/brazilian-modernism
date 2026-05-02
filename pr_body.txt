@@ -1,40 +1,39 @@
-**What I did:**
-Implemented an `onkeydown` handler within `Tooltip.svelte` to listen for the `Escape` key and dismiss the tooltip without altering the user's focus. Added a `.feature` spec and comprehensive Vitest unit tests to prove the behavior.
+**What**
+Implemented WCAG 2.2.1 (Timing Adjustable) compliance for the `Notification` component by introducing an auto-dismiss `timeout` prop that intelligently pauses when the user hovers over or focuses the notification, and resumes when the interaction ends. Also added comprehensive MDX documentation and E2E tests for the component.
 
-**Why:**
-`epic-1a2b-form-ergonomics` and `epic-v151-visual-governance` require strict WCAG adherence. Our previous session identified that `Tooltip` lacked explicit compliance with WCAG 1.4.13 (Content on Hover or Focus). Hover/focus-revealed content must be dismissible without moving the user's focus, allowing them to clear their view without losing their place.
+**Why**
+Notifications are asynchronous, application-level feedback. When a notification automatically disappears (auto-dismisses), it risks violating WCAG 2.2.1 if the user isn't given enough time to read it or a mechanism to pause the timer. Implementing pause-on-hover and pause-on-focus ensures the component remains accessible and considerate of user interaction rhythms.
 
-**DESIGN.md sections cited:**
-- "2. Accessibility Floor"
+**Decisions**
+- Chose Svelte 5 `$state` and `$effect` to manage the countdown timer. This allows programmatic calculation of `remainingTime` and clean teardown on unmount, avoiding memory leaks.
+- Added `tabindex="-1"` to the `.br-notification` wrapper to allow the element to natively capture `focusin` and `focusout` events, rather than relying on complex event bus logic.
+- E2E tests use `.locator('.br-notification', { hasText: '...' })` rather than exact string matching, preventing flakiness caused by MDX compiling artifacts.
 
-**DESIGN.md sections rewritten:**
-- Added a strict requirement under "2. WCAG AA Floor" explicitly mandating WCAG 1.4.13 compliance for all tooltips and hover/focus revealed content.
-  **Canonical reason:** To formalize the dismissal behavior from an implicit goal into a rigid, system-wide contract.
+**Trade-offs**
+- Managing intervals/timeouts natively in Svelte `$effect` blocks is slightly more verbose than using a dedicated animation library, but it adheres to our "restraint as a feature" doctrine by keeping dependencies zero and the component size extremely small.
 
-**Decisions:**
-- Attached the keyboard listener directly to the Tooltip's `wrapper` element instead of using a global `window` listener. This aligns with Svelte's atomic event handling and ensures we only intercept `Escape` when the user is explicitly focused on the tooltip's trigger.
-- Added `event.stopPropagation()` to prevent the `Escape` keypress from bubbling up and unintentionally closing parent overlays (like `Dialog` or `Drawer`).
+**DESIGN.md sections cited**
+- Section "Notification Organisms".
 
-**Trade-offs:**
-- None. Added minimal bytes for the event listener while significantly improving accessibility and overlay safety.
+**DESIGN.md sections rewritten**
+- Rewrote the "Notification Organisms" section to explicitly outline the ARIA live region mapping (WCAG 4.1.3 Status Messages) based on intent, and formally document the newly implemented WCAG 2.2.1 (Timing Adjustable) pause-on-interaction behavior. This ensures DESIGN.md remains the prescriptive source of truth.
 
-**Roadmap items advanced:**
-- `epic-v151-visual-governance`
-- `epic-bdd5-spec-first`
+**Roadmap items advanced**
+- `epic-v151-visual-governance`: Satisfied WCAG 2.2.1 for Notifications.
+- `epic-c0b0-vitrine`: Added the Notification documentation page.
+- `epic-bdd5-spec-first`: Added the Gherkin BDD scenario for Notification timing.
 
-**Session Log:**
-`.jules/agent/brad_frost/2026-05-02T00-07-08Z_tooltip-wcag-1413.md`
+**Epic CODEBASE STATUS refreshed**
+- `epic-v151-visual-governance`: Updated to reflect that the Notification organism satisfies WCAG 2.2.1 via interaction pause-on-hover/focus and WCAG 4.1.3 via correct ARIA live regions.
+- `epic-c0b0-vitrine`: Updated to reflect the addition of the Notification MDX documentation page.
 
-**Test Evidence:**
-```
- ✓ src/components/Tooltip.test.ts (5 tests) 270ms
+**Test evidence**
+- Added Unit Tests (`Notification.test.ts`) utilizing `vi.useFakeTimers()` to verify pause/resume logic mathematically.
+- Added Playwright E2E Tests (`Notification.spec.ts`) to visually verify rendering, ARIA attributes, and the hover-pause timeout behavior on the live MDX docs page.
+- Ran the full validation suite (`npx astro check`, `npm run build`, `npx vitest run`, `npx playwright test`). All checks passed successfully.
 
- Test Files  1 passed (1)
-      Tests  5 passed (5)
-```
+**Link to session log**
+- `.jules/agent/brad_frost/2026-05-04T03-24-00Z_notification-wcag-221.md` (Note: exact timestamp varies)
 
-**Visual Evidence:**
-- No visual UI regression screenshots are required as this is an invisible keyboard behavior change, but E2E DOM focus verification has passed.
-
-**Next Session:**
-Verify the `DatePicker` organism's internal calendar grid navigation (arrow keys, page up/down) per the WAI-ARIA grid pattern, ensuring focus does not get trapped.
+**Next-session hint**
+- Evaluate the `Card` organism or higher-order structural `Layout` molecules to enforce consistent spacing and typographic rhythm across complex pages.

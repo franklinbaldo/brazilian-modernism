@@ -14,3 +14,11 @@ Feature: Notification Organism
     When the user clicks the close button
     Then the notification should be dismissed
     And it should disappear with a smooth exit transition
+
+  Scenario: Auto-dismissing notifications with adjustable timing
+    Given the Notification is rendered with a timeout
+    Then it should automatically dismiss after the timeout expires
+    When the user hovers over or focuses the notification
+    Then the timeout should be paused
+    When the user stops hovering or removes focus
+    Then the timeout should resume
