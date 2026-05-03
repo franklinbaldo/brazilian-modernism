@@ -18,6 +18,7 @@ test.describe('Visual Regression', () => {
     'dialog',
     'drawer',
     'filter-bar',
+    'grid',
     'multiselect',
     'notification',
     'pagination',
