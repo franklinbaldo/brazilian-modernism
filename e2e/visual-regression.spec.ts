@@ -8,6 +8,7 @@ test.describe('Visual Regression', () => {
   ];
 
   const components = [
+    'accordion',
     'alert',
     'badge',
     'breadcrumbs',
@@ -15,7 +16,9 @@ test.describe('Visual Regression', () => {
     'card',
     'checkbox',
     'data-table',
+    'date-picker',
     'dialog',
+    'disclosure',
     'drawer',
     'filter-bar',
     'grid',
@@ -25,7 +28,9 @@ test.describe('Visual Regression', () => {
     'radio',
     'select',
     'switch',
+    'tabs',
     'text-input',
+    'time-picker',
     'timeline',
     'tooltip'
   ];
