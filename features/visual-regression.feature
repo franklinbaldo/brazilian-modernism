@@ -19,5 +19,8 @@ Feature: Visual Regression Testing Harness
       | data-table   | tablet   |
       | dialog       | desktop  |
       | filter-bar   | mobile   |
+      | grid         | mobile   |
+      | grid         | tablet   |
+      | grid         | desktop  |
       | timeline     | tablet   |
       | tooltip      | desktop  |
