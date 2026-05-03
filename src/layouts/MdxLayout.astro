@@ -26,7 +26,7 @@ allDocs.sort((a: CollectionEntry<'docs'>, b: CollectionEntry<'docs'>) => {
 });
 
 const entries = allDocs.map((doc: CollectionEntry<'docs'>) => ({
-  slug: doc.slug,
+  slug: doc.id,
   title: doc.data.title,
   section: doc.data.section,
   order: doc.data.order,

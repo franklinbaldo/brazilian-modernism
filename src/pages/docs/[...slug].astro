@@ -1,11 +1,11 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, render } from 'astro:content';
 import MdxLayout from '../../layouts/MdxLayout.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('docs', ({ data }) => !data.draft);
   return entries.map((entry: CollectionEntry<'docs'>) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
@@ -15,7 +15,7 @@ type Props = {
 };
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings } = await render(entry);
 ---
 
 <MdxLayout frontmatter={entry.data} headings={headings} entryId={entry.id}>

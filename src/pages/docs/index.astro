@@ -21,7 +21,7 @@ const sections = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
             <ul>
               {entries.map((e: DocEntry) => (
                 <li>
-                  <a href={`/cobogo/docs/${e.slug}/`}>{e.data.title}</a>
+                  <a href={`/cobogo/docs/${e.id}/`}>{e.data.title}</a>
                 </li>
               ))}
             </ul>
