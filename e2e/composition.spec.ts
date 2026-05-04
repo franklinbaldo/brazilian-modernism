@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
-test.describe('Composition Wall - Visual Regression', () => {
+test.describe('Composition Wall - Visual Governance', () => {
   const viewports = [
     { name: 'mobile', width: 375, height: 667 },
     { name: 'tablet', width: 768, height: 1024 },
@@ -17,6 +18,10 @@ test.describe('Composition Wall - Visual Regression', () => {
 
       // Wait a moment for any styling to finish applying
       await page.waitForTimeout(1000);
+
+      // Run axe accessibility check
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+      expect(accessibilityScanResults.violations).toEqual([]);
 
       // Take a full-page snapshot
       await expect(page).toHaveScreenshot(`composition-wall-${viewport.name}.png`, {
