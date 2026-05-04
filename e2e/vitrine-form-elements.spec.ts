@@ -37,10 +37,12 @@ test.describe('Vitrine Form Elements Documentation', () => {
   test('Combobox is documented', async ({ page }) => {
     await page.goto('/cobogo/docs/components/combobox');
     await expect(page.locator('h1', { hasText: 'Combobox' }).first()).toBeVisible();
+    await expect(page.getByPlaceholder('Type to filter...').first()).toBeVisible();
   });
 
   test('MultiSelect is documented', async ({ page }) => {
     await page.goto('/cobogo/docs/components/multiselect');
     await expect(page.locator('h1', { hasText: 'MultiSelect' }).first()).toBeVisible();
+    await expect(page.locator('label', { hasText: 'Searchable Regions' }).first()).toBeVisible();
   });
 });
