@@ -33,4 +33,9 @@ test.describe('Vitrine Form Elements Documentation', () => {
     await page.goto('/cobogo/docs/components/file-input');
     await expect(page.locator('h1', { hasText: 'FileInput' }).first()).toBeVisible();
   });
+
+  test('Combobox is documented', async ({ page }) => {
+    await page.goto('/cobogo/docs/components/combobox');
+    await expect(page.locator('h1', { hasText: 'Combobox' }).first()).toBeVisible();
+  });
 });
