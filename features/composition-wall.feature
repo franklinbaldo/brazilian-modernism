@@ -6,5 +6,5 @@ Feature: Composition Wall
   Scenario: Vitrine Composition Page Visual Governance
     Given the visual regression test suite
     When I create a composition page at `/cobogo/composition`
-    Then the page should include complex interactive organisms like `FilterBar`, `DatePicker`, `TimePicker`, and `DataTable`
+    Then the page should include complex interactive organisms like `FilterBar`, `DatePicker`, `TimePicker`, `DataTable`, `Combobox`, and `MultiSelect`
     And the layout should be tested for visual regressions at mobile, tablet, and desktop viewports
