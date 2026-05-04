@@ -38,4 +38,9 @@ test.describe('Vitrine Form Elements Documentation', () => {
     await page.goto('/cobogo/docs/components/combobox');
     await expect(page.locator('h1', { hasText: 'Combobox' }).first()).toBeVisible();
   });
+
+  test('MultiSelect is documented', async ({ page }) => {
+    await page.goto('/cobogo/docs/components/multiselect');
+    await expect(page.locator('h1', { hasText: 'MultiSelect' }).first()).toBeVisible();
+  });
 });
