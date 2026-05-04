@@ -16,9 +16,17 @@
 		function handleKeydown(e: KeyboardEvent) {
 			if (!active || e.key !== 'Tab' || !container) return;
 
-			const focusableElements = container.querySelectorAll<HTMLElement>(
+			const elements = container.querySelectorAll<HTMLElement>(
 				'a[href], button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
 			);
+
+			// Filter out elements that are hidden or not visible
+			const focusableElements = Array.from(elements).filter(el => {
+				if (el.closest('[aria-hidden="true"]') !== null) return false;
+				const style = window.getComputedStyle(el);
+				if (style.display === 'none' || style.visibility === 'hidden') return false;
+				return true;
+			});
 
 			if (focusableElements.length === 0) {
 				e.preventDefault();
