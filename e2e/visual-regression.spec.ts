@@ -20,6 +20,7 @@ test.describe('Visual Regression', () => {
     'dialog',
     'disclosure',
     'drawer',
+    'file-input',
     'filter-bar',
     'grid',
     'multiselect',
