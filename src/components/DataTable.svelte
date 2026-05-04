@@ -5,7 +5,7 @@
   export let variant = "default"; // default, compact, striped
 </script>
 
-<div class="table-container {variant}">
+<div class="table-container {variant}" tabindex="0" aria-label={caption || "Tabela de dados"}>
   {#if caption}
     <div class="table-caption kicker">{caption}</div>
   {/if}
