@@ -8,4 +8,5 @@ Feature: Vitrine Form Elements Documentation
     Then I should find a dedicated page for "Checkbox"
     And I should find a dedicated page for "Radio"
     And I should find a dedicated page for "Switch"
+    And I should find a dedicated page for "FileInput"
     And the documentation should include interactive examples demonstrating valid and invalid states
