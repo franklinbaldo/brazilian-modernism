@@ -48,4 +48,3 @@ Unificar a interface dos projetos:
 - [CausaGanha](https://github.com/franklinbaldo/causaganha)
 - [Baliza](https://github.com/franklinbaldo/baliza)
 - [FICHA](https://github.com/franklinbaldo/ficha)
-
