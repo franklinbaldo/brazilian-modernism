@@ -15,6 +15,7 @@ test.describe('Visual Regression', () => {
     'button',
     'card',
     'checkbox',
+    'combobox',
     'data-table',
     'date-picker',
     'dialog',
