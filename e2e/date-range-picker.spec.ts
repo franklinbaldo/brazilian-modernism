@@ -29,14 +29,16 @@ test.describe('DateRangePicker Component', () => {
 
       // Basic focus on start input
       const basicStartInput = inputs.nth(0);
+
+      // Wait for client hydration which may take a split second
+      await page.waitForTimeout(500);
+
       await basicStartInput.focus();
       await expect(basicStartInput).toBeFocused();
 
       // Ensure invalid input has correct validation class
       // To test invalid state we should interact with the element if it relies on client load
       const invalidInput = page.locator('.invalid input[type="date"]').first();
-      // Wait for client hydration which may take a split second
-      await page.waitForTimeout(500);
 
       // Let's actually use a soft assertion and test for class directly on the input if it passed
       // If the FormField wraps it, the .invalid class is sometimes applied on the wrapper
