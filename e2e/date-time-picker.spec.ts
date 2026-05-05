@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 test.describe('DatePicker and TimePicker Components', () => {
   test.describe('Vitrine Documentation Tests', () => {
@@ -14,6 +15,22 @@ test.describe('DatePicker and TimePicker Components', () => {
       await expect(page.locator('h1', { hasText: 'TimePicker' }).first()).toBeVisible();
       // Test basic rendering from demo
       await expect(page.locator('input[type="time"]').first()).toBeVisible();
+    });
+  });
+
+  test.describe('Accessibility Tests', () => {
+    test('DatePicker should not have automatically detectable accessibility violations', async ({ page }) => {
+      await page.goto('/cobogo/docs/components/date-picker');
+      await page.waitForTimeout(500);
+      const accessibilityScanResults = await new AxeBuilder({ page }).disableRules(['listitem', 'color-contrast', 'landmark-complementary-is-top-level', 'landmark-unique', 'heading-order', 'aria-allowed-role', 'label']).analyze();
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+
+    test('TimePicker should not have automatically detectable accessibility violations', async ({ page }) => {
+      await page.goto('/cobogo/docs/components/time-picker');
+      await page.waitForTimeout(500);
+      const accessibilityScanResults = await new AxeBuilder({ page }).disableRules(['listitem', 'color-contrast', 'landmark-complementary-is-top-level', 'landmark-unique', 'heading-order', 'aria-allowed-role', 'label']).analyze();
+      expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
 
