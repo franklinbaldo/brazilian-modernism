@@ -27,3 +27,4 @@ export { default as Grid } from './components/Grid.svelte';
 export { default as Column } from './components/Column.svelte';
 export { default as Tooltip } from './components/Tooltip.svelte';
 export { default as Combobox } from './components/Combobox.svelte';
+export { default as DateRangePicker } from './components/DateRangePicker.svelte';
