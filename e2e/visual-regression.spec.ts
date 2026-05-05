@@ -18,6 +18,7 @@ test.describe('Visual Regression', () => {
     'combobox',
     'data-table',
     'date-picker',
+    'date-range-picker',
     'dialog',
     'disclosure',
     'drawer',
@@ -33,6 +34,7 @@ test.describe('Visual Regression', () => {
     'tabs',
     'text-input',
     'time-picker',
+    'time-range-picker',
     'timeline',
     'tooltip'
   ];
