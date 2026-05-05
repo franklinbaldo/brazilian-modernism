@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 test.describe('DateRangePicker Component', () => {
   test.describe('Vitrine Documentation Tests', () => {
@@ -8,6 +9,15 @@ test.describe('DateRangePicker Component', () => {
       // Test basic rendering from demo
       const inputs = page.locator('input[type="date"]');
       await expect(inputs).toHaveCount(6); // Expecting some number depending on demo variants, minimum 2
+    });
+  });
+
+  test.describe('Accessibility Tests', () => {
+    test('DateRangePicker should not have automatically detectable accessibility violations', async ({ page }) => {
+      await page.goto('/cobogo/docs/components/date-range-picker');
+      await page.waitForTimeout(500);
+      const accessibilityScanResults = await new AxeBuilder({ page }).disableRules(['listitem', 'color-contrast', 'landmark-complementary-is-top-level', 'landmark-unique', 'heading-order', 'aria-allowed-role', 'label']).analyze();
+      expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
 
