@@ -4,6 +4,11 @@
 
 COBOGÓ is a design system for public-interest/civic software, utilizing the 'Curva & Concreto' doctrine: use curves for interactive elements and sharp geometry (concrete) for static data. Nested curves are strictly forbidden. Shadows must be honest 'pool-shadows'. It embraces the ethos of the Brazilian modernist breeze-block: pattern, modular geometry, light-and-shadow, and restraint.
 
+### Operational Canon
+- **Modularity that breathes (Costa/Bulcão):** Structural components must use clear, repetitive grids without cognitive overload.
+- **Geometry that admits light (Niemeyer/Bulcão):** Restraint must be shown in background patterns and overall density (e.g. background pattern opacity restricted).
+- **Never the same wall twice (Bo Bardi/Costa):** Compositions must be modular and not rigidly duplicated across distinct views.
+
 ## 1. Tokens (Strict Values)
 
 ### Colors
