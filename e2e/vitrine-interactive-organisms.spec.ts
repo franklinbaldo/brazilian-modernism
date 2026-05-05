@@ -21,5 +21,13 @@ test.describe('Vitrine Interactive Organisms Documentation', () => {
     // TimePicker
     await page.goto('/cobogo/docs/components/time-picker');
     await expect(page.locator('h1', { hasText: 'TimePicker' }).first()).toBeVisible();
+
+    // DateRangePicker
+    await page.goto('/cobogo/docs/components/date-range-picker');
+    await expect(page.locator('h1', { hasText: 'DateRangePicker' }).first()).toBeVisible();
+
+    // TimeRangePicker
+    await page.goto('/cobogo/docs/components/time-range-picker');
+    await expect(page.locator('h1', { hasText: 'TimeRangePicker' }).first()).toBeVisible();
   });
 });
