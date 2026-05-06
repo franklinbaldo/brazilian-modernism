@@ -1,0 +1,5 @@
+feat: enforce BDD specifications for doctrine and delivery processes
+
+- Documented clear operational frontend laws in `features/doctrine.feature`.
+- Specified strict design system delivery constraints in `features/delivery.feature`.
+- Ensures codebase alignment with the Curva & Concreto aesthetic.
