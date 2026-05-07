@@ -1044,3 +1044,24 @@ fieldset > legend {
   padding: 0 0.5rem;
 }
 form { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; font-family: var(--font-sans); }
+
+/* --- Tooltip positioning ------------------------------------- */
+[data-tooltip-host] { display: inline-flex; position: relative; }
+[role="tooltip"] { white-space: nowrap; line-height: 1.4; }
+[role="tooltip"][data-position="top"]    { bottom: 100%; left: 50%; transform: translateX(-50%) translateY(-8px); }
+[role="tooltip"][data-position="bottom"] { top: 100%;    left: 50%; transform: translateX(-50%) translateY(8px); }
+[role="tooltip"][data-position="left"]   { right: 100%;  top: 50%;  transform: translateY(-50%) translateX(-8px); }
+[role="tooltip"][data-position="right"]  { left: 100%;   top: 50%;  transform: translateY(-50%) translateX(8px); }
+
+/* --- Accordion grouping (multiple <details>) ------------------ */
+[data-accordion] { display: flex; flex-direction: column; gap: 0.5rem; }
+
+/* --- Tabs root ------------------------------------------------ */
+[data-tabs] { display: flex; flex-direction: column; width: 100%; }
+
+/* Override: button[role="tab"] should not look like a button */
+button[role="tab"] {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent;
+}
