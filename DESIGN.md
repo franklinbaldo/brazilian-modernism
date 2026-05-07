@@ -4,12 +4,25 @@
 
 COBOGÓ is a design system for public-interest/civic software, utilizing the 'Curva & Concreto' doctrine: use curves for interactive elements and sharp geometry (concrete) for static data. Nested curves are strictly forbidden. Shadows must be honest 'pool-shadows'. It embraces the ethos of the Brazilian modernist breeze-block: pattern, modular geometry, light-and-shadow, and restraint.
 
+### Foundation: Pico CSS, Classless
+
+COBOGÓ is built **on top of [Pico CSS](https://picocss.com/)** using its **classless build** (`@picocss/pico/css/pico.classless.css`). Pico provides the element-level styling baseline; COBOGÓ contributes the Brazilian modernist grammar by overriding Pico's CSS variables (`--pico-*`) with COBOGÓ tokens.
+
+**Central rule — Semantic-only authoring:**
+- Style is applied to HTML elements (`<article>`, `<button>`, `<nav>`, `<header>`, `<main>`, `<aside>`, `<footer>`, `<figure>`, `<dl>`, etc.), **not** to classes.
+- `class` attributes are forbidden in page and layout markup. Components do not expose variant classes.
+- Variation is expressed through **HTML semantics** and **data attributes** (e.g. `data-theme`, `data-pattern`, `data-intent`), styled via attribute selectors.
+- No utility classes. No BEM. No component class names. If Pico does not style it, the answer is to pick the correct semantic element — not invent a class.
+- The only exception is decorative pattern hooks exposed as `data-pattern="lambe|carimbo|azulejo|…"`.
+
 ### Operational Canon
 - **Modularity that breathes (Costa/Bulcão):** Structural components must use clear, repetitive grids without cognitive overload.
 - **Geometry that admits light (Niemeyer/Bulcão):** Restraint must be shown in background patterns and overall density (e.g. background pattern opacity restricted).
 - **Never the same wall twice (Bo Bardi/Costa):** Compositions must be modular and not rigidly duplicated across distinct views.
 
 ## 1. Tokens (Strict Values)
+
+COBOGÓ tokens are declared once in `src/styles/global.css` and are **mapped onto Pico's `--pico-*` variables** in the same file. Components must read from Pico variables (or COBOGÓ tokens) — never hard-code colors, radii, or spacing.
 
 ### Colors
 **Neutrals (Paper / Concrete):**
@@ -81,15 +94,16 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 - Global responsive media queries are consolidated at the end of `src/styles/global.css`.
 
 ## 4. Components & Patterns (Atoms -> Molecules -> Organisms)
+- **Semantic-first authoring:** Components render semantic HTML and rely on Pico's element selectors. They MUST NOT add `class` attributes to their root or descendant elements. Variants are expressed via `data-*` attributes (e.g. `data-intent="danger"`, `data-pattern="azulejo"`) and styled with attribute selectors.
 - **Complex Organisms:** Combobox and MultiSelect expose native mechanics and array states cleanly. Svelte state variables within them must be defined responsively ($state).
-- **Curva & Concreto:** Curves (border-radius) for interactive elements, sharp geometry (concrete) for static data. Nested curves are forbidden.
+- **Curva & Concreto:** Curves (border-radius) for interactive elements, sharp geometry (concrete) for static data. Nested curves are forbidden. Implemented by overriding `--pico-border-radius` per element/attribute selector.
 - Svelte 5 Runes ($props, $state, $derived) are strictly required for all components.
 - Props defined using TypeScript `type` aliases.
-- Form components prioritize composition via Svelte snippet slots (`children`).
+- Form components prioritize composition via Svelte snippet slots (`children`) and render native `<input>`, `<select>`, `<button>`, `<fieldset>`, `<label>` so Pico styles them directly.
 - Decorative components (icons/patterns) must be self-contained using inline SVG/pure CSS.
   - Icons are strictly `viewBox="0 0 100 100"`.
   - Categories: Cotidiano, Geometric, Civic, Folk.
-- Background patterns: Azulejo (Bulcão) max 8% opacity. COBOGÓ SVG patterns max 15% opacity.
+- Background patterns: Azulejo (Bulcão) max 8% opacity. COBOGÓ SVG patterns max 15% opacity. Applied via `data-pattern` on the host element.
 - Provide brief JSDoc documentation for props and usage in the script tag.
 
 ## 5. Documentation
@@ -101,11 +115,11 @@ All components **MUST** adhere to WCAG AA accessibility standards.
 - Admonition mapping strictly by color: info (azul), tip (verde), warning (ocre), danger (vermelho), note (concreto-60).
 
 ## 6. Dark Mode
-Dark Mode is defined in `.dark-mode` globally. It strictly inverts the `--papel` and `--concreto` variables to maintain geometric contrast while deeply adjusting the `--soft` variables of primary colors to their dark equivalents. The saturated primary colors (`--azul`, `--vermelho`, `--ocre`, `--verde`) remain intentionally vibrant as they are the core identity markers.
+Dark Mode follows Pico's convention via `<html data-theme="light|dark">` (and `data-theme="auto"` for system preference). The `[data-theme="dark"]` selector inverts `--papel` and `--concreto` variables to maintain geometric contrast and deeply adjusts the `--soft` variables of primary colors to their dark equivalents. The saturated primary colors (`--azul`, `--vermelho`, `--ocre`, `--verde`) remain intentionally vibrant as they are the core identity markers. The legacy `.dark-mode` class is removed.
 
 ## Form Atoms & Organisms
-- **Form Borders & Contrast**: Form components (`Checkbox`, `Radio`, `Switch`, `TextInput`, `Select`) must strictly maintain WCAG AA non-text contrast ratios (>= 3.0) for both their boundaries (borders) and focus rings. To achieve this, their default and empty states are mapped to semantic tokens (`--bg-raised` or `--bg-sunken` for backgrounds, `--border-input` for borders) rather than absolute color variables (e.g., avoid hardcoding `--papel-00` or `--concreto-80` for structure). This decoupled approach allows the borders to remain visible against the inverted `--bg` in Dark Mode.
-- **Validation States**: Form input components (like `TextInput`, `Select`) must provide unmistakable feedback adhering to the Curva & Concreto aesthetic. Invalid states use `--vermelho-soft` for the background and `--vermelho` for borders, text, and icons. Valid states use `--verde-soft` and `--verde` correspondingly. Color transitions ensure smooth visual changes.
+- **Form Borders & Contrast**: Form components (`Checkbox`, `Radio`, `Switch`, `TextInput`, `Select`) must strictly maintain WCAG AA non-text contrast ratios (>= 3.0) for both their boundaries (borders) and focus rings. They render native elements (`<input type="checkbox|radio|text|…">`, `<select>`) so Pico's element styling applies; structural colors are mapped onto `--pico-form-element-background-color`, `--pico-form-element-border-color`, and `--pico-form-element-focus-color` rather than absolute COBOGÓ color variables. This decoupled approach allows the borders to remain visible against the inverted background in Dark Mode.
+- **Validation States**: Form input components must provide unmistakable feedback adhering to the Curva & Concreto aesthetic via the standard `aria-invalid` attribute (already styled by Pico). COBOGÓ overrides the invalid styling to `--vermelho-soft` background with `--vermelho` borders/text/icons; valid states (`aria-invalid="false"`) use `--verde-soft` and `--verde`. No validation classes.
 - **MultiSelect**: Adapts the Combobox pattern for multiple selections. Displays selected items as `Badge` atoms inside the input. Maintains accessibility via `role="combobox"` and `role="listbox"`, utilizing the `Checkbox` atom internally for selection state. Strictly adheres to `--vermelho-soft` and `--vermelho` for invalid states.
 
 ## Temporal Organisms

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, slide } from 'svelte/transition';
+  import { slide } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
   import BrIcon from './BrIcon.svelte';
 
@@ -13,8 +13,6 @@
     dismissible?: boolean;
     ondismiss?: () => void;
     timeout?: number;
-    class?: string;
-    style?: string;
   };
 
   let {
@@ -25,14 +23,11 @@
     dismissible = true,
     ondismiss,
     timeout = 0,
-    class: className = '',
-    style = '',
     ...rest
   }: Props = $props();
 
   let visible = $state(true);
-
-  let remainingTime = $state();
+  let remainingTime = $state<number | undefined>();
   let startTime = $state<number | null>(null);
   let timerId = $state<number | null>(null);
   let isHovered = $state(false);
@@ -40,76 +35,49 @@
   let paused = $derived(isHovered || isFocused);
 
   $effect(() => {
-    if (timeout > 0 && remainingTime === undefined) {
-      remainingTime = timeout;
-    }
+    if (timeout > 0 && remainingTime === undefined) remainingTime = timeout;
   });
 
   $effect(() => {
     if (remainingTime !== undefined && remainingTime > 0 && !paused && visible) {
       startTime = Date.now();
-      timerId = window.setTimeout(() => {
-        handleDismiss();
-      }, remainingTime);
-
+      timerId = window.setTimeout(() => handleDismiss(), remainingTime);
       return () => {
         if (timerId !== null) {
           clearTimeout(timerId);
-          if (startTime !== null) {
-            remainingTime! -= (Date.now() - startTime);
-          }
+          if (startTime !== null) remainingTime! -= Date.now() - startTime;
         }
       };
     }
   });
 
-  function handleMouseEnter() {
-    isHovered = true;
-  }
-
-  function handleMouseLeave() {
-    isHovered = false;
-  }
-
-  function handleFocusIn() {
-    isFocused = true;
-  }
-
-  function handleFocusOut(e: FocusEvent) {
-    const currentTarget = e.currentTarget as HTMLElement;
-    const relatedTarget = e.relatedTarget as HTMLElement;
-    if (!currentTarget.contains(relatedTarget)) {
-      isFocused = false;
-    }
-  }
-
-
   function handleDismiss() {
     visible = false;
-    if (ondismiss) {
-      ondismiss();
-    }
+    ondismiss?.();
   }
 
   const iconMap: Record<Intent, string> = {
     info: 'cobogo-circular',
     tip: 'cobogo-hexagonal',
     warning: 'cobogo-losango',
-    danger: 'cobogo-cruz'
+    danger: 'cobogo-cruz',
+  };
+
+  const intentToAlertIntent: Record<Intent, 'info' | 'success' | 'warning' | 'danger'> = {
+    info: 'info',
+    tip: 'success',
+    warning: 'warning',
+    danger: 'danger',
   };
 
   const roleAttr = $derived(intent === 'danger' || intent === 'warning' ? 'alert' : 'status');
   const ariaLiveAttr = $derived(intent === 'danger' || intent === 'warning' ? 'assertive' : 'polite');
 
   let prefersReducedMotion = $state(false);
-
   $effect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     prefersReducedMotion = mediaQuery.matches;
-
-    const handler = (e: MediaQueryListEvent) => {
-      prefersReducedMotion = e.matches;
-    };
+    const handler = (e: MediaQueryListEvent) => (prefersReducedMotion = e.matches);
     mediaQuery.addEventListener('change', handler);
     return () => mediaQuery.removeEventListener('change', handler);
   });
@@ -117,197 +85,37 @@
 
 {#if visible}
   <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-  <div
+  <aside
     {id}
-    class="br-notification br-notification--{intent} {className}"
-    tabindex={timeout > 0 ? 0 : -1}
-    {style}
     role={roleAttr}
     aria-live={ariaLiveAttr}
+    data-intent={intentToAlertIntent[intent]}
+    data-toast
+    tabindex={timeout > 0 ? 0 : -1}
     transition:slide={{ duration: prefersReducedMotion ? 0 : 220, easing: cubicOut }}
-    onmouseenter={handleMouseEnter}
-    onmouseleave={handleMouseLeave}
-    onfocusin={handleFocusIn}
-    onfocusout={handleFocusOut}
+    onmouseenter={() => (isHovered = true)}
+    onmouseleave={() => (isHovered = false)}
+    onfocusin={() => (isFocused = true)}
+    onfocusout={(e) => {
+      const ct = e.currentTarget as HTMLElement;
+      const rt = e.relatedTarget as HTMLElement;
+      if (!ct.contains(rt)) isFocused = false;
+    }}
     {...rest}
   >
-    <div class="br-notification__icon" aria-hidden="true">
+    <span aria-hidden="true">
       <BrIcon name={iconMap[intent]} size={24} color="currentColor" />
-    </div>
+    </span>
 
-    <div class="br-notification__content">
-      <h4 class="br-notification__title">{title}</h4>
-      {#if message}
-        <p class="br-notification__message">{message}</p>
-      {/if}
+    <div>
+      <strong>{title}</strong>
+      {#if message}<p>{message}</p>{/if}
     </div>
 
     {#if dismissible}
-      <button
-        type="button"
-        class="br-notification__close"
-        aria-label="Dismiss notification"
-        onclick={handleDismiss}
-      >
+      <button type="button" data-intent="link" aria-label="Dismiss notification" onclick={handleDismiss}>
         <span aria-hidden="true">&times;</span>
       </button>
     {/if}
-  </div>
+  </aside>
 {/if}
-
-<style>
-  .br-notification {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem;
-    border-radius: var(--r-soft);
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-2);
-    position: relative;
-    overflow: hidden;
-    color: var(--fg);
-    max-width: 400px;
-    width: 100%;
-  }
-
-  .br-notification:focus-visible {
-    outline: 2px solid var(--fg);
-    outline-offset: 2px;
-  }
-
-  .br-notification::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 4px;
-    background: var(--accent);
-  }
-
-  .br-notification--info {
-    --accent: var(--azul);
-    background: var(--azul-soft);
-    border-color: var(--azul);
-  }
-  .br-notification--info .br-notification__icon,
-  .br-notification--info .br-notification__title {
-    color: var(--azul);
-  }
-
-  .br-notification--tip {
-    --accent: var(--verde);
-    background: var(--verde-soft);
-    border-color: var(--verde);
-  }
-  .br-notification--tip .br-notification__icon,
-  .br-notification--tip .br-notification__title {
-    color: var(--verde);
-  }
-
-  .br-notification--warning {
-    --accent: var(--ocre);
-    background: var(--ocre-soft);
-    border-color: var(--ocre);
-  }
-  .br-notification--warning .br-notification__icon,
-  .br-notification--warning .br-notification__title {
-    color: var(--ocre);
-  }
-
-  .br-notification--danger {
-    --accent: var(--vermelho);
-    background: var(--vermelho-soft);
-    border-color: var(--vermelho);
-  }
-  .br-notification--danger .br-notification__icon,
-  .br-notification--danger .br-notification__title {
-    color: var(--vermelho);
-  }
-
-  .br-notification__icon {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    margin-top: 2px;
-  }
-
-  .br-notification__content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .br-notification__title {
-    font-family: var(--font-sans);
-    font-size: var(--t-body);
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
-  }
-
-  .br-notification__message {
-    font-family: var(--font-sans);
-    font-size: var(--t-small);
-    color: var(--fg);
-    margin: 0;
-    line-height: 1.4;
-  }
-
-  .br-notification__close {
-    flex-shrink: 0;
-    background: transparent;
-    border: none;
-    color: var(--fg-muted);
-    cursor: pointer;
-    padding: 0;
-    margin: -0.25rem -0.25rem 0 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    line-height: 1;
-    border-radius: var(--r-1);
-    transition: color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .br-notification__close {
-      transition: none;
-    }
-  }
-
-  .br-notification__close:hover {
-    color: var(--fg);
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  .br-notification__close:focus-visible {
-    outline: 2px solid var(--fg);
-    outline-offset: 2px;
-  }
-
-  :global(.dark-mode) .br-notification__close:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  :global(.dark-mode) .br-notification--info .br-notification__icon,
-  :global(.dark-mode) .br-notification--info .br-notification__title,
-  :global(.dark-mode) .br-notification--tip .br-notification__icon,
-  :global(.dark-mode) .br-notification--tip .br-notification__title,
-  :global(.dark-mode) .br-notification--warning .br-notification__icon,
-  :global(.dark-mode) .br-notification--warning .br-notification__title,
-  :global(.dark-mode) .br-notification--danger .br-notification__icon,
-  :global(.dark-mode) .br-notification--danger .br-notification__title {
-    color: var(--fg-heading);
-  }
-
-</style>

@@ -184,7 +184,7 @@
 	}
 </script>
 
-<div class="combobox-container" bind:this={comboboxRef} use:setupInputRef>
+<div data-combobox bind:this={comboboxRef} use:setupInputRef>
 	<!-- Hidden input for form submission if name is provided -->
 	{#if name}
 		<input type="hidden" {name} {value} required={finalRequired} />
@@ -216,7 +216,7 @@
 		/>
 
 		<!-- Chevron icon -->
-		<div class="chevron" class:open>
+		<div data-combobox-chevron data-open={open ? '' : undefined}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M6 9l6 6 6-6"/>
 			</svg>
@@ -226,32 +226,30 @@
 	{#if open}
 		<ul
 			id="{finalId}-listbox"
-			class="listbox"
+			data-listbox
 			role="listbox"
 			bind:this={listboxRef}
 		>
 			{#if filteredOptions.length === 0}
-				<li class="no-results" role="option" aria-selected="false">
+				<li data-empty role="option" aria-selected="false">
 					No options found
 				</li>
 			{:else}
 				{#each filteredOptions as opt, i}
 					<li
 						id="{finalId}-option-{i}"
-						class="option"
-						class:focused={focusedIndex === i}
-						class:selected={value === opt.value}
+						data-focused={focusedIndex === i ? '' : undefined}
+						data-selected={value === opt.value ? '' : undefined}
 						role="option"
 						aria-selected={value === opt.value}
 						onmousedown={(e) => {
-							// Prevent input blur before click registers
 							e.preventDefault();
 							selectOption(opt);
 						}}
 					>
 						{opt.label}
 						{#if value === opt.value}
-							<span class="check">
+							<span aria-hidden="true">
 								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
 							</span>
 						{/if}
@@ -262,84 +260,3 @@
 	{/if}
 </div>
 
-<style>
-	.combobox-container {
-		position: relative;
-		width: 100%;
-		font-family: var(--font-sans);
-	}
-
-	.chevron {
-		position: absolute;
-		right: 0.875rem;
-		top: 50%;
-		transform: translateY(-50%);
-		pointer-events: none;
-		color: var(--fg-muted);
-		transition: transform var(--dur-2) var(--ease-out);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.chevron.open {
-		transform: translateY(-50%) rotate(180deg);
-	}
-
-	.listbox {
-		position: absolute;
-		top: calc(100% + 0.25rem);
-		left: 0;
-		right: 0;
-		max-height: 250px;
-		overflow-y: auto;
-		background: var(--bg-raised);
-		border: 1px solid var(--border-input);
-		border-radius: var(--r-1);
-		box-shadow: var(--shadow-2);
-		z-index: 50;
-		margin: 0;
-		padding: 0.25rem;
-		list-style: none;
-	}
-
-	.option, .no-results {
-		padding: 0.5rem 0.75rem;
-		border-radius: var(--r-1);
-		cursor: pointer;
-		color: var(--fg);
-		font-size: var(--t-body);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		transition: background-color var(--dur-1) var(--ease-out);
-	}
-
-	.no-results {
-		color: var(--fg-muted);
-		cursor: default;
-		justify-content: center;
-		font-style: italic;
-	}
-
-	.option:hover, .option.focused {
-		background-color: var(--papel-20);
-	}
-
-	.option.selected {
-		background-color: var(--azul-soft);
-		color: var(--azul-deep);
-		font-weight: 600;
-	}
-
-	.check {
-		display: flex;
-		color: var(--azul);
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.chevron {
-			transition: none;
-		}
-	}
-</style>

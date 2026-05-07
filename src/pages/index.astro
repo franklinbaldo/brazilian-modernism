@@ -8,293 +8,510 @@ import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
 ---
 
 <BaseLayout title="COBOGÓ | Brazilian Modernist Design System">
-  <div class="app-wrapper">
-    <aside class="tile-sidebar">
-      <div class="sidebar-tiles pattern-cobogo-circular"></div>
-    </aside>
+  <aside aria-hidden="true" data-pattern="cobogo-circular" data-region="tile-sidebar"></aside>
 
-    <main class="main-content">
-      <nav class="container site-nav">
-        <div class="nav-brand font-logo">COBOGÓ</div>
-        <div class="nav-links">
-          <a href="/cobogo/manifesto/">Manifesto</a>
-          <a href="#">Foundations</a>
-          <a href="/cobogo/docs/getting-started/">Components</a>
-          <a href="/cobogo/patterns/">Patterns</a>
-          <a href="/cobogo/composition/">Composition</a>
-        </div>
-        <div class="nav-actions">
-          <button class="link">Buscar</button>
-          <a href="https://github.com/franklinbaldo/cobogo" class="btn btn--azul">Github</a>
-        </div>
-      </nav>
+  <header data-region="site-header">
+    <nav>
+      <ul>
+        <li><strong>COBOGÓ</strong></li>
+      </ul>
+      <ul>
+        <li><a href="/cobogo/manifesto/">Manifesto</a></li>
+        <li><a href="#">Foundations</a></li>
+        <li><a href="/cobogo/docs/getting-started/">Components</a></li>
+        <li><a href="/cobogo/patterns/">Patterns</a></li>
+        <li><a href="/cobogo/composition/">Composition</a></li>
+      </ul>
+      <ul>
+        <li><button data-intent="link">Buscar</button></li>
+        <li><a href="https://github.com/franklinbaldo/cobogo" role="button" data-intent="primary">Github</a></li>
+      </ul>
+    </nav>
+  </header>
 
-      <section class="hero">
-        <div class="hero__inner wrap">
-          <div class="hero__copy">
-            <span class="kicker kicker--vermelho">Brazilian Modernist Design System</span>
-            <h1 class="hero__title">
-              Modernismo brasileiro, traduzido em <em>interface</em>.
-            </h1>
-            <p class="hero__lead">
-              Um design system inspirado em cobogós, calçadas, Brasília, cartazes
-              culturais e interfaces cívicas — feito para transformar dados
-              públicos em experiências claras, humanas e memoráveis.
-            </p>
-            <div class="hero__cta">
-              <a href="/cobogo/manifesto/" class="btn btn--azul btn--lg">
-                Ver manifesto <span class="btn__arrow">→</span>
-              </a>
-              <a href="/cobogo/docs/getting-started/" class="btn btn--secondary btn--lg">
-                Explorar componentes <span class="btn__arrow">→</span>
-              </a>
-              <a href="#" class="btn btn--secondary btn--lg">
-                Aplicar no Baliza <span class="btn__arrow">→</span>
-              </a>
-            </div>
-          </div>
+  <main>
+    <section data-section="hero">
+      <hgroup>
+        <p><small data-kicker="vermelho">Brazilian Modernist Design System</small></p>
+        <h1>Modernismo brasileiro, traduzido em <em>interface</em>.</h1>
+        <p>
+          Um design system inspirado em cobogós, calçadas, Brasília, cartazes
+          culturais e interfaces cívicas — feito para transformar dados
+          públicos em experiências claras, humanas e memoráveis.
+        </p>
+      </hgroup>
+      <p>
+        <a href="/cobogo/manifesto/" role="button" data-intent="primary">Ver manifesto →</a>
+        <a href="/cobogo/docs/getting-started/" role="button" data-intent="secondary">Explorar componentes →</a>
+        <a href="#" role="button" data-intent="secondary">Aplicar no Baliza →</a>
+      </p>
+      <figure data-region="hero-art">
+        <Ornaments type="landscape" />
+      </figure>
+    </section>
 
-          <div class="hero__art">
-            <Ornaments type="landscape" />
-          </div>
-        </div>
-      </section>
+    <section data-section="patterns">
+      <figure>
+        <CobogoCircular client:load tile={false} size={80} color="var(--azul)" density={1} />
+        <figcaption>Circular</figcaption>
+      </figure>
+      <figure>
+        <CobogoHexagonal client:load tile={false} size={80} color="var(--vermelho)" density={1} />
+        <figcaption>Hexagonal</figcaption>
+      </figure>
+      <figure>
+        <CobogoLosango client:load tile={false} size={80} color="var(--ocre)" density={1} />
+        <figcaption>Losango</figcaption>
+      </figure>
+      <figure>
+        <CobogoCruz client:load tile={false} size={80} color="var(--verde)" density={1} />
+        <figcaption>Cruz</figcaption>
+      </figure>
+    </section>
 
-      <section class="patterns-showcase" style="padding: 2rem 0; background: var(--bg-sunken); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-        <div class="wrap patterns-showcase-grid">
-          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
-            <CobogoCircular client:load tile={false} size={80} color="var(--azul)" density={1} />
-            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Circular</span>
-          </div>
-          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
-            <CobogoHexagonal client:load tile={false} size={80} color="var(--vermelho)" density={1} />
-            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Hexagonal</span>
-          </div>
-          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
-            <CobogoLosango client:load tile={false} size={80} color="var(--ocre)" density={1} />
-            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Losango</span>
-          </div>
-          <div style="background: var(--papel-00); padding: 2rem; display: flex; flex-direction: column; align-items: center;">
-            <CobogoCruz client:load tile={false} size={80} color="var(--verde)" density={1} />
-            <span style="margin-top: 1rem; font-size: 0.875rem; font-weight: 700; color: var(--fg-muted);">Cruz</span>
-          </div>
-        </div>
-      </section>
+    <section data-section="pillars">
+      <article data-intent="azul">
+        <a href="#">
+          <header>
+            <Ornaments type="pillar" name="acervo" size={28} color="var(--papel-00)" />
+            <h3>Foundations</h3>
+          </header>
+          <p>Cor, tipografia, grid, ritmo, borda, sombra e ornamentação para interfaces brasileiras.</p>
+          <footer aria-hidden="true">→</footer>
+        </a>
+      </article>
+      <article data-intent="verde">
+        <a href="/cobogo/docs/getting-started/">
+          <header>
+            <Ornaments type="pillar" name="exposicoes" size={28} color="var(--papel-00)" />
+            <h3>Components</h3>
+          </header>
+          <p>Botões, cards, badges, filtros, inputs, toolbars, alertas e estados vazios.</p>
+          <footer aria-hidden="true">→</footer>
+        </a>
+      </article>
+      <article data-intent="vermelho">
+        <a href="/cobogo/patterns/">
+          <header>
+            <Ornaments type="pillar" name="educacao" size={28} color="var(--papel-00)" />
+            <h3>Patterns</h3>
+          </header>
+          <p>Busca pública, painel de cidade, mapa, lista de resultados, detalhe de item e linha do tempo.</p>
+          <footer aria-hidden="true">→</footer>
+        </a>
+      </article>
+      <article data-intent="ocre">
+        <a href="#">
+          <header>
+            <Ornaments type="pillar" name="cidade" size={28} color="var(--papel-00)" />
+            <h3>Applications</h3>
+          </header>
+          <p>Baliza, Verne, CausaGanha e outros produtos usando a mesma linguagem visual.</p>
+          <footer aria-hidden="true">→</footer>
+        </a>
+      </article>
+    </section>
 
-      <section class="pillars">
-        <div class="wrap pillars__grid">
-          <a class="pillar pillar--azul" href="#">
-            <div class="pillar__icon">
-              <Ornaments type="pillar" name="acervo" size={28} color="var(--papel-00)" />
-            </div>
-            <div class="pillar__body">
-              <div class="pillar__title">Foundations</div>
-              <p class="pillar__desc">Cor, tipografia, grid, ritmo, borda, sombra e ornamentação para interfaces brasileiras.</p>
-            </div>
-            <span class="pillar__arrow">→</span>
-          </a>
-          <a class="pillar pillar--verde" href="/cobogo/docs/getting-started/">
-            <div class="pillar__icon">
-              <Ornaments type="pillar" name="exposicoes" size={28} color="var(--papel-00)" />
-            </div>
-            <div class="pillar__body">
-              <div class="pillar__title">Components</div>
-              <p class="pillar__desc">Botões, cards, badges, filtros, inputs, toolbars, alertas e estados vazios.</p>
-            </div>
-            <span class="pillar__arrow">→</span>
-          </a>
-          <a class="pillar pillar--vermelho" href="/cobogo/patterns/">
-            <div class="pillar__icon">
-              <Ornaments type="pillar" name="educacao" size={28} color="var(--papel-00)" />
-            </div>
-            <div class="pillar__body">
-              <div class="pillar__title">Patterns</div>
-              <p class="pillar__desc">Busca pública, painel de cidade, mapa, lista de resultados, detalhe de item e linha do tempo.</p>
-            </div>
-            <span class="pillar__arrow">→</span>
-          </a>
-          <a class="pillar pillar--ocre" href="#">
-            <div class="pillar__icon">
-              <Ornaments type="pillar" name="cidade" size={28} color="var(--papel-00)" />
-            </div>
-            <div class="pillar__body">
-              <div class="pillar__title">Applications</div>
-              <p class="pillar__desc">Baliza, Verne, CausaGanha e outros produtos usando a mesma linguagem visual.</p>
-            </div>
-            <span class="pillar__arrow">→</span>
-          </a>
+    <section data-section="stats">
+      <dl>
+        <div>
+          <dt>princípios</dt>
+          <dd>6</dd>
         </div>
-      </section>
+        <div>
+          <dt>componentes</dt>
+          <dd>12</dd>
+        </div>
+        <div>
+          <dt>padrões</dt>
+          <dd>4</dd>
+        </div>
+        <div>
+          <dt>linguagem comum</dt>
+          <dd>1</dd>
+        </div>
+      </dl>
+    </section>
 
-      <section class="statsband">
-        <div class="statsband__stats wrap">
-          <div class="bigstat">
-            <div class="bigstat__n">6</div>
-            <div class="bigstat__label">princípios</div>
-          </div>
-          <div class="bigstat">
-            <div class="bigstat__n">12</div>
-            <div class="bigstat__label">componentes</div>
-          </div>
-          <div class="bigstat">
-            <div class="bigstat__n">4</div>
-            <div class="bigstat__label">padrões</div>
-          </div>
-          <div class="bigstat">
-            <div class="bigstat__n">1</div>
-            <div class="bigstat__label">linguagem comum</div>
-          </div>
-        </div>
-      </section>
+    <section data-section="news">
+      <header>
+        <hgroup>
+          <p><small data-kicker>Ecosistema</small></p>
+          <h2>Em <em>aplicação</em>.</h2>
+        </hgroup>
+        <p>Produtos construídos com a mesma linguagem visual de utilidade pública.</p>
+        <a href="#">Ver todos os projetos →</a>
+      </header>
 
-      <section class="news">
-        <div class="wrap news__head">
-          <div class="news__intro">
-            <span class="kicker">Ecosistema</span>
-            <h2 class="news__title">Em <em>aplicação</em>.</h2>
-            <p class="news__lead">
-              Produtos construídos com a mesma linguagem visual de utilidade pública.
-            </p>
-            <a class="link" href="#">
-              Ver todos os projetos <span>→</span>
-            </a>
-          </div>
-          <div class="news__grid">
-            <article class="newscard">
-              <div class="newscard__art" style="background: var(--azul-soft); display: flex; align-items: center; justify-content: center;">
-                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--azul);">Baliza</span>
-              </div>
-              <h3 class="newscard__title">Baliza</h3>
-              <p style="font-size: 0.875rem; color: var(--fg-muted);">Painéis cívicos para acompanhar compras públicas da cidade.</p>
-            </article>
-            <article class="newscard">
-              <div class="newscard__art" style="background: var(--vermelho-soft); display: flex; align-items: center; justify-content: center;">
-                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--vermelho);">Verne</span>
-              </div>
-              <h3 class="newscard__title">Verne</h3>
-              <p style="font-size: 0.875rem; color: var(--fg-muted);">Interface documental com densidade, ritmo e legibilidade.</p>
-            </article>
-            <article class="newscard">
-              <div class="newscard__art" style="background: var(--verde-soft); display: flex; align-items: center; justify-content: center;">
-                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--verde);">CausaGanha</span>
-              </div>
-              <h3 class="newscard__title">CausaGanha</h3>
-              <p style="font-size: 0.875rem; color: var(--fg-muted);">Experimentos de UX para busca, triagem e análise jurídica.</p>
-            </article>
-            <article class="newscard">
-              <div class="newscard__art" style="background: var(--ocre-soft); display: flex; align-items: center; justify-content: center;">
-                <span style="font-family: var(--font-display); font-size: 2rem; color: var(--ocre-deep);">COBOGÓ Kit</span>
-              </div>
-              <h3 class="newscard__title">COBOGÓ Kit</h3>
-              <p style="font-size: 0.875rem; color: var(--fg-muted);">Componentes Svelte/Astro para produtos públicos brasileiros.</p>
-            </article>
-            <article class="newscard">
-              <a href="/cobogo/blog-application">
-                <div class="newscard__art" style="background: var(--papel-20); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
-                  <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--fg-heading); position: relative; z-index: 2;">Blog: franklinbaldo.io</span>
-                </div>
-              </a>
-              <h3 class="newscard__title"><a href="/cobogo/blog-application">Blog Layout</a></h3>
-              <p style="font-size: 0.875rem; color: var(--fg-muted);">Aplicação do sistema COBOGÓ para publicações longform.</p>
-            </article>
-          </div>
-        </div>
-      </section>
+      <article data-intent="azul">
+        <figure><figcaption>Baliza</figcaption></figure>
+        <h3>Baliza</h3>
+        <p>Painéis cívicos para acompanhar compras públicas da cidade.</p>
+      </article>
+      <article data-intent="vermelho">
+        <figure><figcaption>Verne</figcaption></figure>
+        <h3>Verne</h3>
+        <p>Interface documental com densidade, ritmo e legibilidade.</p>
+      </article>
+      <article data-intent="verde">
+        <figure><figcaption>CausaGanha</figcaption></figure>
+        <h3>CausaGanha</h3>
+        <p>Experimentos de UX para busca, triagem e análise jurídica.</p>
+      </article>
+      <article data-intent="ocre">
+        <figure><figcaption>COBOGÓ Kit</figcaption></figure>
+        <h3>COBOGÓ Kit</h3>
+        <p>Componentes Svelte/Astro para produtos públicos brasileiros.</p>
+      </article>
+      <article data-intent="papel">
+        <a href="/cobogo/blog-application">
+          <figure><figcaption>Blog: franklinbaldo.io</figcaption></figure>
+          <h3>Blog Layout</h3>
+          <p>Aplicação do sistema COBOGÓ para publicações longform.</p>
+        </a>
+      </article>
+    </section>
 
-      <section class="quotesec">
-        <div class="wrap quotesec__inner">
-          <div class="quotesec__deco">
-            <Ornaments type="landscape" />
-          </div>
-          <blockquote class="quotesec__q">
-            <p>
-              “A cidade é, antes de tudo, feita de encontros, de caminhos e de
-              memória. Design é serviço público.”
-            </p>
-            <footer>
-              <span class="quotesec__author">Lina Bo Bardi</span>
-              <span class="quotesec__role">arquiteta · 1914–1992</span>
-            </footer>
-          </blockquote>
-        </div>
-      </section>
+    <section data-section="quote">
+      <figure data-region="quote-art">
+        <Ornaments type="landscape" />
+      </figure>
+      <blockquote>
+        <p>“A cidade é, antes de tudo, feita de encontros, de caminhos e de memória. Design é serviço público.”</p>
+        <footer>
+          <cite>Lina Bo Bardi</cite>
+          <small>arquiteta · 1914–1992</small>
+        </footer>
+      </blockquote>
+    </section>
+  </main>
 
-      <footer class="site-footer">
-        <div class="wrap">
-          <p>© 2026 COBOGÓ. Um sistema visual brasileiro para interfaces públicas.</p>
-        </div>
-      </footer>
-    </main>
-  </div>
+  <footer data-region="site-footer">
+    <p>© 2026 COBOGÓ. Um sistema visual brasileiro para interfaces públicas.</p>
+  </footer>
 </BaseLayout>
 
+<style is:global>
+  /* Page shell — global because scoped styles cannot target <body> from BaseLayout */
+  body:has([data-region="tile-sidebar"]) { padding-left: 80px; }
+  @media (max-width: 600px) {
+    body:has([data-region="tile-sidebar"]) { padding-left: 0; }
+  }
+</style>
+
 <style>
-  .site-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
+  [data-region="tile-sidebar"] {
+    position: fixed;
+    top: 0; bottom: 0; left: 0;
+    width: 80px;
+    background: var(--azul);
+    background-image: url('/cobogo/patterns/cobogo-circular.svg');
+    background-size: 60px 60px;
+    z-index: 100;
   }
 
-  .nav-brand {
-    font-size: 1.5rem;
-    font-weight: 800;
+  /* Header / nav: Pico already styles <nav> + nested <ul>. We only adjust spacing & rules. */
+  [data-region="site-header"] {
+    border-bottom: 1px solid var(--border, var(--pico-muted-border-color));
+    padding: 1rem 2rem;
   }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.875rem;
+  [data-region="site-header"] nav ul + ul { gap: 2rem; }
+  [data-region="site-header"] strong {
+    font-family: var(--font-display);
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.05em;
+    font-size: 1.25rem;
   }
 
-  .nav-actions {
-    display: flex;
+  /* Kickers — semantic <small> tagged with role */
+  [data-kicker] {
+    font-size: var(--t-small);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent, var(--pico-primary));
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  [data-kicker="vermelho"] { color: var(--vermelho); }
+
+  /* Buttons via role + data-intent — overrides Pico vars */
+  [role="button"][data-intent="primary"],
+  button[data-intent="primary"] {
+    --pico-background-color: var(--azul);
+    --pico-border-color: var(--azul);
+    --pico-color: var(--papel-00);
+    --pico-border-radius: var(--r-1);
+  }
+  [role="button"][data-intent="secondary"] {
+    --pico-background-color: transparent;
+    --pico-border-color: var(--concreto-80);
+    --pico-color: var(--concreto-80);
+    --pico-border-radius: var(--r-1);
+  }
+  button[data-intent="link"] {
+    --pico-background-color: transparent;
+    --pico-border-color: transparent;
+    --pico-color: inherit;
+    padding-inline: 0;
+    font-weight: 700;
+  }
+
+  /* Hero */
+  [data-section="hero"] {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
     align-items: center;
-    gap: 2rem;
+    padding: 6rem 2rem;
+    max-width: 1240px;
+    margin: 0 auto;
   }
-
-  .hero__art {
+  [data-section="hero"] > hgroup,
+  [data-section="hero"] > p { grid-column: 1; }
+  [data-section="hero"] > figure { grid-column: 2; grid-row: 1 / span 2; margin: 0; }
+  [data-section="hero"] hgroup h1 {
+    font-size: var(--t-h1);
+    font-family: var(--font-display);
+    margin-bottom: 1.5rem;
+  }
+  [data-section="hero"] hgroup > p:last-of-type {
+    font-size: var(--t-lede);
+    color: var(--fg-muted, var(--pico-muted-color));
+    max-width: 480px;
+  }
+  [data-section="hero"] > p { display: flex; flex-wrap: wrap; gap: 1rem; }
+  [data-region="hero-art"] {
     aspect-ratio: 4/3;
+    border: 1px solid var(--concreto-90);
     border-radius: var(--r-soft);
     overflow: hidden;
     box-shadow: var(--shadow-2);
-    border: 1px solid var(--concreto-90);
   }
 
-  .quotesec__deco {
-    aspect-ratio: 3/2;
-    border-radius: var(--r-soft);
-    overflow: hidden;
-    box-shadow: var(--shadow-1);
-  }
-
-  .patterns-showcase-grid {
+  /* Patterns showcase */
+  [data-section="patterns"] {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
     background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  [data-section="patterns"] > figure {
+    margin: 0;
+    background: var(--papel-00);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  [data-section="patterns"] figcaption {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--fg-muted);
   }
 
-  @media (max-width: 768px) {
-    .patterns-showcase-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .site-nav, .nav-links {
-      flex-wrap: wrap;
-    }
+  /* Pillars */
+  [data-section="pillars"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    padding: 4rem 0;
+  }
+  [data-section="pillars"] article {
+    margin: 0;
+    background: var(--bg-raised, var(--pico-card-background-color));
+    transition: transform 0.3s, background 0.3s;
+  }
+  [data-section="pillars"] article:hover {
+    background: var(--papel-20);
+    transform: translateY(-4px);
+    z-index: 2;
+  }
+  [data-section="pillars"] article > a {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 3rem;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+  }
+  [data-section="pillars"] article header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: transparent;
+    padding: 0;
+    border: 0;
+  }
+  [data-section="pillars"] article header :first-child {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  [data-section="pillars"] article[data-intent="azul"]    header :first-child { background: var(--azul); }
+  [data-section="pillars"] article[data-intent="verde"]   header :first-child { background: var(--verde); }
+  [data-section="pillars"] article[data-intent="vermelho"] header :first-child { background: var(--vermelho); }
+  [data-section="pillars"] article[data-intent="ocre"]    header :first-child { background: var(--ocre); }
+  [data-section="pillars"] article h3 { font-size: 1.5rem; margin: 0; }
+  [data-section="pillars"] article p { font-size: 0.875rem; color: var(--fg-muted); margin: 0; }
+  [data-section="pillars"] article footer {
+    margin-top: auto;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    text-align: right;
   }
 
-  @media (max-width: 480px) {
-    .patterns-showcase-grid {
+  /* Stats */
+  [data-section="stats"] {
+    background: var(--bg-sunken);
+    padding: 5rem 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  [data-section="stats"] dl {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  [data-section="stats"] dl > div { display: flex; flex-direction: column-reverse; }
+  [data-section="stats"] dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    letter-spacing: 0.1em;
+  }
+  [data-section="stats"] dd {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0;
+  }
+
+  /* News / applications */
+  [data-section="news"] {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    padding: 8rem 2rem;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  [data-section="news"] > header {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  [data-section="news"] > header h2 { font-size: var(--t-h2); margin: 0; font-family: var(--font-display); }
+  [data-section="news"] > article {
+    grid-column: 2;
+  }
+  [data-section="news"] > article + article { margin-top: 0; }
+  [data-section="news"] {
+    grid-template-areas:
+      "head cards";
+  }
+  [data-section="news"] > header { grid-area: head; }
+  [data-section="news"] {
+    /* fallback nested grid for cards */
+  }
+  [data-section="news"] > article figure {
+    aspect-ratio: 3/2;
+    margin: 0 0 1.5rem;
+    border-radius: var(--r-soft);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  [data-section="news"] > article[data-intent="azul"]    figure { background: var(--azul-soft);    color: var(--azul); }
+  [data-section="news"] > article[data-intent="vermelho"] figure { background: var(--vermelho-soft); color: var(--vermelho); }
+  [data-section="news"] > article[data-intent="verde"]   figure { background: var(--verde-soft);   color: var(--verde); }
+  [data-section="news"] > article[data-intent="ocre"]    figure { background: var(--ocre-soft);    color: var(--ocre-deep); }
+  [data-section="news"] > article[data-intent="papel"]   figure { background: var(--papel-20);    color: var(--fg-heading); }
+  [data-section="news"] > article figcaption {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+  }
+  [data-section="news"] > article h3 { font-size: 1.125rem; margin: 0 0 .5rem; }
+  [data-section="news"] > article p { font-size: 0.875rem; color: var(--fg-muted); margin: 0; }
+  [data-section="news"] > article a { color: inherit; text-decoration: none; }
+
+  /* Quote */
+  [data-section="quote"] {
+    background: var(--bg-sunken);
+    padding: 10rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  [data-region="quote-art"] {
+    aspect-ratio: 3/2;
+    border-radius: var(--r-soft);
+    overflow: hidden;
+    box-shadow: var(--shadow-1);
+    margin: 0;
+  }
+  [data-section="quote"] blockquote {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  [data-section="quote"] blockquote p {
+    font-family: var(--font-display-alt);
+    font-size: 2.75rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+  [data-section="quote"] blockquote footer cite {
+    display: block;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.125rem;
+  }
+  [data-section="quote"] blockquote footer small {
+    color: var(--fg-muted);
+  }
+
+  [data-region="site-footer"] {
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--fg-muted);
+  }
+
+  @media (max-width: 1024px) {
+    [data-section="hero"],
+    [data-section="news"],
+    [data-section="quote"] {
       grid-template-columns: 1fr;
     }
+    [data-section="hero"] > figure { grid-column: 1; grid-row: auto; }
   }
+  @media (max-width: 768px) {
+    [data-section="patterns"] { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    [data-region="tile-sidebar"] { display: none; }
+    [data-section="patterns"] { grid-template-columns: 1fr; }
+  }
+</style>

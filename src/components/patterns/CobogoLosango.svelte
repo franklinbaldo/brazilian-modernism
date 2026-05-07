@@ -3,7 +3,7 @@
     size = 60,
     color = 'var(--azul)',
     density = 0.15,
-    tile = true
+    tile = true,
   } = $props<{
     size?: number;
     color?: string;
@@ -16,20 +16,16 @@
 
 {#if tile}
   <div
-    class="pattern-tile"
-    style="background-image: url(&quot;data:image/svg+xml,{svgContent}&quot;); background-size: {size}px {size}px; opacity: {density}; width: 100%; height: 100%;"
+    data-pattern-tile
+    style:background-image={`url("data:image/svg+xml,${svgContent}")`}
+    style:background-size={`${size}px ${size}px`}
+    style:opacity={density}
   ></div>
 {:else}
-  <div style="width: {size}px; height: {size}px; opacity: {density}; color: {color};">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <div style:width={`${size}px`} style:height={`${size}px`} style:opacity={density} style:color={color}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true">
       <rect width="100" height="100" fill="none" />
       <polygon points="50,10 90,50 50,90 10,50" stroke="currentColor" stroke-width="8" fill="none" />
     </svg>
   </div>
 {/if}
-
-<style>
-  .pattern-tile {
-    display: block;
-  }
-</style>

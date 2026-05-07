@@ -57,7 +57,7 @@
 	let endMin = $derived(start ? (min && min > start ? min : start) : min);
 </script>
 
-<div class="time-range-picker" {...rest}>
+<div data-range-picker {...rest}>
 	<Grid gap="1rem">
 		<Column sm={6}>
 			<TimePicker
@@ -92,9 +92,3 @@
 	</Grid>
 </div>
 
-<style>
-	.time-range-picker {
-		width: 100%;
-		/* Ensures structural container respects width, inner molecules handle their own borders/styles */
-	}
-</style>
