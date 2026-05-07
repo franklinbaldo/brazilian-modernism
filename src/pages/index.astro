@@ -1,517 +1,318 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Ornaments from '../components/Ornaments.astro';
 import CobogoCircular from '../components/patterns/CobogoCircular.svelte';
 import CobogoHexagonal from '../components/patterns/CobogoHexagonal.svelte';
 import CobogoLosango from '../components/patterns/CobogoLosango.svelte';
 import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
+import Button from '../components/Button.svelte';
+import Badge from '../components/Badge.svelte';
+import Alert from '../components/Alert.svelte';
+
+const colors = [
+  { name: '--papel-00',    hex: '#FBF8F1' },
+  { name: '--papel-20',    hex: '#EDE7D8' },
+  { name: '--concreto-60', hex: '#6B6455' },
+  { name: '--concreto-90', hex: '#1A1814' },
+  { name: '--azul',        hex: '#1B2B4B' },
+  { name: '--vermelho',    hex: '#C8472E' },
+  { name: '--ocre',        hex: '#D9A441' },
+  { name: '--verde',       hex: '#2E6B4A' },
+];
 ---
 
-<BaseLayout title="COBOGÓ | Brazilian Modernist Design System">
-  <aside aria-hidden="true" data-pattern="cobogo-circular" data-region="tile-sidebar"></aside>
-
+<BaseLayout title="COBOGÓ — Galeria">
   <header data-region="site-header">
     <nav>
+      <ul><li><strong>COBOGÓ</strong></li></ul>
       <ul>
-        <li><strong>COBOGÓ</strong></li>
-      </ul>
-      <ul>
+        <li><a href="#patterns">Padrões</a></li>
+        <li><a href="#tokens">Tokens</a></li>
+        <li><a href="#components">Componentes</a></li>
         <li><a href="/cobogo/manifesto/">Manifesto</a></li>
-        <li><a href="#">Foundations</a></li>
-        <li><a href="/cobogo/docs/getting-started/">Components</a></li>
-        <li><a href="/cobogo/patterns/">Patterns</a></li>
-        <li><a href="/cobogo/composition/">Composition</a></li>
-      </ul>
-      <ul>
-        <li><button data-intent="link">Buscar</button></li>
-        <li><a href="https://github.com/franklinbaldo/cobogo" role="button" data-intent="primary">Github</a></li>
+        <li><a href="/cobogo/docs/getting-started/">Docs</a></li>
+        <li><a href="https://github.com/franklinbaldo/cobogo" role="button">Github</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
-    <section data-section="hero">
+    <!-- Wall: the artwork is the pitch. -->
+    <section data-section="wall" aria-labelledby="wall-title">
+      <div data-region="wall-art" aria-hidden="true">
+        <CobogoCircular tile={true} size={120} color="var(--papel-00)" density={0.18} />
+      </div>
       <hgroup>
-        <p><small data-kicker="vermelho">Brazilian Modernist Design System</small></p>
-        <h1>Modernismo brasileiro, traduzido em <em>interface</em>.</h1>
-        <p>
-          Um design system inspirado em cobogós, calçadas, Brasília, cartazes
-          culturais e interfaces cívicas — feito para transformar dados
-          públicos em experiências claras, humanas e memoráveis.
-        </p>
+        <h1 id="wall-title">COBOGÓ</h1>
+        <p>Um sistema visual brasileiro, escrito em HTML semântico sobre <a href="https://picocss.com/">Pico CSS</a>.</p>
       </hgroup>
-      <p>
-        <a href="/cobogo/manifesto/" role="button" data-intent="primary">Ver manifesto →</a>
-        <a href="/cobogo/docs/getting-started/" role="button" data-intent="secondary">Explorar componentes →</a>
-        <a href="#" role="button" data-intent="secondary">Aplicar no Baliza →</a>
-      </p>
-      <figure data-region="hero-art">
-        <Ornaments type="landscape" />
-      </figure>
     </section>
 
-    <section data-section="patterns">
-      <figure>
-        <CobogoCircular client:load tile={false} size={80} color="var(--azul)" density={1} />
-        <figcaption>Circular</figcaption>
-      </figure>
-      <figure>
-        <CobogoHexagonal client:load tile={false} size={80} color="var(--vermelho)" density={1} />
-        <figcaption>Hexagonal</figcaption>
-      </figure>
-      <figure>
-        <CobogoLosango client:load tile={false} size={80} color="var(--ocre)" density={1} />
-        <figcaption>Losango</figcaption>
-      </figure>
-      <figure>
-        <CobogoCruz client:load tile={false} size={80} color="var(--verde)" density={1} />
-        <figcaption>Cruz</figcaption>
-      </figure>
+    <!-- Patterns gallery: the namesake, full size. -->
+    <section id="patterns" aria-labelledby="patterns-title">
+      <hgroup>
+        <h2 id="patterns-title">Padrões</h2>
+        <p>Quatro cobogós tileáveis. Renderizados em SVG, controlados por <code>size</code>, <code>color</code>, <code>density</code>.</p>
+      </hgroup>
+
+      <div data-region="pattern-grid">
+        <figure data-pattern-card>
+          <div data-region="pattern-tile">
+            <CobogoCircular tile={true} size={96} color="var(--azul)" density={0.5} />
+          </div>
+          <figcaption><strong>Circular</strong><small>A curva. Niemeyer.</small></figcaption>
+        </figure>
+        <figure data-pattern-card>
+          <div data-region="pattern-tile">
+            <CobogoHexagonal tile={true} size={96} color="var(--vermelho)" density={0.5} />
+          </div>
+          <figcaption><strong>Hexagonal</strong><small>A colmeia. Bulcão.</small></figcaption>
+        </figure>
+        <figure data-pattern-card>
+          <div data-region="pattern-tile">
+            <CobogoLosango tile={true} size={96} color="var(--ocre)" density={0.5} />
+          </div>
+          <figcaption><strong>Losango</strong><small>A calçada. Burle Marx.</small></figcaption>
+        </figure>
+        <figure data-pattern-card>
+          <div data-region="pattern-tile">
+            <CobogoCruz tile={true} size={96} color="var(--verde)" density={0.5} />
+          </div>
+          <figcaption><strong>Cruz</strong><small>A grelha. Costa.</small></figcaption>
+        </figure>
+      </div>
     </section>
 
-    <section data-section="pillars">
-      <article data-intent="azul">
-        <a href="#">
-          <header>
-            <Ornaments type="pillar" name="acervo" size={28} color="var(--papel-00)" />
-            <h3>Foundations</h3>
-          </header>
-          <p>Cor, tipografia, grid, ritmo, borda, sombra e ornamentação para interfaces brasileiras.</p>
-          <footer aria-hidden="true">→</footer>
-        </a>
-      </article>
-      <article data-intent="verde">
-        <a href="/cobogo/docs/getting-started/">
-          <header>
-            <Ornaments type="pillar" name="exposicoes" size={28} color="var(--papel-00)" />
-            <h3>Components</h3>
-          </header>
-          <p>Botões, cards, badges, filtros, inputs, toolbars, alertas e estados vazios.</p>
-          <footer aria-hidden="true">→</footer>
-        </a>
-      </article>
-      <article data-intent="vermelho">
-        <a href="/cobogo/patterns/">
-          <header>
-            <Ornaments type="pillar" name="educacao" size={28} color="var(--papel-00)" />
-            <h3>Patterns</h3>
-          </header>
-          <p>Busca pública, painel de cidade, mapa, lista de resultados, detalhe de item e linha do tempo.</p>
-          <footer aria-hidden="true">→</footer>
-        </a>
-      </article>
-      <article data-intent="ocre">
-        <a href="#">
-          <header>
-            <Ornaments type="pillar" name="cidade" size={28} color="var(--papel-00)" />
-            <h3>Applications</h3>
-          </header>
-          <p>Baliza, Verne, CausaGanha e outros produtos usando a mesma linguagem visual.</p>
-          <footer aria-hidden="true">→</footer>
-        </a>
-      </article>
-    </section>
+    <!-- Tokens: color, type, radius, shadow specimens. -->
+    <section id="tokens" aria-labelledby="tokens-title">
+      <hgroup>
+        <h2 id="tokens-title">Tokens</h2>
+        <p>Definidos uma vez, mapeados em <code>--pico-*</code>. Componentes nunca leem cor crua.</p>
+      </hgroup>
 
-    <section data-section="stats">
-      <dl>
-        <div>
-          <dt>princípios</dt>
-          <dd>6</dd>
-        </div>
-        <div>
-          <dt>componentes</dt>
-          <dd>12</dd>
-        </div>
-        <div>
-          <dt>padrões</dt>
-          <dd>4</dd>
-        </div>
-        <div>
-          <dt>linguagem comum</dt>
-          <dd>1</dd>
-        </div>
+      <h3>Cor</h3>
+      <dl data-region="swatches">
+        {colors.map(({ name, hex }) => (
+          <>
+            <dt><span data-region="swatch" style={`background:var(${name})`} aria-hidden="true"></span>{name}</dt>
+            <dd><code>{hex}</code></dd>
+          </>
+        ))}
       </dl>
-    </section>
 
-    <section data-section="news">
-      <header>
-        <hgroup>
-          <p><small data-kicker>Ecosistema</small></p>
-          <h2>Em <em>aplicação</em>.</h2>
-        </hgroup>
-        <p>Produtos construídos com a mesma linguagem visual de utilidade pública.</p>
-        <a href="#">Ver todos os projetos →</a>
-      </header>
-
-      <article data-intent="azul">
-        <figure><figcaption>Baliza</figcaption></figure>
-        <h3>Baliza</h3>
-        <p>Painéis cívicos para acompanhar compras públicas da cidade.</p>
-      </article>
-      <article data-intent="vermelho">
-        <figure><figcaption>Verne</figcaption></figure>
-        <h3>Verne</h3>
-        <p>Interface documental com densidade, ritmo e legibilidade.</p>
-      </article>
-      <article data-intent="verde">
-        <figure><figcaption>CausaGanha</figcaption></figure>
-        <h3>CausaGanha</h3>
-        <p>Experimentos de UX para busca, triagem e análise jurídica.</p>
-      </article>
-      <article data-intent="ocre">
-        <figure><figcaption>COBOGÓ Kit</figcaption></figure>
-        <h3>COBOGÓ Kit</h3>
-        <p>Componentes Svelte/Astro para produtos públicos brasileiros.</p>
-      </article>
-      <article data-intent="papel">
-        <a href="/cobogo/blog-application">
-          <figure><figcaption>Blog: franklinbaldo.io</figcaption></figure>
-          <h3>Blog Layout</h3>
-          <p>Aplicação do sistema COBOGÓ para publicações longform.</p>
-        </a>
-      </article>
-    </section>
-
-    <section data-section="quote">
-      <figure data-region="quote-art">
-        <Ornaments type="landscape" />
+      <h3>Tipografia</h3>
+      <figure data-region="type-specimen">
+        <p style="font: 800 var(--t-display)/1 var(--font-display); letter-spacing:-0.04em">Aa</p>
+        <p style="font: 800 var(--t-h1)/1.05 var(--font-display)">Modernismo brasileiro</p>
+        <p style="font: 400 var(--t-h2)/1.1 var(--font-display-alt); font-style: italic">traduzido em interface</p>
+        <p style="font: 400 var(--t-lede)/1.5 var(--font-sans); color: var(--fg-muted)">Lede em Archivo: a tipografia carrega o ritmo cívico do sistema.</p>
+        <p style="font: 400 var(--t-body)/1.6 var(--font-serif)">Corpo em Piazzolla, com serifa para densidade documental.</p>
+        <p style="font: 700 var(--t-small)/1.4 var(--font-sans); text-transform:uppercase; letter-spacing:0.1em">Micro · kicker · micro</p>
       </figure>
-      <blockquote>
-        <p>“A cidade é, antes de tudo, feita de encontros, de caminhos e de memória. Design é serviço público.”</p>
-        <footer>
-          <cite>Lina Bo Bardi</cite>
-          <small>arquiteta · 1914–1992</small>
-        </footer>
-      </blockquote>
+
+      <h3>Raio &amp; Sombra</h3>
+      <div data-region="elevation">
+        <figure>
+          <div style="border-radius: var(--r-1); background: var(--azul); box-shadow: var(--shadow-1)"></div>
+          <figcaption><code>--r-1</code> · <code>--shadow-1</code></figcaption>
+        </figure>
+        <figure>
+          <div style="border-radius: var(--r-soft); background: var(--vermelho); box-shadow: var(--shadow-2)"></div>
+          <figcaption><code>--r-soft</code> · <code>--shadow-2</code></figcaption>
+        </figure>
+        <figure>
+          <div style="border-radius: var(--r-pill); background: var(--ocre)"></div>
+          <figcaption><code>--r-pill</code></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Components: live, semantic. -->
+    <section id="components" aria-labelledby="components-title">
+      <hgroup>
+        <h2 id="components-title">Componentes</h2>
+        <p>HTML semântico, classes proibidas. Variantes via <code>data-intent</code>.</p>
+      </hgroup>
+
+      <article>
+        <header><h3>Botões</h3></header>
+        <p>
+          <Button intent="primary">Primário</Button>{' '}
+          <Button intent="secondary">Secundário</Button>{' '}
+          <Button intent="outline">Outline</Button>{' '}
+          <Button intent="link">Link</Button>
+        </p>
+      </article>
+
+      <article>
+        <header><h3>Badges</h3></header>
+        <p>
+          <Badge intent="azul">Info</Badge>{' '}
+          <Badge intent="verde">Sucesso</Badge>{' '}
+          <Badge intent="ocre">Atenção</Badge>{' '}
+          <Badge intent="vermelho">Erro</Badge>{' '}
+          <Badge intent="neutral">Neutro</Badge>
+        </p>
+      </article>
+
+      <article>
+        <header><h3>Alertas</h3></header>
+        <Alert intent="info" title="Info">Painel cívico publicado.</Alert>
+        <Alert intent="success" title="Sucesso">Compra pública indexada.</Alert>
+        <Alert intent="warning" title="Atenção">Dado parcial — fonte em revisão.</Alert>
+        <Alert intent="danger" title="Erro">Falha ao carregar série temporal.</Alert>
+      </article>
+
+      <article>
+        <header><h3>Formulário</h3></header>
+        <form onsubmit="event.preventDefault()">
+          <label>
+            Buscar contrato
+            <input type="search" placeholder="ex.: Secretaria de Saúde" />
+          </label>
+          <label>
+            Órgão
+            <select>
+              <option>Todos</option>
+              <option>Educação</option>
+              <option>Saúde</option>
+              <option>Transporte</option>
+            </select>
+          </label>
+          <fieldset>
+            <legend>Período</legend>
+            <label><input type="radio" name="p" checked /> 30 dias</label>
+            <label><input type="radio" name="p" /> 90 dias</label>
+            <label><input type="radio" name="p" /> Tudo</label>
+          </fieldset>
+          <Button intent="primary">Buscar</Button>
+        </form>
+      </article>
+
+      <article>
+        <header><h3>Tabela</h3></header>
+        <figure>
+          <table>
+            <thead>
+              <tr><th>Órgão</th><th>Contrato</th><th>Valor</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Saúde</td><td>Insumos UBS</td><td>R$ 1.240.000</td><td><Badge intent="verde">Ativo</Badge></td></tr>
+              <tr><td>Educação</td><td>Merenda escolar</td><td>R$ 980.500</td><td><Badge intent="ocre">Em análise</Badge></td></tr>
+              <tr><td>Transporte</td><td>Sinalização viária</td><td>R$ 432.100</td><td><Badge intent="vermelho">Suspenso</Badge></td></tr>
+            </tbody>
+          </table>
+        </figure>
+      </article>
     </section>
   </main>
 
   <footer data-region="site-footer">
-    <p>© 2026 COBOGÓ. Um sistema visual brasileiro para interfaces públicas.</p>
+    <p>© 2026 COBOGÓ — sistema visual aberto para interfaces públicas. <a href="https://github.com/franklinbaldo/cobogo">Código no GitHub</a>.</p>
   </footer>
 </BaseLayout>
 
-<style is:global>
-  /* Page shell — global because scoped styles cannot target <body> from BaseLayout */
-  body:has([data-region="tile-sidebar"]) { padding-left: 80px; }
-  @media (max-width: 600px) {
-    body:has([data-region="tile-sidebar"]) { padding-left: 0; }
-  }
-</style>
-
 <style>
-  [data-region="tile-sidebar"] {
-    position: fixed;
-    top: 0; bottom: 0; left: 0;
-    width: 80px;
-    background: var(--azul);
-    background-image: url('/cobogo/patterns/cobogo-circular.svg');
-    background-size: 60px 60px;
-    z-index: 100;
-  }
-
-  /* Header / nav: Pico already styles <nav> + nested <ul>. We only adjust spacing & rules. */
+  /* Header — keep it boring; Pico already styles nav+ul. */
   [data-region="site-header"] {
-    border-bottom: 1px solid var(--border, var(--pico-muted-border-color));
-    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem clamp(1rem, 4vw, 2rem);
   }
-  [data-region="site-header"] nav ul + ul { gap: 2rem; }
   [data-region="site-header"] strong {
     font-family: var(--font-display);
     font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.04em;
     font-size: 1.25rem;
   }
 
-  /* Kickers — semantic <small> tagged with role */
-  [data-kicker] {
-    font-size: var(--t-small);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent, var(--pico-primary));
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-  [data-kicker="vermelho"] { color: var(--vermelho); }
+  main { max-width: 1180px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
+  main > section { padding-block: clamp(3rem, 8vw, 6rem); }
+  main > section + section { border-top: 1px solid var(--border); }
+  main > section > hgroup { margin-bottom: 2.5rem; }
+  main > section > hgroup h2 { font-family: var(--font-display); font-size: var(--t-h2); margin: 0 0 .5rem; }
+  main > section > hgroup p { color: var(--fg-muted); max-width: 60ch; margin: 0; }
+  main h3 { font-family: var(--font-display); margin-top: 2.5rem; }
 
-  /* Buttons via role + data-intent — overrides Pico vars */
-  [role="button"][data-intent="primary"],
-  button[data-intent="primary"] {
-    --pico-background-color: var(--azul);
-    --pico-border-color: var(--azul);
-    --pico-color: var(--papel-00);
-    --pico-border-radius: var(--r-1);
+  /* Wall hero */
+  [data-section="wall"] {
+    position: relative;
+    isolation: isolate;
+    padding-block: clamp(5rem, 14vw, 9rem);
+    text-align: left;
   }
-  [role="button"][data-intent="secondary"] {
-    --pico-background-color: transparent;
-    --pico-border-color: var(--concreto-80);
-    --pico-color: var(--concreto-80);
-    --pico-border-radius: var(--r-1);
-  }
-  button[data-intent="link"] {
-    --pico-background-color: transparent;
-    --pico-border-color: transparent;
-    --pico-color: inherit;
-    padding-inline: 0;
-    font-weight: 700;
-  }
-
-  /* Hero */
-  [data-section="hero"] {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
-    align-items: center;
-    padding: 6rem 2rem;
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-  [data-section="hero"] > hgroup,
-  [data-section="hero"] > p { grid-column: 1; }
-  [data-section="hero"] > figure { grid-column: 2; grid-row: 1 / span 2; margin: 0; }
-  [data-section="hero"] hgroup h1 {
-    font-size: var(--t-h1);
-    font-family: var(--font-display);
-    margin-bottom: 1.5rem;
-  }
-  [data-section="hero"] hgroup > p:last-of-type {
-    font-size: var(--t-lede);
-    color: var(--fg-muted, var(--pico-muted-color));
-    max-width: 480px;
-  }
-  [data-section="hero"] > p { display: flex; flex-wrap: wrap; gap: 1rem; }
-  [data-region="hero-art"] {
-    aspect-ratio: 4/3;
-    border: 1px solid var(--concreto-90);
-    border-radius: var(--r-soft);
+  [data-region="wall-art"] {
+    position: absolute; inset: 0; z-index: -1;
+    background: var(--azul);
     overflow: hidden;
-    box-shadow: var(--shadow-2);
   }
+  [data-region="wall-art"] > :global(div) { width: 100%; height: 100%; opacity: 0.9 !important; }
+  [data-section="wall"] hgroup h1 {
+    font-family: var(--font-display);
+    font-size: var(--t-display);
+    line-height: .9;
+    letter-spacing: -0.05em;
+    color: var(--papel-00);
+    margin: 0 0 1rem;
+  }
+  [data-section="wall"] hgroup p { color: var(--papel-20); max-width: 48ch; font-size: var(--t-lede); margin: 0; }
+  [data-section="wall"] hgroup p a { color: var(--papel-00); }
 
-  /* Patterns showcase */
-  [data-section="patterns"] {
+  /* Patterns */
+  [data-region="pattern-grid"] {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1px;
     background: var(--border);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  [data-section="patterns"] > figure {
-    margin: 0;
-    background: var(--papel-00);
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  [data-section="patterns"] figcaption {
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--fg-muted);
-  }
-
-  /* Pillars */
-  [data-section="pillars"] {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    padding: 4rem 0;
-  }
-  [data-section="pillars"] article {
-    margin: 0;
-    background: var(--bg-raised, var(--pico-card-background-color));
-    transition: transform 0.3s, background 0.3s;
-  }
-  [data-section="pillars"] article:hover {
-    background: var(--papel-20);
-    transform: translateY(-4px);
-    z-index: 2;
-  }
-  [data-section="pillars"] article > a {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 3rem;
-    text-decoration: none;
-    color: inherit;
-    height: 100%;
-  }
-  [data-section="pillars"] article header {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    background: transparent;
-    padding: 0;
-    border: 0;
-  }
-  [data-section="pillars"] article header :first-child {
-    width: 48px;
-    height: 48px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  [data-section="pillars"] article[data-intent="azul"]    header :first-child { background: var(--azul); }
-  [data-section="pillars"] article[data-intent="verde"]   header :first-child { background: var(--verde); }
-  [data-section="pillars"] article[data-intent="vermelho"] header :first-child { background: var(--vermelho); }
-  [data-section="pillars"] article[data-intent="ocre"]    header :first-child { background: var(--ocre); }
-  [data-section="pillars"] article h3 { font-size: 1.5rem; margin: 0; }
-  [data-section="pillars"] article p { font-size: 0.875rem; color: var(--fg-muted); margin: 0; }
-  [data-section="pillars"] article footer {
-    margin-top: auto;
-    background: transparent;
-    padding: 0;
-    border: 0;
-    text-align: right;
-  }
-
-  /* Stats */
-  [data-section="stats"] {
-    background: var(--bg-sunken);
-    padding: 5rem 2rem;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  [data-section="stats"] dl {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 2rem;
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-  [data-section="stats"] dl > div { display: flex; flex-direction: column-reverse; }
-  [data-section="stats"] dt {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: var(--fg-muted);
-    letter-spacing: 0.1em;
-  }
-  [data-section="stats"] dd {
-    font-size: 3.5rem;
-    font-weight: 900;
-    line-height: 1;
-    margin: 0;
-  }
-
-  /* News / applications */
-  [data-section="news"] {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 6rem;
-    padding: 8rem 2rem;
-    max-width: 1240px;
-    margin: 0 auto;
-  }
-  [data-section="news"] > header {
-    background: transparent;
-    padding: 0;
-    border: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  [data-section="news"] > header h2 { font-size: var(--t-h2); margin: 0; font-family: var(--font-display); }
-  [data-section="news"] > article {
-    grid-column: 2;
-  }
-  [data-section="news"] > article + article { margin-top: 0; }
-  [data-section="news"] {
-    grid-template-areas:
-      "head cards";
-  }
-  [data-section="news"] > header { grid-area: head; }
-  [data-section="news"] {
-    /* fallback nested grid for cards */
-  }
-  [data-section="news"] > article figure {
-    aspect-ratio: 3/2;
-    margin: 0 0 1.5rem;
-    border-radius: var(--r-soft);
     border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+  [data-pattern-card] { margin: 0; background: var(--bg-raised); display: flex; flex-direction: column; }
+  [data-region="pattern-tile"] {
+    aspect-ratio: 1;
+    background: var(--papel-20);
+    position: relative;
     overflow: hidden;
   }
-  [data-section="news"] > article[data-intent="azul"]    figure { background: var(--azul-soft);    color: var(--azul); }
-  [data-section="news"] > article[data-intent="vermelho"] figure { background: var(--vermelho-soft); color: var(--vermelho); }
-  [data-section="news"] > article[data-intent="verde"]   figure { background: var(--verde-soft);   color: var(--verde); }
-  [data-section="news"] > article[data-intent="ocre"]    figure { background: var(--ocre-soft);    color: var(--ocre-deep); }
-  [data-section="news"] > article[data-intent="papel"]   figure { background: var(--papel-20);    color: var(--fg-heading); }
-  [data-section="news"] > article figcaption {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 800;
-  }
-  [data-section="news"] > article h3 { font-size: 1.125rem; margin: 0 0 .5rem; }
-  [data-section="news"] > article p { font-size: 0.875rem; color: var(--fg-muted); margin: 0; }
-  [data-section="news"] > article a { color: inherit; text-decoration: none; }
+  [data-region="pattern-tile"] > :global(div) { position: absolute; inset: 0; opacity: 0.65 !important; }
+  [data-pattern-card] figcaption { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: .25rem; }
+  [data-pattern-card] figcaption strong { font-family: var(--font-display); font-size: 1.125rem; }
+  [data-pattern-card] figcaption small { color: var(--fg-muted); }
 
-  /* Quote */
-  [data-section="quote"] {
-    background: var(--bg-sunken);
-    padding: 10rem 2rem;
+  /* Tokens — swatches */
+  [data-region="swatches"] {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-    max-width: 1240px;
-    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: .5rem 2rem;
   }
-  [data-region="quote-art"] {
-    aspect-ratio: 3/2;
-    border-radius: var(--r-soft);
-    overflow: hidden;
-    box-shadow: var(--shadow-1);
-    margin: 0;
+  [data-region="swatches"] dt {
+    display: flex; align-items: center; gap: .75rem;
+    font-weight: 600;
   }
-  [data-section="quote"] blockquote {
-    border: 0;
-    padding: 0;
-    margin: 0;
+  [data-region="swatches"] dd { margin: 0 0 .5rem 2.25rem; color: var(--fg-muted); }
+  [data-region="swatch"] {
+    display: inline-block; width: 1.5rem; height: 1.5rem;
+    border: 1px solid var(--border); border-radius: var(--r-1);
   }
-  [data-section="quote"] blockquote p {
-    font-family: var(--font-display-alt);
-    font-size: 2.75rem;
-    line-height: 1.1;
-    margin-bottom: 2rem;
+
+  [data-region="type-specimen"] { margin: 0; }
+  [data-region="type-specimen"] > p { margin: 0 0 1.25rem; }
+
+  [data-region="elevation"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
   }
-  [data-section="quote"] blockquote footer cite {
-    display: block;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 1.125rem;
-  }
-  [data-section="quote"] blockquote footer small {
-    color: var(--fg-muted);
-  }
+  [data-region="elevation"] figure { margin: 0; }
+  [data-region="elevation"] div { width: 100%; aspect-ratio: 3/2; }
+  [data-region="elevation"] figcaption { margin-top: 1rem; color: var(--fg-muted); font-size: var(--t-small); }
+
+  /* Components — let Pico style article/form/table; just add rhythm */
+  [id="components"] > article { margin-bottom: 2rem; }
+  [id="components"] > article > p { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
 
   [data-region="site-footer"] {
-    padding: 3rem 2rem;
+    padding: 2.5rem clamp(1rem, 4vw, 2rem);
     border-top: 1px solid var(--border);
     color: var(--fg-muted);
-  }
-
-  @media (max-width: 1024px) {
-    [data-section="hero"],
-    [data-section="news"],
-    [data-section="quote"] {
-      grid-template-columns: 1fr;
-    }
-    [data-section="hero"] > figure { grid-column: 1; grid-row: auto; }
-  }
-  @media (max-width: 768px) {
-    [data-section="patterns"] { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 600px) {
-    [data-region="tile-sidebar"] { display: none; }
-    [data-section="patterns"] { grid-template-columns: 1fr; }
+    max-width: 1180px;
+    margin: 0 auto;
   }
 </style>
