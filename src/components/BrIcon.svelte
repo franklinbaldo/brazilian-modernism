@@ -1,9 +1,4 @@
 <script lang="ts" module>
-  // Vite glob import — todos os SVGs como raw strings.
-  // Path relativo ao componente (não /src/...) pra que a resolução funcione
-  // tanto neste repo quanto em consumidores que importem cobogo como dep
-  // (Vite resolve /src/... relative ao project root da app consumidora,
-  // resultando em registry vazio downstream).
   const modules = import.meta.glob('../icons/**/*.svg', { eager: true, query: '?raw', import: 'default' });
   const registry: Record<string, string> = {};
   for (const [path, content] of Object.entries(modules)) {
@@ -29,13 +24,6 @@
   } = $props();
 
   const svg = $derived(registry[name]);
-
-  // A11y: role="img" requires an accessible name (aria-label). If the caller
-  // didn't pass a title and didn't explicitly mark aria-hidden, default to
-  // decorative — exposing an unlabeled <span role="img"> creates noisy
-  // screen-reader output and is a known a11y anti-pattern.
-  // Normalize aria-hidden because consumers can pass "false" as a string;
-  // raw truthiness would treat "false" as truthy and incorrectly drop the role.
   const explicitHidden = $derived(ariaHidden === true || ariaHidden === 'true');
   const explicitShown = $derived(ariaHidden === false || ariaHidden === 'false');
   const isDecorative = $derived(explicitHidden || (!explicitShown && !title));
@@ -43,7 +31,7 @@
 
 {#if svg}
   <span
-    class="br-icon"
+    data-icon
     style:width="{size}px"
     style:height="{size}px"
     style:color={color ?? 'inherit'}
@@ -54,15 +42,5 @@
     {@html svg}
   </span>
 {:else}
-  <span class="br-icon br-icon--missing" style:width="{size}px" style:height="{size}px">?</span>
+  <span data-icon data-missing style:width="{size}px" style:height="{size}px">?</span>
 {/if}
-
-<style>
-  .br-icon { display: inline-flex; align-items: center; justify-content: center; }
-  .br-icon :global(svg) { width: 100%; height: 100%; }
-  .br-icon--missing {
-    border: 1px dashed var(--vermelho);
-    color: var(--vermelho);
-    font-family: var(--font-display);
-  }
-</style>
