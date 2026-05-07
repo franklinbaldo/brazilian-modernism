@@ -1007,3 +1007,40 @@ table th { background: var(--papel-20); }
   z-index: 9000;
   max-width: 360px;
 }
+
+/* --- FormField grouping ([data-form-field]) ------------------ */
+[data-form-field] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+[data-form-field] > label {
+  font-size: var(--t-small);
+  font-weight: 700;
+  color: var(--fg-heading);
+  margin-bottom: 0;
+}
+[data-form-field][data-state="invalid"] > label { color: var(--vermelho); }
+[data-form-field][data-state="valid"] > label   { color: var(--verde); }
+[data-form-field] abbr { color: var(--vermelho); text-decoration: none; margin-left: 0.125rem; }
+[data-form-field] > small {
+  font-size: var(--t-micro);
+  color: var(--fg-muted);
+}
+[data-form-field] > small[data-feedback="error"] { color: var(--vermelho); font-weight: 700; }
+[data-form-field] > small[data-feedback="valid"] { color: var(--verde);    font-weight: 700; }
+
+/* Form-level error summary inside <form> > [role="alert"] uses Alert styles. */
+fieldset {
+  --pico-border-radius: var(--r-soft);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+fieldset > legend {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-h4);
+  padding: 0 0.5rem;
+}
+form { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; font-family: var(--font-sans); }
