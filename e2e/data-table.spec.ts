@@ -15,7 +15,7 @@ test.describe('DataTable Governance', () => {
       test.beforeEach(async ({ page }) => {
         await page.goto('/cobogo/docs/components/data-table');
         // Wait for the specific data table component to be visible in the demo
-        await expect(page.locator('.demo-container .table-container').first()).toBeVisible();
+        await expect(page.locator('.demo-container [data-table]').first()).toBeVisible();
       });
 
       test('should maintain visual stability', async ({ page }) => {
@@ -34,7 +34,7 @@ test.describe('DataTable Governance', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto('/cobogo/docs/components/data-table');
       // Wait for the specific data table component to be visible in the demo
-      await expect(page.locator('.demo-container .table-container').first()).toBeVisible();
+      await expect(page.locator('.demo-container [data-table]').first()).toBeVisible();
     });
 
     test('should pass automated accessibility checks', async ({ page }) => {
@@ -47,7 +47,7 @@ test.describe('DataTable Governance', () => {
     });
 
     test('should be keyboard focusable (WCAG 2.1.1/2.1.3)', async ({ page }) => {
-      const tableContainer = page.locator('.demo-container .table-container').first();
+      const tableContainer = page.locator('.demo-container [data-table]').first();
 
       // Check if the container has tabindex="0"
       await expect(tableContainer).toHaveAttribute('tabindex', '0');
