@@ -14,5 +14,11 @@
     "skipLibCheck": true
   },
   "include": ["src/**/*"],
-  "exclude": ["src/pages", "src/layouts", "src/content"]
+  "exclude": [
+    "src/pages",
+    "src/layouts",
+    "src/content",
+    "src/**/*.test.ts",
+    "src/**/*.test.svelte"
+  ]
 }

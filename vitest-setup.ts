@@ -1,6 +1,7 @@
+/// <reference types="@testing-library/jest-dom/vitest" />
 import { vi } from "vitest";
 
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 
 // Mock element.animate for jsdom environments (used by svelte/transition)
 if (typeof Element !== 'undefined') {
