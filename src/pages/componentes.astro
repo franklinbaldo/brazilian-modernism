@@ -15,271 +15,249 @@ import Checkbox from '../components/Checkbox.svelte';
 import Radio from '../components/Radio.svelte';
 import Alert from '../components/Alert.svelte';
 import Notification from '../components/Notification.svelte';
-import Timeline from '../components/Timeline.svelte';
 
 const tableHeaders = [
   { key: 'id', label: 'ID' },
   { key: 'item', label: 'Item' },
-  { key: 'valor', label: 'Status' }
+  { key: 'valor', label: 'Status' },
 ];
 
 const tableData = [
   { id: '01', item: 'Brasília', valor: 'Ativo' },
-  { id: '02', item: 'Pampulha', valor: 'Pendente' }
+  { id: '02', item: 'Pampulha', valor: 'Pendente' },
 ];
 
 const mockOptions = [
   { value: 'br', label: 'Brasil' },
   { value: 'ar', label: 'Argentina' },
-  { value: 'uy', label: 'Uruguai' }
+  { value: 'uy', label: 'Uruguai' },
 ];
 ---
 
 <BaseLayout title="Vitrine de Componentes | COBOGÓ">
-  <div class="app-wrapper">
-    <aside class="tile-sidebar">
-      <div class="sidebar-tiles pattern-cobogo-circular"></div>
-    </aside>
+  <aside aria-hidden="true" data-pattern="cobogo-circular" data-region="tile-sidebar"></aside>
 
-    <main class="main-content">
-      <nav class="container site-nav">
-        <div class="nav-brand font-logo">COBOGÓ</div>
-        <div class="nav-links">
-          <a href="/cobogo/">Home</a>
-          <a href="/cobogo/docs/getting-started/">Documentação</a>
-          <a href="/cobogo/componentes/" class="active">Vitrine</a>
-          <a href="/cobogo/patterns/">Patterns</a>
-          <a href="/cobogo/composition/">Composition</a>
-        </div>
-      </nav>
+  <header data-region="site-header">
+    <nav>
+      <ul><li><strong>COBOGÓ</strong></li></ul>
+      <ul>
+        <li><a href="/cobogo/">Home</a></li>
+        <li><a href="/cobogo/docs/getting-started/">Documentação</a></li>
+        <li><a href="/cobogo/componentes/" aria-current="page">Vitrine</a></li>
+        <li><a href="/cobogo/patterns/">Patterns</a></li>
+        <li><a href="/cobogo/composition/">Composition</a></li>
+      </ul>
+    </nav>
+  </header>
 
-      <header class="container page-header">
-        <div class="kicker kicker--vermelho">Biblioteca Atômica</div>
-        <h1 class="display-serif">Vitrine Curva<br/>& Concreto</h1>
-        <p class="lede">
-          Uma visualização rápida de todos os componentes criados pelo agente <strong>Brad Frost</strong>, 
-          seguindo a arquitetura de átomos, moléculas e organismos.
-        </p>
-      </header>
+  <main>
+    <header data-page-header>
+      <hgroup>
+        <p><small data-kicker="vermelho">Biblioteca Atômica</small></p>
+        <h1>Vitrine Curva<br />& Concreto</h1>
+        <p>Uma visualização rápida de todos os componentes criados pelo agente <strong>Brad Frost</strong>, seguindo a arquitetura de átomos, moléculas e organismos.</p>
+      </hgroup>
+    </header>
 
-      <Ornaments type="waveline" height={24} color="var(--concreto-30)" className="container" />
+    <Ornaments type="waveline" height={24} color="var(--concreto-30)" />
 
-      <!-- ÁTOMOS -->
-      <section class="container showcase-section">
-        <h2 class="showcase-title">01. Átomos</h2>
-        <p class="showcase-desc">As menores unidades funcionais. Baseadas em geometria pura.</p>
-        
-        <div class="showcase-grid">
-          <div class="showcase-card">
-            <h3>Botões</h3>
-            <div class="flex-stack">
-              <Button client:load>Primário</Button>
-              <Button client:load variant="secondary">Secundário</Button>
-            </div>
+    <section data-showcase="atoms">
+      <hgroup>
+        <h2>01. Átomos</h2>
+        <p>As menores unidades funcionais. Baseadas em geometria pura.</p>
+      </hgroup>
+
+      <div data-showcase-grid>
+        <article>
+          <h3>Botões</h3>
+          <div data-stack>
+            <Button client:load intent="primary">Primário</Button>
+            <Button client:load intent="secondary">Secundário</Button>
           </div>
-          
-          <div class="showcase-card">
-            <h3>Badges</h3>
-            <div class="flex-row">
-              <Badge client:load variant="verde">Sucesso</Badge>
-              <Badge client:load variant="azul">Info</Badge>
-              <Badge client:load variant="vermelho">Erro</Badge>
-            </div>
-          </div>
+        </article>
 
-          <div class="showcase-card">
-            <h3>Toggles</h3>
-            <div class="flex-row" style="align-items: center; gap: 2rem;">
-              <Switch client:load label="Switch" />
-              <Checkbox client:load label="Checkbox" checked />
-              <Radio client:load label="Radio" checked />
-            </div>
+        <article>
+          <h3>Badges</h3>
+          <div data-row>
+            <Badge client:load intent="verde">Sucesso</Badge>
+            <Badge client:load intent="azul">Info</Badge>
+            <Badge client:load intent="vermelho">Erro</Badge>
           </div>
-          
-          <div class="showcase-card">
-            <h3>Inputs de Texto</h3>
-            <TextInput client:load placeholder="Ex: Oscar Niemeyer" label="Nome Completo" />
-          </div>
-        </div>
-      </section>
+        </article>
 
-      <!-- MOLÉCULAS -->
-      <section class="container showcase-section">
-        <h2 class="showcase-title">02. Moléculas</h2>
-        <p class="showcase-desc">União de átomos para formar componentes mais complexos.</p>
-        
-        <div class="showcase-grid">
-          <div class="showcase-card">
-            <h3>Seleção Múltipla</h3>
-            <MultiSelect 
-              client:load 
-              options={mockOptions} 
-              placeholder="Escolha os países..." 
-              value={['br']}
-            />
+        <article>
+          <h3>Toggles</h3>
+          <div data-row data-align="center">
+            <label><Switch client:load /> Switch</label>
+            <label><Checkbox client:load checked /> Checkbox</label>
+            <label><Radio client:load value="r" group={'r'} /> Radio</label>
           </div>
+        </article>
 
-          <div class="showcase-card">
-            <h3>Seleção de Data</h3>
-            <DatePicker client:load label="Data de Fundação" />
+        <article>
+          <h3>Inputs de Texto</h3>
+          <label>
+            Nome Completo
+            <TextInput client:load placeholder="Ex: Oscar Niemeyer" />
+          </label>
+        </article>
+      </div>
+    </section>
+
+    <section data-showcase="molecules">
+      <hgroup>
+        <h2>02. Moléculas</h2>
+        <p>União de átomos para formar componentes mais complexos.</p>
+      </hgroup>
+
+      <div data-showcase-grid>
+        <article>
+          <h3>Seleção Múltipla</h3>
+          <MultiSelect
+            client:load
+            options={mockOptions}
+            placeholder="Escolha os países..."
+            value={['br']}
+          />
+        </article>
+
+        <article>
+          <h3>Seleção de Data</h3>
+          <label>Data de Fundação<DatePicker client:load /></label>
+        </article>
+
+        <article>
+          <h3>Seleção de Horário</h3>
+          <label>Horário de Início<TimePicker client:load /></label>
+        </article>
+
+        <article>
+          <h3>Alertas</h3>
+          <Alert client:load title="Atenção" intent="warning">
+            Esta ação não pode ser desfeita após o salvamento.
+          </Alert>
+        </article>
+      </div>
+    </section>
+
+    <section data-showcase="organisms">
+      <hgroup>
+        <h2>03. Organismos</h2>
+        <p>Componentes robustos e prontos para aplicação em produtos reais.</p>
+      </hgroup>
+
+      <div data-showcase-grid data-variant="wide">
+        <article>
+          <h3>Tabelas de Dados</h3>
+          <DataTable client:load headers={tableHeaders} data={tableData} variant="striped" />
+        </article>
+
+        <article>
+          <h3>Barra de Busca Inteligente</h3>
+          <SearchBar client:load placeholder="Pesquisar no sistema..." />
+        </article>
+      </div>
+
+      <div data-showcase-grid>
+        <article>
+          <h3>Cartão de Perfil</h3>
+          <ProfileCard
+            client:load
+            name="Lina Bo Bardi"
+            role="Arquiteta e Designer"
+            tags={['Vidro', 'Social']}
+          />
+        </article>
+
+        <article>
+          <h3>Notificações</h3>
+          <div data-notification-stage>
+            <Notification client:load intent="tip" title="Salvo">
+              Seu projeto foi salvo com sucesso no servidor.
+            </Notification>
           </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-          <div class="showcase-card">
-            <h3>Seleção de Horário</h3>
-            <TimePicker client:load label="Horário de Início" />
-          </div>
-
-          <div class="showcase-card">
-            <h3>Alertas</h3>
-            <Alert client:load title="Atenção" intent="warning">
-              Esta ação não pode ser desfeita após o salvamento.
-            </Alert>
-          </div>
-        </div>
-      </section>
-
-      <!-- ORGANISMOS -->
-      <section class="container showcase-section">
-        <h2 class="showcase-title">03. Organismos</h2>
-        <p class="showcase-desc">Componentes robustos e prontos para aplicação em produtos reais.</p>
-        
-        <div class="showcase-grid showcase-grid--wide">
-          <div class="showcase-card">
-            <h3>Tabelas de Dados</h3>
-            <DataTable 
-              client:load 
-              headers={tableHeaders} 
-              data={tableData} 
-              variant="striped"
-            />
-          </div>
-
-          <div class="showcase-card">
-            <h3>Barra de Busca Inteligente</h3>
-            <SearchBar 
-              client:load 
-              placeholder="Pesquisar no sistema..." 
-            />
-          </div>
-        </div>
-
-        <div class="showcase-grid" style="margin-top: 2rem;">
-          <div class="showcase-card">
-            <h3>Cartão de Perfil</h3>
-            <ProfileCard 
-              client:load
-              name="Lina Bo Bardi"
-              role="Arquiteta e Designer"
-              tags={['Vidro', 'Social']}
-            />
-          </div>
-
-          <div class="showcase-card">
-            <h3>Notificações</h3>
-            <div style="background: var(--bg-sunken); padding: 1rem; border-radius: var(--r-soft);">
-              <Notification client:load intent="tip">
-                Seu projeto foi salvo com sucesso no servidor.
-              </Notification>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer class="container site-footer" style="padding: 4rem 0; border-top: 1px solid var(--border);">
-        <p class="tracked-caps">COBOGÓ Design System — v0.1.0</p>
-        <a href="/cobogo/docs/getting-started/" class="link">Ver documentação técnica completa <span>→</span></a>
-      </footer>
-    </main>
-  </div>
+  <footer data-region="site-footer">
+    <p><small data-kicker>COBOGÓ Design System — v0.1.0</small></p>
+    <a href="/cobogo/docs/getting-started/">Ver documentação técnica completa →</a>
+  </footer>
 </BaseLayout>
 
+<style is:global>
+  body:has([data-region="tile-sidebar"]) { padding-left: 80px; }
+  @media (max-width: 600px) { body:has([data-region="tile-sidebar"]) { padding-left: 0; } }
+</style>
+
 <style>
-  .showcase-section {
-    padding: 6rem 0;
-  }
-
-  .showcase-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--azul);
-  }
-
-  .showcase-desc {
-    color: var(--fg-muted);
-    margin-bottom: 3rem;
-    font-size: 1.125rem;
-  }
-
-  .showcase-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-  }
-
-  .showcase-grid--wide {
-    grid-template-columns: 1fr;
-  }
-
-  .showcase-card {
-    background: var(--papel-00);
-    padding: 2.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--r-soft);
-    box-shadow: var(--shadow-1);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .showcase-card h3 {
-    font-size: var(--t-small);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--concreto-60);
-    margin-top: 0;
-  }
-
-  .flex-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .flex-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .display-serif {
+  main { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  main > [data-page-header] { padding: 8rem 0 4rem; }
+  main > [data-page-header] hgroup h1 {
     font-family: var(--font-display-alt);
     font-size: 5rem;
     line-height: 0.9;
-    margin-bottom: 2rem;
+    margin: 0 0 2rem;
   }
-
-  .page-header {
-    padding: 8rem 0 4rem;
-  }
-
-  .lede {
+  main > [data-page-header] hgroup p:last-child {
     font-size: 1.5rem;
     color: var(--fg-muted);
     max-width: 650px;
     line-height: 1.4;
   }
 
-  .active {
-    font-weight: 800;
-    color: var(--accent);
+  main > section { padding: 6rem 0; }
+  main > section hgroup h2 {
+    font-size: 2.5rem;
+    color: var(--azul);
+    margin: 0 0 0.5rem;
+  }
+  main > section hgroup p {
+    color: var(--fg-muted);
+    margin: 0 0 3rem;
+    font-size: 1.125rem;
+  }
+
+  [data-showcase-grid] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  [data-showcase-grid] + [data-showcase-grid] { margin-top: 2rem; }
+  [data-showcase-grid][data-variant="wide"] { grid-template-columns: 1fr; }
+
+  [data-showcase-grid] article {
+    background: var(--papel-00);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  [data-showcase-grid] article h3 {
+    font-size: var(--t-small);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--concreto-60);
+    margin: 0;
+  }
+
+  [data-row] { display: flex; flex-wrap: wrap; gap: 1rem; }
+  [data-row][data-align="center"] { align-items: center; gap: 2rem; }
+  [data-stack] { display: flex; flex-direction: column; gap: 1rem; }
+  [data-notification-stage] { background: var(--bg-sunken); padding: 1rem; border-radius: var(--r-soft); }
+
+  [data-region="site-footer"] {
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   @media (max-width: 768px) {
-    .display-serif {
-      font-size: 3.5rem;
-    }
-    .showcase-grid {
-      grid-template-columns: 1fr;
-    }
+    main > [data-page-header] hgroup h1 { font-size: 3.5rem; }
+    [data-showcase-grid] { grid-template-columns: 1fr; }
   }
 </style>

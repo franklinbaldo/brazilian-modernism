@@ -16,7 +16,6 @@ const { frontmatter, headings = [], entryId } = Astro.props;
 
 const allDocs = await getCollection('docs', ({ data }) => !data.draft);
 
-// Sort logic
 const sectionOrder = ['intro', 'foundations', 'components', 'patterns', 'recipes'];
 allDocs.sort((a: CollectionEntry<'docs'>, b: CollectionEntry<'docs'>) => {
   const sectionA = sectionOrder.indexOf(a.data.section);
@@ -47,81 +46,85 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
 </script>
 
 <BaseLayout title={`${frontmatter.title} | COBOGÓ Docs`}>
-  <div class="docs-app">
-    <!-- Modernist Header with Brasiliana Flair -->
-    <header class="docs-header">
-      <div class="header-accent"></div>
-      <div class="docs-header-inner">
-        <a href="/cobogo/" class="brand">
-          <span class="font-logo">COBOGÓ</span>
-          <span class="docs-tag">DOCS</span>
-        </a>
-        <div class="docs-header-actions">
-          <button class="hamburger" id="mobile-nav-trigger" aria-label="Open navigation">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          </button>
-          <DocsSearch client:load />
-          <DocsThemeToggle client:load />
-        </div>
-      </div>
+  <div data-docs-app>
+    <header data-docs-header>
+      <div aria-hidden="true" data-docs-accent></div>
+      <nav>
+        <ul>
+          <li>
+            <a href="/cobogo/" data-docs-brand>
+              <strong>COBOGÓ</strong>
+              <small data-docs-tag>DOCS</small>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <button type="button" id="mobile-nav-trigger" data-intent="link" data-mobile-trigger aria-label="Open navigation">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </li>
+          <li><DocsSearch client:load /></li>
+          <li><DocsThemeToggle client:load /></li>
+        </ul>
+      </nav>
     </header>
 
-    <div class="docs-layout-container">
-      <!-- Sidebar with Cobogó pattern -->
-      <aside class="docs-sidebar-wrapper">
-        <div class="sidebar-pattern pattern-cobogo-circular"></div>
-        <div class="sidebar-content">
-          <DocsSidebar client:load entries={entries} currentSlug={Astro.url.pathname} />
-          <div class="sidebar-footer">
-             <Bandeirinhas client:load count={6} />
-          </div>
-        </div>
+    <div data-docs-shell>
+      <aside data-pattern="cobogo-circular" data-docs-side>
+        <DocsSidebar client:load entries={entries} currentSlug={Astro.url.pathname} />
+        <footer aria-hidden="true">
+          <Bandeirinhas client:load count={6} />
+        </footer>
       </aside>
 
-      <main class="docs-main">
+      <main data-docs-main>
         <DocsMobileNav client:load entries={entries} currentSlug={Astro.url.pathname} open={false} />
-        
-        <div class="docs-content-grid">
-          <article class="prose-cobogo docs-article">
-            <div class="article-header">
-              <div class="header-ornament">
-                 <Ornaments type="pillar" name="acervo" size={32} color="var(--vermelho)" />
-              </div>
-              <span class="kicker">{frontmatter.section}</span>
-              <h1 class="display-serif">{frontmatter.title}</h1>
-              {frontmatter.description && <p class="lede">{frontmatter.description}</p>}
+
+        <div data-docs-grid>
+          <article data-docs-article>
+            <header>
+              <p aria-hidden="true">
+                <Ornaments type="pillar" name="acervo" size={32} color="var(--vermelho)" />
+              </p>
+              <p><small data-kicker="vermelho">{frontmatter.section}</small></p>
+              <h1>{frontmatter.title}</h1>
+              {frontmatter.description && <p data-lede>{frontmatter.description}</p>}
               <Ornaments type="waveline" height={16} color="var(--ocre)" />
-            </div>
+            </header>
 
-            <div class="article-body">
+            <section data-docs-body>
               <slot />
-            </div>
+            </section>
 
-            <!-- Footer with bureaucratic modernist stamp -->
-            <footer class="article-footer">
-              <div class="footer-top">
-                <Ornaments type="wave" height={32} color="var(--verde-soft)" className="article-separator" />
-                <div class="stamp-position">
-                   <Stamp client:load text="COBOGÓ DOCS" date={new Date().toLocaleDateString('pt-BR')} color="var(--azul)" rotation={12} />
+            <footer>
+              <div data-docs-footer-top>
+                <Ornaments type="wave" height={32} color="var(--verde-soft)" />
+                <div data-docs-stamp>
+                  <Stamp client:load text="COBOGÓ DOCS" date={new Date().toLocaleDateString('pt-BR')} color="var(--azul)" rotation={12} />
                 </div>
               </div>
-              
+
               <PrevNextNav prev={prev} next={next} />
-              
-              <div class="footer-meta">
+
+              <div data-docs-meta>
                 <DocsEditLink entryId={entryId} fallbackSlug={frontmatter.slug || frontmatter.title.toLowerCase().replace(/\s+/g, '-')} />
-                <p class="doctrine-cite">"Modularidade que respira; geometria que admite a luz." — Manifesto Cobogó</p>
+                <p data-doctrine-cite>"Modularidade que respira; geometria que admite a luz." — Manifesto Cobogó</p>
               </div>
             </footer>
           </article>
 
-          <aside class="docs-toc-wrapper">
-            <div class="toc-sticky">
-              <h4 class="toc-title">Nesta página</h4>
+          <aside data-docs-toc-wrapper>
+            <div data-docs-toc-sticky>
+              <p><strong>Nesta página</strong></p>
               <DocsTOC headings={headings} client:load />
-              <div class="toc-ornament">
-                 <Ornaments type="pillar" name="cidade" size={48} color="var(--papel-30)" />
-              </div>
+              <p aria-hidden="true">
+                <Ornaments type="pillar" name="cidade" size={48} color="var(--papel-30)" />
+              </p>
             </div>
           </aside>
         </div>
@@ -129,268 +132,3 @@ const next = currentIndex < entries.length - 1 ? entries[currentIndex + 1] : und
     </div>
   </div>
 </BaseLayout>
-
-<style>
-  .docs-app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: var(--bg);
-  }
-
-  /* Browser selection colors */
-  :global(::selection) {
-    background: var(--ocre-soft);
-    color: var(--concreto-90);
-  }
-
-  .header-accent {
-    height: 6px;
-    background: linear-gradient(to right, var(--azul) 25%, var(--vermelho) 25% 50%, var(--ocre) 50% 75%, var(--verde) 75%);
-  }
-
-  .docs-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--bg);
-    border-bottom: 2px solid var(--concreto-90);
-  }
-
-  .docs-header-inner {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0.75rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-    color: var(--fg);
-  }
-
-  .font-logo {
-    font-size: 1.5rem;
-    letter-spacing: -0.02em;
-  }
-
-  .docs-tag {
-    background: var(--concreto-90);
-    color: var(--papel-00);
-    padding: 0.125rem 0.5rem;
-    font-size: 0.7rem;
-    font-weight: 900;
-    border-radius: var(--r-1);
-    letter-spacing: 0.05em;
-  }
-
-  .docs-header-actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .hamburger {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--fg);
-  }
-
-  .docs-layout-container {
-    display: flex;
-    flex: 1;
-    max-width: 1600px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .docs-sidebar-wrapper {
-    width: 280px;
-    border-right: 2px solid var(--concreto-90);
-    position: sticky;
-    top: 4.5rem;
-    height: calc(100vh - 4.5rem);
-    background: var(--papel-10);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .sidebar-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.08;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .sidebar-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 2rem 0;
-  }
-
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 0 1rem;
-    opacity: 0.6;
-  }
-
-  .docs-main {
-    flex: 1;
-    min-width: 0;
-    background: var(--papel-00);
-  }
-
-  .docs-content-grid {
-    display: grid;
-    grid-template-columns: 1fr 260px;
-    gap: 5rem;
-    padding: 5rem;
-  }
-
-  .docs-article {
-    max-width: 840px;
-  }
-
-  .article-header {
-    margin-bottom: 5rem;
-    position: relative;
-  }
-
-  .header-ornament {
-    margin-bottom: 1.5rem;
-  }
-
-  .article-header h1 {
-    font-size: clamp(3.5rem, 8vw, 5.5rem);
-    margin: 0.5rem 0 1.5rem;
-    line-height: 0.85;
-    letter-spacing: -0.04em;
-    font-weight: 900;
-  }
-
-  .kicker {
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: var(--t-small);
-    letter-spacing: 0.2em;
-    color: var(--vermelho);
-    display: block;
-  }
-
-  .lede {
-    font-size: 1.625rem;
-    color: var(--concreto-60);
-    margin-bottom: 2.5rem;
-    line-height: 1.3;
-    font-family: var(--font-sans);
-    font-weight: 300;
-  }
-
-  .article-body {
-    margin-bottom: 8rem;
-    min-height: 40vh;
-  }
-
-  .article-footer {
-    border-top: 2px solid var(--concreto-90);
-    padding-top: 4rem;
-    margin-top: 4rem;
-    position: relative;
-  }
-
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 4rem;
-  }
-
-  .stamp-position {
-    margin-top: -60px;
-    margin-right: -20px;
-  }
-
-  .article-separator {
-    flex: 1;
-    max-width: 300px;
-    opacity: 0.8;
-  }
-
-  .footer-meta {
-    margin-top: 6rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-    border-top: 1px dashed var(--concreto-30);
-    padding-top: 2rem;
-  }
-
-  .doctrine-cite {
-    font-family: var(--font-cordel);
-    font-size: 0.9rem;
-    color: var(--concreto-40);
-    font-style: italic;
-    text-align: right;
-  }
-
-  .toc-title {
-    font-size: var(--t-micro);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 900;
-    color: var(--concreto-90);
-    margin-bottom: 1.5rem;
-    border-left: 3px solid var(--ocre);
-    padding-left: 0.75rem;
-  }
-
-  .toc-sticky {
-    position: sticky;
-    top: 8rem;
-  }
-
-  .toc-ornament {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: center;
-    opacity: 0.5;
-  }
-
-  @media (max-width: 1300px) {
-    .docs-content-grid {
-      gap: 3rem;
-      padding: 4rem 3rem;
-    }
-    .docs-toc-wrapper {
-      display: none;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .docs-sidebar-wrapper {
-      display: none;
-    }
-    .hamburger {
-      display: block;
-    }
-    .docs-content-grid {
-      padding: 3rem 1.5rem;
-    }
-    .article-header h1 {
-      font-size: 3.5rem;
-    }
-  }
-</style>

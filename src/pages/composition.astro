@@ -15,230 +15,161 @@ import MultiSelect from '../components/MultiSelect.svelte';
 ---
 
 <BaseLayout title="Composition | COBOGÓ">
-  <div class="app-wrapper">
-    <nav class="container site-nav">
-      <div class="nav-brand font-logo">COBOGÓ</div>
-      <div class="nav-links">
-        <a href="/cobogo/">Home</a>
-        <a href="/cobogo/manifesto/">Manifesto</a>
-        <a href="/cobogo/componentes/">Components</a>
-        <a href="/cobogo/patterns/">Patterns</a>
-        <a href="/cobogo/composition/" class="active">Composition</a>
-      </div>
+  <header data-region="site-header">
+    <nav>
+      <ul><li><strong>COBOGÓ</strong></li></ul>
+      <ul>
+        <li><a href="/cobogo/">Home</a></li>
+        <li><a href="/cobogo/manifesto/">Manifesto</a></li>
+        <li><a href="/cobogo/componentes/">Components</a></li>
+        <li><a href="/cobogo/patterns/">Patterns</a></li>
+        <li><a href="/cobogo/composition/" aria-current="page">Composition</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <header class="container page-header">
-      <h1 class="display-serif">Painel Cívico</h1>
-      <p class="lede">
-        Demonstração da doutrina <em>"never the same wall twice"</em>.<br/>
-        Uma composição complexa de organismos interativos: Filtros, Tabelas, Data e Hora.
-      </p>
+  <main>
+    <header data-page-header>
+      <hgroup>
+        <h1>Painel Cívico</h1>
+        <p>Demonstração da doutrina <em>"never the same wall twice"</em>. Uma composição complexa de organismos interativos: Filtros, Tabelas, Data e Hora.</p>
+      </hgroup>
     </header>
 
-    <main class="container composition-main">
+    <section data-composition>
       <Grid gap="2rem">
         <Column span={12} lg={4}>
-          <Card class="filter-card">
-            <h2 class="card-title">Filtros Avançados</h2>
+          <Card>
+            <h2>Filtros Avançados</h2>
 
-            <div class="filter-group">
-              <FormField client:load label="Termo de Busca" htmlFor="search-input">
-                <TextInput id="search-input" placeholder="Ex: Contratos, Editais..." />
-              </FormField>
-            </div>
+            <FormField client:load label="Termo de Busca" htmlFor="search-input">
+              <TextInput id="search-input" placeholder="Ex: Contratos, Editais..." />
+            </FormField>
 
-            <div class="filter-group">
-              <FormField client:load label="Departamento" htmlFor="dept-combobox">
-                <Combobox
-                  client:load
-                  id="dept-combobox"
-                  placeholder="Selecione o órgão..."
-                  options={[
-                    { value: 'saude', label: 'Secretaria de Saúde' },
-                    { value: 'educacao', label: 'Secretaria de Educação' },
-                    { value: 'infra', label: 'Infraestrutura e Obras' },
-                    { value: 'fazenda', label: 'Fazenda Pública' },
-                    { value: 'meio-ambiente', label: 'Meio Ambiente' }
-                  ]}
-                />
-              </FormField>
-            </div>
+            <FormField client:load label="Departamento" htmlFor="dept-combobox">
+              <Combobox
+                client:load
+                id="dept-combobox"
+                placeholder="Selecione o órgão..."
+                options={[
+                  { value: 'saude', label: 'Secretaria de Saúde' },
+                  { value: 'educacao', label: 'Secretaria de Educação' },
+                  { value: 'infra', label: 'Infraestrutura e Obras' },
+                  { value: 'fazenda', label: 'Fazenda Pública' },
+                  { value: 'meio-ambiente', label: 'Meio Ambiente' }
+                ]}
+              />
+            </FormField>
 
-            <div class="filter-group">
-              <FormField client:load label="Etiquetas (Tags)" htmlFor="tags-multiselect">
-                <MultiSelect
-                  client:load
-                  id="tags-multiselect"
-                  placeholder="Filtrar por tags..."
-                  options={[
-                    { value: 'ativo', label: 'Ativo' },
-                    { value: 'encerrado', label: 'Encerrado' },
-                    { value: 'urgente', label: 'Urgente' },
-                    { value: 'em-revisao', label: 'Em Revisão' },
-                    { value: 'auditoria', label: 'Auditoria' }
-                  ]}
-                />
-              </FormField>
-            </div>
+            <FormField client:load label="Etiquetas (Tags)" htmlFor="tags-multiselect">
+              <MultiSelect
+                client:load
+                id="tags-multiselect"
+                placeholder="Filtrar por tags..."
+                options={[
+                  { value: 'ativo', label: 'Ativo' },
+                  { value: 'encerrado', label: 'Encerrado' },
+                  { value: 'urgente', label: 'Urgente' },
+                  { value: 'em-revisao', label: 'Em Revisão' },
+                  { value: 'auditoria', label: 'Auditoria' }
+                ]}
+              />
+            </FormField>
 
-            <div class="filter-group">
-              <FormField client:load label="Data Inicial" htmlFor="date-start">
-                <DatePicker id="date-start" />
-              </FormField>
-            </div>
+            <FormField client:load label="Data Inicial" htmlFor="date-start"><DatePicker id="date-start" /></FormField>
+            <FormField client:load label="Hora Inicial" htmlFor="time-start"><TimePicker id="time-start" /></FormField>
+            <FormField client:load label="Data Final" htmlFor="date-end"><DatePicker id="date-end" /></FormField>
+            <FormField client:load label="Hora Final" htmlFor="time-end"><TimePicker id="time-end" /></FormField>
 
-            <div class="filter-group">
-              <FormField client:load label="Hora Inicial" htmlFor="time-start">
-                <TimePicker id="time-start" />
-              </FormField>
-            </div>
-
-            <div class="filter-group">
-              <FormField client:load label="Data Final" htmlFor="date-end">
-                <DatePicker id="date-end" />
-              </FormField>
-            </div>
-
-            <div class="filter-group">
-              <FormField client:load label="Hora Final" htmlFor="time-end">
-                <TimePicker id="time-end" />
-              </FormField>
-            </div>
-
-            <div class="filter-actions">
-              <Button client:load variant="primary">Aplicar Filtros</Button>
-              <Button client:load variant="outline">Limpar</Button>
-            </div>
+            <footer data-actions>
+              <Button client:load intent="primary">Aplicar Filtros</Button>
+              <Button client:load intent="outline">Limpar</Button>
+            </footer>
           </Card>
         </Column>
 
         <Column span={12} lg={8}>
-          <div class="results-header">
-            <h2 class="section-title">Resultados da Consulta</h2>
-            <FilterBar client:load tags={['Ativo', '2026', 'Contratos']} />
-          </div>
+          <header data-results-header>
+            <h2>Resultados da Consulta</h2>
+            <FilterBar client:load filters={[
+              { key: 'estado', label: 'Estado', value: 'Ativo' },
+              { key: 'ano', label: 'Ano', value: '2026' },
+              { key: 'tipo', label: 'Tipo', value: 'Contratos' }
+            ]} />
+          </header>
 
-          <div class="table-container">
-            <DataTable
-              client:load
-              caption="Tabela de resultados cívicos"
-              headers={[
-                { key: 'id', label: 'ID' },
-                { key: 'objeto', label: 'Objeto' },
-                { key: 'data', label: 'Data', align: 'center' },
-                { key: 'hora', label: 'Hora', align: 'center' },
-                { key: 'valor', label: 'Valor', align: 'right' }
-              ]}
-              data={[
-                { id: '1001', objeto: 'Reforma Estrutural', data: '2026-05-10', hora: '14:30', valor: 'R$ 1.250.000,00' },
-                { id: '1002', objeto: 'Aquisição de TI', data: '2026-05-12', hora: '09:00', valor: 'R$ 450.000,00' },
-                { id: '1003', objeto: 'Manutenção de Frota', data: '2026-05-15', hora: '16:45', valor: 'R$ 89.000,00' },
-                { id: '1004', objeto: 'Consultoria Jurídica', data: '2026-05-18', hora: '10:15', valor: 'R$ 210.000,00' },
-                { id: '1005', objeto: 'Licenciamento de Software', data: '2026-05-20', hora: '11:00', valor: 'R$ 150.000,00' }
-              ]}
-            />
-          </div>
+          <DataTable
+            client:load
+            caption="Tabela de resultados cívicos"
+            headers={[
+              { key: 'id', label: 'ID' },
+              { key: 'objeto', label: 'Objeto' },
+              { key: 'data', label: 'Data', align: 'center' },
+              { key: 'hora', label: 'Hora', align: 'center' },
+              { key: 'valor', label: 'Valor', align: 'right' }
+            ]}
+            data={[
+              { id: '1001', objeto: 'Reforma Estrutural', data: '2026-05-10', hora: '14:30', valor: 'R$ 1.250.000,00' },
+              { id: '1002', objeto: 'Aquisição de TI', data: '2026-05-12', hora: '09:00', valor: 'R$ 450.000,00' },
+              { id: '1003', objeto: 'Manutenção de Frota', data: '2026-05-15', hora: '16:45', valor: 'R$ 89.000,00' },
+              { id: '1004', objeto: 'Consultoria Jurídica', data: '2026-05-18', hora: '10:15', valor: 'R$ 210.000,00' },
+              { id: '1005', objeto: 'Licenciamento de Software', data: '2026-05-20', hora: '11:00', valor: 'R$ 150.000,00' }
+            ]}
+          />
         </Column>
       </Grid>
-    </main>
+    </section>
+  </main>
 
-    <footer class="container site-footer" style="padding: 4rem 0; border-top: 1px solid var(--border); margin-top: 4rem; color: var(--fg-muted);">
-      <p class="tracked-caps">DS v0.1.0 — Distribuível via NPM / TypeScript Node</p>
-    </footer>
-  </div>
+  <footer data-region="site-footer">
+    <p><small data-kicker>DS v0.1.0 — Distribuível via NPM / TypeScript Node</small></p>
+  </footer>
 </BaseLayout>
 
 <style>
-  .app-wrapper {
-    min-height: 100vh;
-    background-color: var(--bg);
-    color: var(--fg);
-  }
-
-  .site-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-brand { font-size: 1.5rem; font-weight: 800; }
-  .nav-links { display: flex; gap: 2rem; font-weight: 700; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
-  .nav-links a { color: var(--fg-muted); text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover, .nav-links a.active { color: var(--azul); }
-  .font-logo { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.05em; }
-
-  .page-header {
-    padding: 4rem 0 2rem;
-  }
-  .display-serif {
-    font-family: var(--font-display-alt, var(--font-serif));
+  main { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  main > [data-page-header] { padding: 4rem 0 2rem; margin-bottom: 0; }
+  main > [data-page-header] hgroup h1 {
+    font-family: var(--font-display-alt);
     font-size: clamp(3rem, 6vw, 4rem);
     line-height: 0.9;
-    margin-bottom: 1.5rem;
-    color: var(--fg-heading);
+    margin: 0 0 1.5rem;
   }
-  .lede {
+  main > [data-page-header] hgroup p {
     font-size: 1.25rem;
     color: var(--fg-muted);
     max-width: 800px;
   }
-
-  .composition-main {
-    padding: 2rem 0 4rem;
-  }
-
-  .card-title {
+  [data-composition] { padding: 2rem 0 4rem; }
+  [data-composition] article h2 {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--fg-heading);
+    margin: 0 0 1.5rem;
   }
-
-  .filter-group {
-    margin-bottom: 1rem;
-  }
-
-  .filter-actions {
+  [data-composition] article > footer[data-actions] {
     margin-top: 2rem;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    background: transparent;
+    padding: 0;
+    border: 0;
   }
-
-  .results-header {
+  [data-results-header] {
     margin-bottom: 2rem;
+    background: transparent;
+    padding: 0;
+    border: 0;
   }
-
-  .section-title {
+  [data-results-header] h2 {
     font-family: var(--font-display);
     font-size: 2rem;
-    margin-bottom: 1rem;
-    color: var(--fg-heading);
+    margin: 0 0 1rem;
   }
-
-  .table-container {
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
-    border-radius: var(--r-soft);
-    padding: 1.5rem;
-    overflow-x: auto;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  @media (max-width: 768px) {
-    .site-nav {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    .nav-links {
-      flex-wrap: wrap;
-    }
+  [data-region="site-footer"] {
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+    margin-top: 4rem;
+    color: var(--fg-muted);
   }
 </style>
