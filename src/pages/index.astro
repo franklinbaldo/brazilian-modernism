@@ -94,10 +94,24 @@ const colors = [
         {colors.map(({ name, hex }) => (
           <>
             <dt><span data-region="swatch" style={`background:var(${name})`} aria-hidden="true"></span>{name}</dt>
-            <dd><code>{hex}</code></dd>
+            <dd><code data-token-value={name}>{hex}</code></dd>
           </>
         ))}
       </dl>
+
+      <script is:inline>
+        (() => {
+          const update = () => {
+            const cs = getComputedStyle(document.documentElement);
+            for (const el of document.querySelectorAll('[data-token-value]')) {
+              const v = cs.getPropertyValue(el.getAttribute('data-token-value')).trim();
+              if (v) el.textContent = v;
+            }
+          };
+          update();
+          new MutationObserver(update).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+        })();
+      </script>
 
       <h3>Tipografia</h3>
       <figure data-region="type-specimen">
@@ -245,16 +259,18 @@ const colors = [
     overflow: hidden;
   }
   [data-region="wall-art"] > :global(div) { width: 100%; height: 100%; opacity: 0.9 !important; }
+  /* Wall background is theme-invariant (--azul stays dark in both themes),
+     so text uses fixed light values rather than --papel-* tokens that flip. */
   [data-section="wall"] hgroup h1 {
     font-family: var(--font-display);
     font-size: var(--t-display);
     line-height: .9;
     letter-spacing: -0.05em;
-    color: var(--papel-00);
+    color: #FBF8F1;
     margin: 0 0 1rem;
   }
-  [data-section="wall"] hgroup p { color: var(--papel-20); max-width: 48ch; font-size: var(--t-lede); margin: 0; }
-  [data-section="wall"] hgroup p a { color: var(--papel-00); }
+  [data-section="wall"] hgroup p { color: #EDE7D8; max-width: 48ch; font-size: var(--t-lede); margin: 0; }
+  [data-section="wall"] hgroup p a { color: #FBF8F1; }
 
   /* Patterns */
   [data-region="pattern-grid"] {
