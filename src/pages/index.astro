@@ -191,10 +191,15 @@ import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
   </footer>
 </BaseLayout>
 
-<style>
-  /* Page shell — content offset for the decorative tile sidebar */
-  body { padding-left: 80px; }
+<style is:global>
+  /* Page shell — global because scoped styles cannot target <body> from BaseLayout */
+  body:has([data-region="tile-sidebar"]) { padding-left: 80px; }
+  @media (max-width: 600px) {
+    body:has([data-region="tile-sidebar"]) { padding-left: 0; }
+  }
+</style>
 
+<style>
   [data-region="tile-sidebar"] {
     position: fixed;
     top: 0; bottom: 0; left: 0;
@@ -506,7 +511,6 @@ import CobogoCruz from '../components/patterns/CobogoCruz.svelte';
     [data-section="patterns"] { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 600px) {
-    body { padding-left: 0; }
     [data-region="tile-sidebar"] { display: none; }
     [data-section="patterns"] { grid-template-columns: 1fr; }
   }

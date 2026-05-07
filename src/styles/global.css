@@ -112,6 +112,7 @@
   --font-display-legacy: var(--font-display);
 }
 
+[data-theme="dark"],
 .dark-mode {
   --papel-00: #1A1814;
   --papel-10: #232017;
@@ -630,4 +631,379 @@ a { color: inherit; text-decoration: none; }
   .news__head, .news__grid, .quotesec__inner {
     gap: 1.5rem;
   }
+}
+
+/* ============================================================
+   COBOGÓ Components — semantic, classless, Pico-idiomatic
+   Style is bound to elements, attribute selectors, and ARIA roles.
+   No component class names. Variants live on data-intent / data-size.
+   ============================================================ */
+
+/* --- Buttons (button, [role="button"]) ----------------------- */
+button,
+[role="button"] {
+  --pico-border-radius: var(--r-1);
+  --pico-font-weight: 800;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: var(--shadow-1);
+  border: 2px solid var(--concreto-90);
+  transition: transform 0.1s var(--ease-out), box-shadow 0.1s var(--ease-out), background-color 0.1s var(--ease-out);
+}
+button:hover,
+[role="button"]:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-2);
+}
+button:active,
+[role="button"]:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--concreto-90);
+}
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 3px;
+}
+
+button[data-intent="primary"],
+[role="button"][data-intent="primary"] {
+  --pico-background-color: var(--azul);
+  --pico-border-color: var(--azul);
+  --pico-color: var(--papel-00);
+}
+button[data-intent="primary"]:hover,
+[role="button"][data-intent="primary"]:hover {
+  --pico-background-color: var(--azul-bright);
+}
+button[data-intent="secondary"],
+button[data-intent="outline"],
+[role="button"][data-intent="secondary"],
+[role="button"][data-intent="outline"] {
+  --pico-background-color: transparent;
+  --pico-border-color: var(--concreto-80);
+  --pico-color: var(--concreto-80);
+}
+button[data-intent="link"],
+[role="button"][data-intent="link"] {
+  --pico-background-color: transparent;
+  --pico-border-color: transparent;
+  --pico-color: inherit;
+  box-shadow: none;
+  border: 0;
+  padding-inline: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+button[data-intent="link"]:hover,
+[role="button"][data-intent="link"]:hover {
+  transform: none;
+  box-shadow: none;
+  text-decoration: underline;
+}
+button[data-size="small"],
+[role="button"][data-size="small"] {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.7rem;
+}
+
+/* --- Badges (<mark>, <small data-badge>) --------------------- */
+mark,
+[data-badge] {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--r-pill);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--concreto-40);
+  color: var(--papel-00);
+}
+mark[data-intent="azul"],         [data-badge][data-intent="azul"]     { background: var(--azul);     color: white; }
+mark[data-intent="ouro"],         [data-badge][data-intent="ouro"]     { background: var(--ocre);     color: var(--concreto-90); }
+mark[data-intent="ocre"],         [data-badge][data-intent="ocre"]     { background: var(--ocre);     color: var(--concreto-90); }
+mark[data-intent="verde"],        [data-badge][data-intent="verde"]    { background: var(--verde);    color: white; }
+mark[data-intent="vermelho"],     [data-badge][data-intent="vermelho"] { background: var(--vermelho); color: white; }
+mark[data-intent="neutral"],      [data-badge][data-intent="neutral"]  { background: var(--papel-20); color: var(--concreto-90); border: 1px solid var(--concreto-40); }
+
+/* --- Cards (<article>) ---------------------------------------- */
+/* Pico already styles <article> as a card. Apply COBOGÓ pool-shadow grammar. */
+article {
+  --pico-card-background-color: var(--papel-00);
+  --pico-card-border-color: var(--concreto-90);
+  --pico-border-radius: var(--r-1);
+  border: 2px solid var(--concreto-90);
+  box-shadow: var(--shadow-1);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+article[data-interactive]:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-2);
+}
+
+/* --- Alerts (<aside role="alert">, [role="status"]) ----------- */
+[role="alert"],
+[role="status"] {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: var(--r-soft);
+  font-family: var(--font-sans);
+  background: var(--azul-soft);
+  border-left: 4px solid var(--azul);
+  color: var(--fg);
+}
+[role="alert"][data-intent="success"],
+[role="status"][data-intent="success"] { background: var(--verde-soft);    border-left-color: var(--verde); }
+[role="alert"][data-intent="warning"],
+[role="status"][data-intent="warning"] { background: var(--ocre-soft);     border-left-color: var(--ocre); }
+[role="alert"][data-intent="danger"],
+[role="status"][data-intent="danger"]  { background: var(--vermelho-soft); border-left-color: var(--vermelho); }
+[role="alert"] svg,
+[role="status"] svg { flex-shrink: 0; margin-top: 0.125rem; color: var(--azul); }
+[role="alert"][data-intent="success"] svg,
+[role="status"][data-intent="success"] svg { color: var(--verde); }
+[role="alert"][data-intent="warning"] svg,
+[role="status"][data-intent="warning"] svg { color: var(--ocre); }
+[role="alert"][data-intent="danger"] svg,
+[role="status"][data-intent="danger"] svg  { color: var(--vermelho); }
+
+/* --- Status badge variant for chips ---------------------- */
+[data-status] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--r-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--papel-20);
+  color: var(--concreto-90);
+}
+[data-status="active"]   { background: var(--verde-soft);    color: var(--verde); }
+[data-status="pending"]  { background: var(--ocre-soft);     color: var(--ocre-deep); }
+[data-status="inactive"] { background: var(--papel-30);      color: var(--concreto-60); }
+[data-status="error"]    { background: var(--vermelho-soft); color: var(--vermelho); }
+
+/* --- Form atoms (Pico already styles inputs/labels) ----------- */
+/* COBOGÓ overrides: tighter radii, our colors, clearer borders. */
+input, select, textarea {
+  --pico-border-radius: var(--r-1);
+  --pico-form-element-border-color: var(--border-input);
+  --pico-form-element-focus-color: var(--azul);
+}
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  --pico-form-element-invalid-border-color: var(--vermelho);
+  --pico-form-element-invalid-focus-color: var(--vermelho);
+  background-color: var(--vermelho-soft);
+}
+input[aria-invalid="false"],
+select[aria-invalid="false"],
+textarea[aria-invalid="false"] {
+  --pico-form-element-valid-border-color: var(--verde);
+  --pico-form-element-valid-focus-color: var(--verde);
+  background-color: var(--verde-soft);
+}
+
+/* --- Tabs (<nav role="tablist">, [role="tab"], [role="tabpanel"]) --- */
+[role="tablist"] {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+[role="tab"] {
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: none;
+  color: var(--fg-muted);
+  font-family: var(--font-display);
+}
+[role="tab"]:hover { transform: none; box-shadow: none; color: var(--fg); }
+[role="tab"][aria-selected="true"] {
+  color: var(--azul);
+  border-bottom-color: var(--azul);
+}
+[role="tabpanel"] { padding: 1.5rem 0; }
+
+/* --- Tooltip ([role="tooltip"]) ------------------------------ */
+[role="tooltip"] {
+  position: absolute;
+  padding: 0.5rem 0.75rem;
+  background: var(--concreto-90);
+  color: var(--papel-00);
+  font-size: 0.75rem;
+  border-radius: var(--r-1);
+  box-shadow: var(--shadow-1);
+  z-index: 1000;
+}
+
+/* --- Dialog / Drawer (<dialog>) ------------------------------ */
+dialog {
+  --pico-border-radius: var(--r-soft);
+  border: 2px solid var(--concreto-90);
+  box-shadow: var(--shadow-2);
+  padding: 0;
+}
+dialog::backdrop { background: rgba(26, 24, 20, 0.6); }
+dialog > header,
+dialog > article > header { padding: 1.5rem; border-bottom: 1px solid var(--border); }
+dialog > footer,
+dialog > article > footer { padding: 1.5rem; border-top: 1px solid var(--border); display: flex; gap: 0.75rem; justify-content: flex-end; }
+dialog > article > section,
+dialog > section { padding: 1.5rem; }
+
+/* --- Breadcrumbs (<nav aria-label="breadcrumb"> > <ol>) ------ */
+nav[aria-label="breadcrumb"] ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+nav[aria-label="breadcrumb"] li + li::before {
+  content: "→";
+  margin-right: 0.5rem;
+  color: var(--fg-muted);
+}
+nav[aria-label="breadcrumb"] [aria-current="page"] {
+  color: var(--fg-muted);
+  cursor: default;
+}
+
+/* --- Pagination (<nav aria-label="pagination">) -------------- */
+nav[aria-label="pagination"] ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.25rem;
+}
+nav[aria-label="pagination"] a,
+nav[aria-label="pagination"] button {
+  font-family: var(--font-sans);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  min-width: 2.25rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  background: transparent;
+  box-shadow: none;
+}
+nav[aria-label="pagination"] [aria-current="page"] {
+  background: var(--azul);
+  color: var(--papel-00);
+  border-color: var(--azul);
+}
+
+/* --- Disclosure / Accordion (<details>) ---------------------- */
+details {
+  --pico-border-radius: var(--r-1);
+  border: 1px solid var(--border);
+  background: var(--papel-00);
+  margin-bottom: 0.5rem;
+}
+details > summary {
+  padding: 0.875rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+details[open] > summary { border-bottom: 1px solid var(--border); }
+details > :not(summary) { padding: 1rem; }
+
+/* --- Empty state ([data-empty-state]) ------------------------ */
+[data-empty-state] {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--fg-muted);
+}
+[data-empty-state] h3 { font-size: 1.125rem; margin-bottom: 0.5rem; color: var(--fg); }
+
+/* --- Tag / chip ([data-chip]) -------------------------------- */
+[data-chip] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--r-pill);
+  background: var(--papel-20);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+
+/* --- Toolbar ([role="toolbar"]) ------------------------------ */
+[role="toolbar"] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-1);
+  background: var(--papel-00);
+}
+
+/* --- Page header ([data-page-header]) ------------------------ */
+[data-page-header] {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+[data-page-header] h1 { margin: 0 0 0.5rem; }
+[data-page-header] p { color: var(--fg-muted); margin: 0; }
+
+/* --- DataTable (<table>) — Pico styles tables natively ------- */
+table {
+  --pico-border-radius: var(--r-1);
+}
+table caption { font-weight: 700; padding-bottom: 0.5rem; }
+table th { background: var(--papel-20); }
+
+/* --- Timeline (<ol data-timeline>) --------------------------- */
+[data-timeline] {
+  list-style: none;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--border);
+  margin: 0;
+}
+[data-timeline] > li {
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+[data-timeline] > li::before {
+  content: "";
+  position: absolute;
+  left: -1.7rem;
+  top: 0.4rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: var(--azul);
+}
+
+/* --- Notification ([role="alert"][data-toast]) --------------- */
+[data-toast] {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9000;
+  max-width: 360px;
 }
