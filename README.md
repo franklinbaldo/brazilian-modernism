@@ -3,6 +3,8 @@ A Brazilian modernist design system for public-interest software, built on **[Pi
 
 Um design system focado em software público e de interesse cívico, inspirado nos princípios do modernismo brasileiro de funcionalidade, geometria e acessibilidade.
 
+> ⚠️ **Migration in progress.** This README describes the target API on top of Pico CSS with semantic-only authoring. The shipped components on `main` still expose the legacy class-based API (`variant` props on `Button`/`Badge`, `.dark-mode` class for theming). Use the legacy API for now; the snippets below describe the API after the migration lands. Track progress on branch [`claude/cobogo-pico-semantic-6rDU2`](https://github.com/franklinbaldo/cobogo/tree/claude/cobogo-pico-semantic-6rDU2).
+
 ## Princípios
 
 - **Pico CSS classless como base.** Estilo é aplicado a elementos HTML semânticos (`<article>`, `<button>`, `<nav>`, `<header>`, `<main>`, `<aside>`, `<footer>`, `<figure>`, `<dl>`…), não a classes.
@@ -80,7 +82,7 @@ Componentes disponíveis: `Button`, `Card`, `Badge`, `ProfileCard`, `DataTable`,
 Siga a convenção do Pico:
 
 ```html
-<html data-theme="light">  <!-- ou "dark", ou "auto" -->
+<html data-theme="light"><!-- ou "dark", ou "auto" --></html>
 ```
 
 ## Objetivo
